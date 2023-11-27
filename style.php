@@ -1,175 +1,213 @@
 /***********
-	ONBOARDING STYLES
+ONBOARDING STYLES
 ************/
 
-.onboarding{position: relative;}
 
-	.onboarding-overlay{background-image: url('images/background.jpg'); overflow: auto; position: fixed; top: 0px; left: 0px; width: 100%; height: 100%; z-index: 50;}
-		.onboarding-overlay-outer{display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100%; overflow: auto; padding: 60px;}
-			.onboarding-overlay-inner{background: url('images/metal.jpg'); border-radius: 25px; width: 100%; margin-top: auto; padding: 60px; color: #fefefe; margin-bottom: 20px;}
-		.overlay-copyright{color: white; margin-top: auto;}
+.onboarding-overlay{background-image: url('images/background.jpg'); overflow: auto; position: fixed; top: 0px; left: 0px; width: 100%; height: 100%; z-index: 50;}
+	.onboarding-overlay-outer{display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100%; overflow: auto; padding: 60px;}
+		.onboarding-overlay-inner{background: url('images/metal.jpg'); border-radius: 25px; width: 100%; margin-top: auto; padding: 60px; color: #fefefe; margin-bottom: 20px;}
+	.overlay-copyright{color: white; margin-top: auto;}
 
+
+@media screen and (max-width: 568px){
+	.onboarding-overlay-outer{padding: 40px 20px;}
+	.onboarding-overlay-inner{padding: 30px 20px;}
+	.overlay-copyright{text-align: center;}
+}
+
+.onboarding__header{width: 66%; font-family: 'league_gothicregular'; font-size: 50px; line-height: 1.0; margin-top: 40px; margin-bottom: 20px;}
+.onboarding__text{width: 60%; line-height: 1.3; font-size: 16px;}
+.onboarding-form {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+	.onboarding-form__input {
+		display: block;
+		width: 100%;
+		max-width: 320px;
+		padding: 10px 5px;
+		margin: 0 auto 12px auto; /* This will center the blocks */
+		font-size: 25px;
+		border-radius: 2px;
+		box-shadow: none;
+		border: none;
+	}
+	.onboarding-form__btn{display: inline-block; margin: 40px 0px 20px 0px; border: 1px solid #fefefe; border-radius: 4px; background: #a31d21; color: #fefefe; padding: 18px 30px;}
+	.onboarding-form__btn:hover,
+	.onboarding-form__btn:active{background: #ce252a;}
+	.onboarding-form__small{color: #f0efef; font-size: 12px; line-height: 1.3;}
+
+	@media screen and (max-width: 767px){
+		.onboarding-overlay-inner{padding: 40px 30px; text-align: center;}
+		.onboarding__header{width: auto; margin-top: 0px; font-size: 40px; margin-bottom: 20px;}
+		.onboarding__text{width: auto;}
+		.onboarding-form{ margin: 40px auto 0px auto; max-width: 320px;}
+		.onboarding-form__btn{display: block; margin-bottom: 0px; max-width: 320px; margin: 20px auto 10px auto; }
+	}
 
 	@media screen and (max-width: 568px){
-		.onboarding-overlay-outer{padding: 40px 20px;}
 		.onboarding-overlay-inner{padding: 30px 20px;}
-		.overlay-copyright{text-align: center;}
+		.onboarding__header{width: auto; margin-top: 0px; font-size: 36px; margin-bottom: 14px;}
+		.onboarding__text{width: auto; font-size: 14px;}
+		.onboarding-form{margin: 20px auto; max-width: 320px;}
+		.onboarding-form__btn{display: block; margin-bottom: 0px; width: 100%; max-width: 320px; margin: 20px auto;}
 	}
 
-	.onboarding__header{width: 66%; font-family: 'league_gothicregular'; font-size: 50px; line-height: 1.0; margin-top: 40px; margin-bottom: 20px;}
-	.onboarding__text{width: 60%; line-height: 1.3; font-size: 16px;}
-	.onboarding-form {
-    width: 100%;
-    display: flex;
-    justify-content: center;
+.welcome{}
+	.welcome__image{max-height: 420px; float: right; margin-top: -170px; margin-right: 20px;}
+
+	@media screen and (max-width: 920px){
+		.welcome__header{width: auto;}
+		.welcome__image{max-height: 300px; margin-top: -80px; margin-right: 20px;}
 	}
-		.onboarding-form__input {
-			display: block;
-			width: 100%;
-			max-width: 320px;
-			padding: 10px 5px;
-			margin: 0 auto 12px auto; /* This will center the blocks */
-			font-size: 25px;
-			border-radius: 2px;
-			box-shadow: none;
-			border: none;
-		}
-		.onboarding-form__btn{display: inline-block; margin: 40px 0px 20px 0px; border: 1px solid #fefefe; border-radius: 4px; background: #a31d21; color: #fefefe; padding: 18px 30px;}
-		.onboarding-form__btn:hover,
-		.onboarding-form__btn:active{background: #ce252a;}
-		.onboarding-form__small{color: #f0efef; font-size: 12px; line-height: 1.3;}
 
-		@media screen and (max-width: 767px){
-			.onboarding-overlay-inner{padding: 40px 30px; text-align: center;}
-			.onboarding__header{width: auto; margin-top: 0px; font-size: 40px; margin-bottom: 20px;}
-			.onboarding__text{width: auto;}
-			.onboarding-form{ margin: 40px auto 0px auto; max-width: 320px;}
-			.onboarding-form__btn{display: block; margin-bottom: 0px; max-width: 320px; margin: 20px auto 10px auto; }
-		}
+	@media screen and (max-width: 767px){
+		.welcome__image{display: none;}
+	}
 
-		@media screen and (max-width: 568px){
-			.onboarding-overlay-inner{padding: 30px 20px;}
-			.onboarding__header{width: auto; margin-top: 0px; font-size: 36px; margin-bottom: 14px;}
-			.onboarding__text{width: auto; font-size: 14px;}
-			.onboarding-form{margin: 20px auto; max-width: 320px;}
-			.onboarding-form__btn{display: block; margin-bottom: 0px; width: 100%; max-width: 320px; margin: 20px auto;}
-		}
+	@media screen and (max-width: 568px){
+		.welcome__header{margin-top: 40px; margin-bottom: 20px;}
+	}
 
-	.welcome{}
-		.welcome__image{max-height: 420px; float: right; margin-top: -170px; margin-right: 20px;}
-
-		@media screen and (max-width: 920px){
-			.welcome__header{width: auto;}
-			.welcome__image{max-height: 300px; margin-top: -80px; margin-right: 20px;}
-		}
-
-		@media screen and (max-width: 767px){
-			.welcome__image{display: none;}
-		}
-
-		@media screen and (max-width: 568px){
-			.welcome__header{margin-top: 40px; margin-bottom: 20px;}
-		}
-
-	.onboarding-overlay-inner.activated{background: url('/assets/onboarding/confetti.svg') center 0% no-repeat, linear-gradient(180deg, #B00000 -1.86%, #780000 88.14%); width: 100%; height: auto;}
-	.activated__container{}
-		.activated__header{width: auto;}
-		.activated__text{width: auto;}
-		.activated__container{display: flex;}
-		.activated-copy{width: 60%; padding-right: 30px; }
-		.activated-aside{width: 40%; }
-
-		@media (max-width: 767px){
-			.activated__container{max-width: none; flex-direction: column;}
-			.activated-copy{width: 100%; padding-right: 0px;}
-		}
-
-		.server-name-toggle{margin-bottom: 10px; width: 100%;
-			.pseudo-radio{width: 20px; height: 20px; min-width: 20px; background: #fff; display: inline-block; border: 5px solid #fff; border-radius: 100%; float: left; margin-right: 10px; }
-			.activated__btn-secondary{line-height: 1.0; display: flex; align-items: center; font-size: 15px; text-align: left; padding: 14px inherit; background: rgba(196, 196, 196, 0.25); border-color: rgba(196, 196, 196, 0.4);
-				&.active{
-					.pseudo-radio{width: 20px; height: 20px; background: #780000; display: inline-block; border: 5px solid #fff; border-radius: 100%;}
-				}
-			}
-			.btn-secondary:not(:disabled):not(.disabled):active,
-			.btn-secondary:not(:disabled):not(.disabled).active{border-color: #fefefe; background: rgba(196, 196, 196, 0);}
-		}
-
-		.server-name-cust-entry{margin-bottom: 20px;}
-
-		.server-name-toggle-mobile{display: none;}
-
-		@media (max-width: 767px){
-			.activated__header{margin-top: 40px;}
-			.server-name-toggle{display: none;}
-			.server-name-toggle-mobile{display: block;}
-			.activated__btn{margin-bottom: 40px;}
-		}
-
-		@media (max-width: 568px){
-			.activated__container{padding-left: 0px; padding-right: 0px;}
-		}
-
-	.overview{padding: 20px; background: #fefefe; max-width: 300px; border: 1px solid #D3C6C6; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); border-radius: 4px; color: #38393C;}
-		.overview__header{font-family: 'league_gothicregular'; font-size: 30px; text-transform: uppercase; border-bottom: 2px solid #38393c; padding-bottom: 6px; margin-bottom: 20px; line-height: 1.0;}
-		.overview-card{border: 1px solid #D8D8D8; display: flex; border-radius: 4px; padding: 4px 10px; align-content: center; align-items: center; height: 54px; margin-bottom: 6px;}
-			.overview-card__text{font-family: 'open_sansbold'; font-size: 16px; flex-grow: 1; margin-bottom: 0px;}
-			.overview-card__value{font-family: 'league_gothicregular'; font-size: 30px; color: #A31D21; float: right; }
-
-		.overview-card:last-child{border: none; display: flex; flex-direction: column; height: auto; margin-bottom: 0px;
-			.overview-card__text{margin: 10px 0px;}
-			.overview-card__value{font-size: 40px;
-				sup{color: #38393c; font-size: 24px; margin-right: 5px;}
-			}
-		}
+.onboarding-overlay-inner.activated{background: url('/assets/onboarding/confetti.svg') center 0% no-repeat, linear-gradient(180deg, #B00000 -1.86%, #780000 88.14%); width: 100%; height: auto;}
+.activated__container{}
+	.activated__header{width: auto;}
+	.activated__text{width: auto;}
+	.activated__container{display: flex;}
+	.activated-copy{width: 60%; padding-right: 30px; }
+	.activated-aside{width: 40%; }
 
 	@media (max-width: 767px){
-		.activated-aside{float: none; width: 100%;}
-		.overview{padding: 20px 10px; width: 100%; max-width: none;}
-		.overview__header{font-size: 24px; text-align: left; flex-basis: 100%;}
-		.overview-card{height: 40px;}
-		.overview-card__text{font-size: 14px; text-align: left; margin: 5px 0px;}
-		.overview-card__value{font-size: 24px;}
+		.activated__container{max-width: none; flex-direction: column;}
+		.activated-copy{width: 100%; padding-right: 0px;}
+	}
+
+	.server-name-toggle{margin-bottom: 10px; width: 100%;
+		.pseudo-radio{width: 20px; height: 20px; min-width: 20px; background: #fff; display: inline-block; border: 5px solid #fff; border-radius: 100%; float: left; margin-right: 10px; }
+		.activated__btn-secondary{line-height: 1.0; display: flex; align-items: center; font-size: 15px; text-align: left; padding: 14px inherit; background: rgba(196, 196, 196, 0.25); border-color: rgba(196, 196, 196, 0.4);
+			&.active{
+				.pseudo-radio{width: 20px; height: 20px; background: #780000; display: inline-block; border: 5px solid #fff; border-radius: 100%;}
+			}
+		}
+		.btn-secondary:not(:disabled):not(.disabled):active,
+		.btn-secondary:not(:disabled):not(.disabled).active{border-color: #fefefe; background: rgba(196, 196, 196, 0);}
+	}
+
+	.server-name-cust-entry{margin-bottom: 20px;}
+
+	.server-name-toggle-mobile{display: none;}
+
+	@media (max-width: 767px){
+		.activated__header{margin-top: 40px;}
+		.server-name-toggle{display: none;}
+		.server-name-toggle-mobile{display: block;}
+		.activated__btn{margin-bottom: 40px;}
 	}
 
 	@media (max-width: 568px){
-		.activated__form{margin-top: 40px;}
+		.activated__container{padding-left: 0px; padding-right: 0px;}
 	}
 
-	.signin label {
-    display: block;
+.overview{padding: 20px; background: #fefefe; max-width: 300px; border: 1px solid #D3C6C6; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); border-radius: 4px; color: #38393C;}
+	.overview__header{font-family: 'league_gothicregular'; font-size: 30px; text-transform: uppercase; border-bottom: 2px solid #38393c; padding-bottom: 6px; margin-bottom: 20px; line-height: 1.0;}
+	.overview-card{border: 1px solid #D8D8D8; display: flex; border-radius: 4px; padding: 4px 10px; align-content: center; align-items: center; height: 54px; margin-bottom: 6px;}
+		.overview-card__text{font-family: 'open_sansbold'; font-size: 16px; flex-grow: 1; margin-bottom: 0px;}
+		.overview-card__value{font-family: 'league_gothicregular'; font-size: 30px; color: #A31D21; float: right; }
+
+	.overview-card:last-child{border: none; display: flex; flex-direction: column; height: auto; margin-bottom: 0px;
+		.overview-card__text{margin: 10px 0px;}
+		.overview-card__value{font-size: 40px;
+			sup{color: #38393c; font-size: 24px; margin-right: 5px;}
+		}
 	}
 
-	.returning{max-width: 568px; padding: 40px;}
-		.returning__image{width: 200px; height: 200px; display: block; margin: auto auto;}
-		.returning__header{color: black;  font-size: 30px; font-family: 'source_code_probold'; text-align: center; margin-bottom: 40px;}
-		.returning__btn{background: darkgreen; padding: 20px 30px; border-radius: 20px; border: none; margin-top: 30px; width: 100%; max-width: 320px; margin-left: auto; margin-right: auto; display: block; font-size: 15px; font-weight: 500;}
-		.returning__btn:hover{background: black; transition: all .3s;}
+@media (max-width: 767px){
+	.activated-aside{float: none; width: 100%;}
+	.overview{padding: 20px 10px; width: 100%; max-width: none;}
+	.overview__header{font-size: 24px; text-align: left; flex-basis: 100%;}
+	.overview-card{height: 40px;}
+	.overview-card__text{font-size: 14px; text-align: left; margin: 5px 0px;}
+	.overview-card__value{font-size: 24px;}
+}
 
-	.signin{max-width: 500px; display: block; margin-left: auto; margin-right: auto;}
-	.signin input{background: none; border: 1px solid black; border-radius: 20px; padding: 10px 10px; color: black;  font-family: 'source_code_promedium'; }
-	.signin input:focus{background: none; color: black;}
-	.signin label {
-		color: black;
-    font-size: 20px; /* Adjust this value to fit your needs */
-    font-weight: bold;
-		align-self: flex-start;
-	}
-	.signin .form-group {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-		margin-left: 90px;
-	}
-	.signin .form-control {font-size: 20px; width: 78%; margin-left: -90px;}
+@media (max-width: 568px){
+	.activated__form{margin-top: 40px;}
+}
 
-	@media (max-width: 568px){
-		.returning__image{max-height: 50px; margin: 30px auto;}
-		.returning__header{font-size: 24px;}
-		.signin label{padding-left: 0px;}
-	}
+.signin label {
+	display: block;
+}
 
-	.signin label.signup {
-    text-align: center;
-    display: block;
-	}
+.returning{max-width: 568px; padding: 40px;}
+	.returning__image{width: 200px; height: 200px; display: block; margin: auto auto;}
+	.returning__header{color: black;  font-size: 30px; font-family: 'source_code_probold'; text-align: center; margin-bottom: 40px;}
+	.returning__btn{background: darkgreen; padding: 20px 30px; border-radius: 20px; border: none; margin-top: 30px; width: 100%; max-width: 320px; margin-left: auto; margin-right: auto; display: block; font-size: 15px; font-weight: 500;}
+	.returning__btn:hover{background: black; transition: all .3s;}
+
+.signin{max-width: 500px; display: block; margin-left: auto; margin-right: auto;}
+.signin input{background: none; border: 1px solid black; border-radius: 20px; padding: 10px 10px; color: black;  font-family: 'source_code_promedium'; }
+.signin input:focus{background: none; color: black;}
+.signin label {
+	color: black;
+	font-size: 20px; /* Adjust this value to fit your needs */
+	font-weight: bold;
+	align-self: flex-start;
+}
+.signin .form-group {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-left: 90px;
+}
+.signin .form-control {font-size: 20px; width: 78%; margin-left: -90px;}
+
+@media (max-width: 568px){
+	.returning__image{max-height: 50px; margin: 30px auto;}
+	.returning__header{font-size: 24px;}
+	.signin label{padding-left: 0px;}
+}
+
+.signin label.signup {
+	text-align: center;
+	display: block;
+}
+
+/* Add a black background color to the top navigation */
+.topnav {
+	border-radius: 10px;
+	background-color: #333;
+	overflow: hidden;
+	width: 100%;
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+	float: left;
+	color: #f2f2f2;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+	font-size: 17px;
+}
+
+.topnav .right {
+	float: right;
+	color: #f2f2f2;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+	font-size: 17px;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+	background-color: #ddd;
+	color: black;
+}
+
+/* Add a color to the active/current link */
+.topnav a.active {
+	background-color: #4CAF50;
+	color: white;
+}
