@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,5 +13,21 @@
     <input type="password" id="password" name="password" required><br><br>
     <input type="submit" value="Login">
   </form>
+
+  <?php
+  $servername   = "localhost";
+  $database = "test";
+  $username = "root";
+  $password = "";
+
+  // Create connection
+  $conn = new mysqli($servername, $username, $password, $database);
+  // Check connection
+  if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+  }
+  echo "Connected successfully";
+  ?>
+
 </body>
 </html>
