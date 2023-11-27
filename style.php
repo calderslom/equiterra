@@ -5,7 +5,7 @@ ONBOARDING STYLES
 
 .onboarding-overlay{background-image: url('images/background.jpg'); overflow: auto; position: fixed; top: 0px; left: 0px; width: 100%; height: 100%; z-index: 50;}
 	.onboarding-overlay-outer{display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100%; overflow: auto; padding: 60px;}
-		.onboarding-overlay-inner{background: url('images/metal.jpg'); border-radius: 25px; width: 100%; margin-top: auto; padding: 60px; color: #fefefe; margin-bottom: 20px;}
+		.onboarding-overlay-inner{background: url('images/metal.jpg'); background-repeat: no-repeat; background-size: cover; border-radius: 25px; width: 100%; margin-top: auto; padding: 60px; color: #fefefe; margin-bottom: 20px;}
 	.overlay-copyright{color: white; margin-top: auto;}
 
 
@@ -210,4 +210,12 @@ ONBOARDING STYLES
 .topnav a.active {
 	background-color: #4CAF50;
 	color: white;
+}
+
+select.form-control {
+	background-color: transparent; /* Light gray */
+	height: 45px; /* Increase height */
+	border-radius: 25px; /* Very rounded corners */
+	text-indent: 6px; /* Shift text to the right */
+	border: 1px solid black; /* Black border */
 }
