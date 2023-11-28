@@ -13,5 +13,5 @@
   }
   ?>
   <a class="<?php echo basename($_SERVER['PHP_SELF']) == 'account.php' ? 'active' : ''; ?>" href="account.php">Account</a>
-  <a class="right" href="index.php">Sign out</a>
+  <a class="right" href="signout.php">Sign out</a>
 </div>
