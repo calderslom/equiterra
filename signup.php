@@ -6,11 +6,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $confirm_password = $_POST["confirm_password"];
 
   if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    $error = "Invalid email format.";
+    $error = "Invalid email format!";
   } elseif (!preg_match("/^[0-9]{10}$/", $phone_number)) {
-    $error = "Invalid phone number format. Format: 1234567890";
+    $error = "Invalid phone number format! Format: 1234567890";
   } elseif ($password !== $confirm_password) {
-    $error = "Passwords do not match.";
+    $error = "Passwords do not match!";
   } else {
     // Continue with signup process
   }
@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <!-- Rest of your HTML code -->
 <html>
   <head>
-    <link rel="stylesheet" href="style.php">
+    <link rel="stylesheet" href="style.css">
   <head>
   <body>
     <div class="onboarding-overlay">
