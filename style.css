@@ -205,14 +205,15 @@ ONBOARDING STYLES
 
 /* Change the color of links on hover */
 .topnav a:hover {
-	background-color: #ddd;
+	background: radial-gradient(circle at center, white, black 200%);
 	color: black;
 }
 
 /* Add a color to the active/current link */
 .topnav a.active {
-	background-color: #4CAF50;
+	background: radial-gradient(circle at center, rgb(38, 175, 38), black 200%);
 	color: white;
+	text-shadow: -1px 0 black, 0 1px black;
 }
 
 select.form-control {
@@ -224,5 +225,60 @@ select.form-control {
 }
 
 .topnav .right:hover {
-	background-color: red;
+	background: radial-gradient(circle at center, red, black 200%);
+	color: white;
+	text-shadow: -1px 0 black, 0 1px black;
+}
+
+.button-container {
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	gap: 20px; /* Add some space between the buttons */
+	margin-top: 50px;
+}
+
+.large-button {
+	display: inline-block;
+	width: 500px; /* Add this line */
+	box-sizing: border-box;
+	padding: 40px 70px;
+	font-size: 40px;
+	text-align: center;
+	cursor: pointer;
+	outline: none;
+	color: white;
+	text-shadow: -2px 0 black, 0 2px black;
+	box-shadow: 0px 0px 50px 10px black;
+	border-radius: 15px;
+	text-decoration: none;
+	margin: 10px;
+}
+
+.large-button:hover {
+	text-decoration: none;
+	transform: scale(1.05);
+}
+
+.large-button.horse {
+	background: radial-gradient(circle at center, rgb(214, 98, 16), black 150%);
+}
+
+.large-button.account {
+	background: radial-gradient(circle at center, rgb(1, 168, 1), black 150%);
+}
+
+.large-button.customer {
+	background: radial-gradient(circle at center, #008B8B, black 150%);
+}
+
+.large-button.barn {
+	background: radial-gradient(circle at center, rgb(189, 1, 1), black 150%);
+}
+
+.welcome-image {
+	width: 20%; /* Reduce the width of the image */
+	display: block; /* Make the image a block element */
+	margin-left: auto; /* Center the image horizontally */
+	margin-right: auto;
 }
