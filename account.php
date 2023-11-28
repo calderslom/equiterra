@@ -9,7 +9,7 @@
         <div class="onboarding-overlay-inner returning">
           <h1 class="returning__header">Account Info</h1>
           <?php
-            // mmust be changed to the user's info from the database (using their username)
+            // TODO: must be changed to the user's info from the database (using their username)
             if (isset($_SESSION['username'])) {
               echo "<h3 class='returning__text'>Name: " . $_SESSION['name'] . "</h3>";
               echo "<h3 class='returning__text'>Username: " . $_SESSION['username'] . "</h3>";
@@ -17,8 +17,8 @@
               echo "<h3 class='returning__text'>Phone Number: " . $_SESSION['phone_number'] . "</h3>";
               echo "<h3 class='returning__text'>Password: " . $_SESSION['password'] . "</h3>";
             }
-            ?>
-          </div>
+          ?>
+        </div>
         <p class="overlay-copyright">&copy;2023 Omar, Aidan, Youssef</p>
       </div>
     </div>

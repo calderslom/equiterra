@@ -8,7 +8,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $password = $_POST['password'];
 
   // for now Check if username or email = "omarragab" and password = "1234"
-  if ($email_or_username == "omar" && $password == "1234") {
+  // TODO: will need to be changed to the user's info from the database
+  if ($email_or_username == "omar.ragab" && $password == "1234") {
     // Set session variables
     $_SESSION['username'] = $email_or_username;
     $_SESSION['name'] = 'Omar Ragab';

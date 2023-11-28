@@ -1,5 +1,11 @@
 <?php
+// Start the session
+session_start();
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  $user_type = $_POST["user_type"];
+  $name = $_POST["first_name"] . " " . $_POST["last_name"];
+  $username = strtolower($_POST["first_name"] . "." . $_POST["last_name"]);
   $email = $_POST["email"];
   $phone_number = $_POST["phone_number"];
   $password = $_POST["password"];
@@ -12,7 +18,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   } elseif ($password !== $confirm_password) {
     $error = "Passwords do not match!";
   } else {
-    // Continue with signup process
+    // TODO: Set session variables (will need to be changed to the user's info from the database)
+    $_SESSION['username'] = $username;
+    $_SESSION['name'] = $name;
+    $_SESSION['user_type'] = $user_type;
+    $_SESSION['email'] = $email;
+    $_SESSION['phone_number'] = $phone_number;
+    $_SESSION['password'] = $password;
+    // Redirect to home page
+    header('Location: home.php');
   }
 }
 ?>
