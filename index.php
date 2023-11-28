@@ -11,7 +11,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   if ($email_or_username == "omar" && $password == "1234") {
     // Set session variables
     $_SESSION['username'] = $email_or_username;
+    $_SESSION['name'] = 'Omar Ragab';
     $_SESSION['user_type'] = 'Admin';
+    $_SESSION['email'] = 'omarmsragab2003@gmail.com';
+    $_SESSION['phone_number'] = '9023290244';
+    $_SESSION['password'] = $password;
     // Redirect to home page
     header('Location: home.php');
   } else {
