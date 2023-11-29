@@ -247,6 +247,7 @@ select.form-control {
 	display: inline-block;
 	width: 500px; /* Add this line */
 	box-sizing: border-box;
+	border: 2px solid black;
 	padding: 40px 70px;
 	font-size: 40px;
 	text-align: center;

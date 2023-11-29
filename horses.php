@@ -9,6 +9,7 @@
         <img class="horses-image" src="images/horses.png" alt="Horses">
         <div class="onboarding-overlay-inner table">
           <?php
+          // TODO: must be changed to the horses info from the database (using their username)
             if (isset($_SESSION['horses']) && count($_SESSION['horses']) > 0) {
               echo "<button class='add-button'>Add Horse +</button>";
               echo "<table class='horse-table'>";
@@ -17,7 +18,7 @@
               foreach($_SESSION['horses'] as $horse) {
                 echo "<tr>";
                 echo "<td>" . $horse . "</td>";
-                echo "<td><button class='table-button'>View/Edit</button></td>";
+                echo "<td><a href='horse.php?horse_name=" . urlencode($horse) . "'><button class='table-button'>View/Edit</button></a></td>";
                 echo "</tr>";
               }
               echo "</table>";
