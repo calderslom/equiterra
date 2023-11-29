@@ -2,6 +2,7 @@
 // Start the session
 session_start();
 
+$_SESSION['horses'] = array("Horse 1", "Horse 2", "Horse 3");
 // Assuming you have a form with 'email_or_username' and 'password' fields
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $email_or_username = $_POST['email_or_username'];

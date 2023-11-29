@@ -6,6 +6,7 @@
     <div class="onboarding-overlay">
       <div class="onboarding-overlay-outer">
         <?php include 'navbar.php'; ?>
+        <img class="horses-image" src="images/horses.png" alt="Horses">
         <p class="overlay-copyright">&copy;2023 Omar, Aidan, Youssef</p>
       </div>
     </div>
