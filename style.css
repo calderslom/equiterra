@@ -145,6 +145,7 @@ ONBOARDING STYLES
 	.returning__text{color: black; font-size: 20px;}
 	.returning__btn{background: darkgreen; padding: 20px 30px; border-radius: 20px; border: none; margin-top: 30px; width: 100%; max-width: 320px; margin-left: auto; margin-right: auto; display: block; font-size: 15px; font-weight: 500;}
 	.returning__btn:hover{background: black; transition: all .3s;}
+	
 
 .signin{max-width: 500px; display: block; margin-left: auto; margin-right: auto;}
 .signin input{background: none; border: 1px solid black; border-radius: 20px; padding: 10px 10px; color: black;  font-family: 'source_code_promedium'; }
@@ -281,4 +282,36 @@ select.form-control {
 	display: block; /* Make the image a block element */
 	margin-left: auto; /* Center the image horizontally */
 	margin-right: auto;
+}
+
+.red-button {
+	background-color: red;
+	color: white;
+	font-size: 15px;
+	border: none;
+	padding: 5px 10px;
+	margin-left: 10px;
+	cursor: pointer;
+	border-radius: 10px;
+	float: right;
+}
+
+.green-button {
+  background-color: green;
+	color: white;
+	font-size: 15px;
+	border: none;
+	padding: 5px 10px;
+	margin-left: 10px;
+	cursor: pointer;
+	border-radius: 10px;
+	float: right;
+}
+
+.edit-input {
+	height: 15px;
+  background-color: transparent;
+  font-size: 20px; /* Adjust as needed */
+  border-radius: 10px; /* Adjust as needed */
+  padding: 10px; /* Adjust as needed */
 }

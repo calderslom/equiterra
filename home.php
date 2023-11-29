@@ -18,7 +18,7 @@
               <a href="customers.php" class="large-button customer">Customers</a>
               <a href="account.php" class="large-button account">Account Info</a>
           <?php
-            } else if ($_SESSION['user_type'] == 'Client') {
+            } else if ($_SESSION['user_type'] == 'client') {
           ?>
               <a href="horses.php" class="large-button horse">Horses</a>
               <a href="details.php" class="large-button customer">Details</a>
