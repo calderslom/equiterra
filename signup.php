@@ -3,7 +3,7 @@
 session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  $user_type = $_POST["user_type"];
+  $user_type = 'client';
   $name = $_POST["first_name"] . " " . $_POST["last_name"];
   $username = strtolower($_POST["first_name"] . "." . $_POST["last_name"]);
   $email = $_POST["email"];
@@ -44,24 +44,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           <h1 class="returning__header">Sign up to Farrier&nbsp;Site</h1>
           <form class="signin" method="post">
             <div class="form-group">
-              <label for="first_name">User Type</label>
-              <select class="form-control rounded" id="user_type" name="user_type" value="<?php echo isset($_POST['user_type']) ? $_POST['user_type'] : '' ?>" required>
-                  <option value="">Select User Type</option>
-                  <option value="Admin">Admin</option>
-                  <option value="Client">Client</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="first_name">Email Address</label>
-              <input type="text" class="form-control" id="email" name="email" value="<?php echo isset($_POST['email']) ? $_POST['email'] : '' ?>" required />
-            </div>
-            <div class="form-group">
               <label for="first_name">First Name</label>
               <input type="text" class="form-control" id="first_name" name="first_name" value="<?php echo isset($_POST['first_name']) ? $_POST['first_name'] : '' ?>" required />
             </div>
             <div class="form-group">
               <label for="last_name">Last Name</label>
               <input type="text" class="form-control" id="last_name" name="last_name" value="<?php echo isset($_POST['last_name']) ? $_POST['last_name'] : '' ?>" required />
+            </div>
+            <div class="form-group">
+              <label for="first_name">Email Address</label>
+              <input type="text" class="form-control" id="email" name="email" value="<?php echo isset($_POST['email']) ? $_POST['email'] : '' ?>" required />
             </div>
             <div class="form-group">
               <label for="phone_number">Phone Number</label>

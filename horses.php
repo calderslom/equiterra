@@ -22,7 +22,7 @@
               }
               echo "</table>";
             } else {
-              echo "No horses available";
+              echo "<div class='returning__header'>No horses in database <button class='add-button'>Add Horse +</button></div>";
             }
           ?>
         </div>

@@ -30,6 +30,7 @@
         <?php include 'navbar.php'; ?>
         <div class="onboarding-overlay-inner returning">
           <h1 class="returning__header">Account Info</h1>
+          <br>
           <?php
             // TODO: must be changed to the user's info from the database (using their username)
             if (isset($_SESSION['username'])) {
