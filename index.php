@@ -37,12 +37,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $error = "Invalid username or password!";
   }
 
-  // // Connect to your database
-  // $conn = new mysqli('localhost', 'username', 'password', 'database');
+  // Connect to your database
+  $conn = new mysqli('sql.freedb.tech', 'freedb_Youssef', 'fp53R5UKVn*M@XW', 'freedb_Equiterra');
 
-  // if ($conn->connect_error) {
-  //   die("Connection failed: " . $conn->connect_error);
-  // }
+  if ($conn->connect_error) {
+    echo
+    die("Connection failed: " . $conn->connect_error);
+
+  } 
+  echo "Connected successfully";
 
   // // Query the database to find the user
   // $sql = "SELECT * FROM users WHERE username = ? OR email = ? AND password = ?";
