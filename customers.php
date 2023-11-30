@@ -12,7 +12,7 @@
           // TODO: must be changed to the barns info from the database (using their username)
             if (isset($_SESSION['customers']) && count($_SESSION['customers']) > 0) {
               if ($_SESSION['user_type'] == "Admin") {
-                echo "<a href='add_barn.php'><button class='add-button'>Add Customer +</button></a>";
+                echo "<a href='signup.php'><button class='add-button'>Add Customer +</button></a>";
               }
               echo "<table class='horse-table'>";
               echo "<tr><th>Name</th><th>Action</th></tr>";

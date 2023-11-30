@@ -25,8 +25,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $_SESSION['email'] = $email;
     $_SESSION['phone_number'] = $phone_number;
     $_SESSION['password'] = $password;
+
+    array_push($_SESSION['customers'], $username);
+
     // Redirect to home page
-    header('Location: home.php');
+    if ($user_type == 'Client') {
+      header('Location: home.php');
+    } else {
+      header('Location: customers.php');
+    }
   }
 }
 ?>
@@ -40,8 +47,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="onboarding-overlay">
       <div class="onboarding-overlay-outer">
         <div class="onboarding-overlay-inner returning">
-          <img class="returning__image" src="images/logo.png" alt="Horse logo">
-          <h1 class="returning__header">Sign up to Farrier&nbsp;Site</h1>
+          <?php
+          if (isset($_SESSION['user_type']) && $_SESSION['user_type'] == 'Admin') {
+            echo "<a href='customers.php'><button class='back-button'>< Customers</button></a><br>";
+            echo"<h1 class='returning__header'>Add Customer</h1>";
+          } else {
+            echo"<img class='returning__image' src='images/logo.png' alt='Horse logo'>";
+            echo"<h1 class='returning__header'>Sign up</h1>";
+          }
+          ?>
           <form class="signin" method="post">
             <div class="form-group">
               <label for="first_name">First Name</label>
@@ -72,8 +86,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               echo "<p style='color:red; text-align:center; font-size:20px;'>$error</p>";
             }
             ?>
-            <button class="onboarding-form__btn returning__btn" type="submit">Sign up</button>
-            <label class="signup"> Already a member? <a href="index.php">Sign in</a> now!</label>
+            <?php
+            if (isset($_SESSION['user_type']) && $_SESSION['user_type'] == 'Admin') {
+              echo "<button class='onboarding-form__btn returning__btn' type='submit'>Add Customer</button>";
+            } else {
+              echo "<button class='onboarding-form__btn returning__btn' type='submit'>Sign up</button>";
+              echo "<label class='signup'> Already a member? <a href='index.php'>Sign in</a> now!</label>";
+            }
+            ?>
           </form>
         </div>
         <p class="overlay-copyright">&copy;2023 Omar, Aidan, Youssef</p>
