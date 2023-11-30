@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   // TODO: will need to be added to the horse's info from the database
   array_push($_SESSION['horses'], $horse_name);
   // Redirect to home page
-  header('Location: home.php');
+  header('Location: horses.php');
 }
 
 ?>

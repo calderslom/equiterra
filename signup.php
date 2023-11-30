@@ -3,7 +3,7 @@
 session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  $user_type = 'client';
+  $user_type = 'Client';
   $name = $_POST["first_name"] . " " . $_POST["last_name"];
   $username = strtolower($_POST["first_name"] . "." . $_POST["last_name"]);
   $email = $_POST["email"];
@@ -29,10 +29,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     array_push($_SESSION['customers'], $username);
 
     // Redirect to home page
-    if ($user_type == 'Client') {
-      header('Location: home.php');
-    } else {
+    if ($user_type == 'Admin') {
       header('Location: customers.php');
+    } else {
+      header('Location: home.php');
     }
   }
 }
@@ -66,7 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               <input type="text" class="form-control" id="last_name" name="last_name" value="<?php echo isset($_POST['last_name']) ? $_POST['last_name'] : '' ?>" required />
             </div>
             <div class="form-group">
-              <label for="first_name">Email Address</label>
+              <label for="email">Email Address</label>
               <input type="text" class="form-control" id="email" name="email" value="<?php echo isset($_POST['email']) ? $_POST['email'] : '' ?>" required />
             </div>
             <div class="form-group">
