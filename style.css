@@ -146,7 +146,7 @@ ONBOARDING STYLES
 
 .returning{max-width: 568px; padding: 40px;}
 	.returning__image{width: 200px; height: 200px; display: block; margin: auto auto;}
-	.returning__header{color: black;  font-size: 30px; font-family: 'source_code_probold'; text-align: center;}
+	.returning__header{display: grid; grid-template-columns: 1fr; justify-items: center; color: black;  font-size: 30px; font-family: 'source_code_probold'; text-align: center;}
 	.returning__text{color: black; font-size: 20px;}
 	.returning__btn{background: darkgreen; padding: 20px 30px; border-radius: 20px; border: none; margin-top: 30px; width: 100%; max-width: 320px; margin-left: auto; margin-right: auto; display: block; font-size: 15px; font-weight: 500;}
 	.returning__btn:hover{background: black; transition: all .3s;}
@@ -347,6 +347,17 @@ select.form-control {
 	cursor: pointer;
 	border-radius: 10px;
 	float: right;
+}
+
+.back-button {
+  background-color: rgba(208, 143, 23, 0.816);
+	color: black;
+	font-size: 20px;
+	border: none;
+	padding: 5px 10px;
+	cursor: pointer;
+	border-radius: 10px;
+	float: left;
 }
 
 .edit-input {

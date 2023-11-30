@@ -18,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   } elseif ($password !== $confirm_password) {
     $error = "Passwords do not match!";
   } else {
-    // TODO: Set session variables (will need to be changed to the user's info from the database)
+    // TODO: will need to be added to the user's info from the database
     $_SESSION['username'] = $username;
     $_SESSION['name'] = $name;
     $_SESSION['user_type'] = $user_type;

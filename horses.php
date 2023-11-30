@@ -11,7 +11,9 @@
           <?php
           // TODO: must be changed to the horses info from the database (using their username)
             if (isset($_SESSION['horses']) && count($_SESSION['horses']) > 0) {
-              echo "<button class='add-button'>Add Horse +</button>";
+              if ($_SESSION['user_type'] == "Admin") {
+                echo "<a href='add_horse.php'><button class='add-button'>Add Horse +</button></a>";
+              }
               echo "<table class='horse-table'>";
               echo "<tr><th>Name</th><th>Action</th></tr>";
               // Output data of each row

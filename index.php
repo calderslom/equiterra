@@ -2,9 +2,9 @@
 // Start the session
 session_start();
 
-$_SESSION['horses'] = array("Horse 1", "Horse 2", "Horse 3");
-$_SESSION['barns'] = array("Barn 1", "Barn 2", "Barn 3");
-$_SESSION['customers'] = array("Customer 1", "Customer 2", "Customer 3");
+$_SESSION['horses'] = array("Spirit", "Captain", "Rain");
+$_SESSION['barns'] = array("Big Barn", "Bombastic Barn", "Baby Barn");
+$_SESSION['customers'] = array("mr.crabs", "squidward.tentacles", "spongebob.squarepants");
 // Assuming you have a form with 'email_or_username' and 'password' fields
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $email_or_username = $_POST['email_or_username'];
