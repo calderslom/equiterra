@@ -15,11 +15,12 @@
                 echo "<a href='add_horse.php'><button class='add-button'>Add Horse +</button></a>";
               }
               echo "<table class='horse-table'>";
-              echo "<tr><th>Name</th><th>Action</th></tr>";
+              echo "<tr><th>Name</th><th>Owner</th><th>Action</th></tr>";
               // Output data of each row
-              foreach($_SESSION['horses'] as $horse) {
+              foreach($_SESSION['horses'] as $horse => $owner) {
                 echo "<tr>";
                 echo "<td>" . $horse . "</td>";
+                echo "<td>" . $owner . "</td>";
                 echo "<td><a href='horse.php?horse_name=" . urlencode($horse) . "'><button class='table-button'>View/Edit</button></a></td>";
                 echo "</tr>";
               }

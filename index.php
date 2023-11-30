@@ -2,7 +2,7 @@
 // Start the session
 session_start();
 
-$_SESSION['horses'] = array("Spirit", "Captain", "Rain");
+$_SESSION['horses'] = array("Spirit" => "spongebob.squarepants", "Captain" => "squidward.tentacles", "Rain" => "mr.crabs");
 $_SESSION['barns'] = array("Big Barn", "Bombastic Barn", "Baby Barn");
 $_SESSION['customers'] = array("mr.crabs", "squidward.tentacles", "spongebob.squarepants");
 // Assuming you have a form with 'email_or_username' and 'password' fields
