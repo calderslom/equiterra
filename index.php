@@ -22,6 +22,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $_SESSION['password'] = $password;
     // Redirect to home page
     header('Location: home.php');
+  } else if ($email_or_username == "aidan.smith" && $password == "1234") {
+    // Set session variables
+    $_SESSION['username'] = $email_or_username;
+    $_SESSION['name'] = 'Aidan Smith';
+    $_SESSION['user_type'] = 'Client';
+    $_SESSION['email'] = 'aidansmith@gmail.com';
+    $_SESSION['phone_number'] = '4031231234';
+    $_SESSION['password'] = $password;
+    // Redirect to home page
+    header('Location: home.php');
   } else {
     // User not found, display error message
     $error = "Invalid username or password!";
@@ -66,8 +76,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="onboarding-overlay">
       <div class="onboarding-overlay-outer">
         <div class="onboarding-overlay-inner returning">
-          <img class="returning__image" src="images/logo.png" alt="Horse logo">
-          <h1 class="returning__header">Sign in to Farrier&nbsp;Site</h1>
+          <img class="returning__image" src="images/logo.gif" alt="Horse logo">
+          <h1 class="returning__header">Sign in to Equiterra</h1>
           <form class="signin" method="post">
             <div class="form-group">
               <label for="email_or_username">Email or Username</label>

@@ -52,8 +52,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "<a href='customers.php'><button class='back-button'>< Customers</button></a><br>";
             echo"<h1 class='returning__header'>Add Customer</h1>";
           } else {
-            echo"<img class='returning__image' src='images/logo.png' alt='Horse logo'>";
-            echo"<h1 class='returning__header'>Sign up</h1>";
+            echo"<img class='returning__image' src='images/logo.gif' alt='Horse logo'>";
+            echo"<h1 class='returning__header'>Sign up to Equiterra</h1>";
           }
           ?>
           <form class="signin" method="post">
