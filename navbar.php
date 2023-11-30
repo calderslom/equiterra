@@ -9,7 +9,7 @@
     echo '<a class="'.(basename($_SERVER['PHP_SELF']) == 'customers.php' ? 'active' : '').'" href="customers.php">Customers</a>';
   } else if ($_SESSION['user_type'] == 'Client') {
     // Display links for client
-    echo '<a class="'.(basename($_SERVER['PHP_SELF']) == 'details.php' ? 'active' : '').'" href="details.php">Details</a>';
+    echo '<a class="'.(basename($_SERVER['PHP_SELF']) == 'customer.php' ? 'active' : '').'" href="customer.php">Details</a>';
   }
   ?>
   <a class="<?php echo basename($_SERVER['PHP_SELF']) == 'account.php' ? 'active' : ''; ?>" href="account.php">Account</a>

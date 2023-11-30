@@ -294,11 +294,20 @@ select.form-control {
 	display: block; /* Make the image a block element */
 	margin-left: auto; /* Center the image horizontally */
 	margin-right: auto;
+	margin-bottom: -20px;
 }
 
 .horses-image {
 	width: 20%; /* Reduce the width of the image */
 	height: 200px;
+	display: block; /* Make the image a block element */
+	margin-left: auto; /* Center the image horizontally */
+	margin-right: auto;
+	margin-bottom: -20px;
+}
+
+.barns-image {
+	width: 20%; /* Reduce the width of the image */
 	display: block; /* Make the image a block element */
 	margin-left: auto; /* Center the image horizontally */
 	margin-right: auto;
@@ -316,7 +325,7 @@ select.form-control {
 	float: right;
 }
 
-.green-button {
+.save-button {
   background-color: green;
 	color: white;
 	font-size: 15px;
@@ -370,7 +379,8 @@ select.form-control {
 
 .horse-table {
   border-collapse: collapse;
-	width: 100%;
+	table-layout: fixed; /* Make the columns of equal width */
+  width: 100%; /* Make the table full width */
 }
 
 .horse-table td {

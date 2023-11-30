@@ -1,3 +1,10 @@
+<?php
+if (isset($_GET['customer_name'])) {
+  $_SESSION['customer_name'] = urldecode($_GET['customer_name']);
+}
+// ...
+?>
+
 <html>
   <head>
     <link rel="stylesheet" href="style.css">

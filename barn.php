@@ -1,3 +1,10 @@
+<?php
+if (isset($_GET['barn_name'])) {
+  $_SESSION['barn_name'] = urldecode($_GET['barn_name']);
+}
+// ...
+?>
+
 <html>
   <head>
     <link rel="stylesheet" href="style.css">

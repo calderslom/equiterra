@@ -38,18 +38,18 @@
               echo "<h3 class='returning__text'>Username: " . $_SESSION['username'] . "</h3>";
 
               if (isset($_POST['edit']) && $_POST['edit'] == 'email') {
-                echo "<form method='POST'><h3 class='returning__text'>Email: <input class='edit-input' type='email' name='email' value='" . $_SESSION['email'] . "' required><input type='submit' name='save_email' value='Save' class='green-button'></h3></form>";
+                echo "<form method='POST'><h3 class='returning__text'>Email: <input class='edit-input' type='email' name='email' value='" . $_SESSION['email'] . "' required><input type='submit' name='save_email' value='Save' class='save-button'></h3></form>";
               } else {
                 echo "<h3 class='returning__text'>Email: " . $_SESSION['email'] . "<form method='POST' style='display:inline;'><input type='hidden' name='edit' value='email'><input type='submit' value='Edit' class='red-button'></form></h3>";
               }
 
               if (isset($_POST['edit']) && $_POST['edit'] == 'phone_number') {
-                echo "<form method='POST'><h3 class='returning__text'>Phone Number: <input class='edit-input' type='phone_number' name='phone_number' value='" . $_SESSION['phone_number'] . "' required><input type='submit' name='save_phone_number' value='Save' class='green-button'></h3></form>";
+                echo "<form method='POST'><h3 class='returning__text'>Phone Number: <input class='edit-input' type='phone_number' name='phone_number' value='" . $_SESSION['phone_number'] . "' required><input type='submit' name='save_phone_number' value='Save' class='save-button'></h3></form>";
               } else {
                 echo "<h3 class='returning__text'>Phone Number: " . $_SESSION['phone_number'] . "<form method='POST' style='display:inline;'><input type='hidden' name='edit' value='phone_number'><input type='submit' value='Edit' class='red-button'></form></h3>";
               }
               if (isset($_POST['edit']) && $_POST['edit'] == 'password') {
-                echo "<form method='POST'><h3 class='returning__text'>Password: <input class='edit-input' type='text' name='password' value='" . $_SESSION['password'] . "' required><input type='submit' name='save_password' value='Save' class='green-button'></h3></form>";
+                echo "<form method='POST'><h3 class='returning__text'>Password: <input class='edit-input' type='text' name='password' value='" . $_SESSION['password'] . "' required><input type='submit' name='save_password' value='Save' class='save-button'></h3></form>";
               } else {
                 echo "<h3 class='returning__text'>Password: " . $_SESSION['password'] . "<form method='POST' style='display:inline;'><input type='hidden' name='edit' value='password'><input type='submit' value='Edit' class='red-button'></form></h3>";
               }
