@@ -94,8 +94,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               <input type="text" class="form-control" id="discipline" name="discipline" value="<?php echo isset($_POST['discipline']) ? $_POST['discipline'] : '' ?>" required />
             </div>
             <div class="form-group">
-              <label for="conf_notes">Conf Notes</label>
-              <Input type="text" class="form-control" id="conf_notes" name="conf_notes" value="<?php echo isset($_POST['conf_notes']) ? $_POST['conf_notes'] : '' ?>" required />
+              <label for="conf_notes">Confirmation Notes</label>
+              <input class="form-control" type="file" id="conf_notes" name="conf_notes" value="<?php echo isset($_POST['conf_notes']) ? $_POST['conf_notes'] : '' ?>" />
             </div>
             <?php
             if (isset($error)) {
