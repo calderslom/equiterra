@@ -2,9 +2,9 @@
 // Start the session
 session_start();
 
-$_SESSION['horses'] = array("Spirit" => "spongebob.squarepants", "Captain" => "squidward.tentacles", "Rain" => "mr.crabs");
-$_SESSION['barns'] = array("Big Barn", "Bombastic Barn", "Baby Barn");
-$_SESSION['customers'] = array("mr.crabs", "squidward.tentacles", "spongebob.squarepants");
+// $_SESSION['horses'] = array("Spirit" => "spongebob.squarepants", "Captain" => "squidward.tentacles", "Rain" => "mr.crabs");
+// $_SESSION['barns'] = array("Big Barn", "Bombastic Barn", "Baby Barn");
+// $_SESSION['customers'] = array("mr.crabs", "squidward.tentacles", "spongebob.squarepants");
 // Assuming you have a form with 'email_or_username' and 'password' fields
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $email_or_username = $_POST['email_or_username'];
@@ -12,64 +12,64 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   // for now Check if username or email = "omarragab" and password = "1234"
   // TODO: will need to be changed to the user's info from the database
-  if ($email_or_username == "omar.ragab" && $password == "1234") {
-    // Set session variables
-    $_SESSION['username'] = $email_or_username;
-    $_SESSION['name'] = 'Omar Ragab';
-    $_SESSION['user_type'] = 'Admin';
-    $_SESSION['email'] = 'omarmsragab2003@gmail.com';
-    $_SESSION['phone_number'] = '9023290244';
-    $_SESSION['password'] = $password;
-    // Redirect to home page
-    header('Location: home.php');
-  } else if ($email_or_username == "aidan.smith" && $password == "1234") {
-    // Set session variables
-    $_SESSION['username'] = $email_or_username;
-    $_SESSION['name'] = 'Aidan Smith';
-    $_SESSION['user_type'] = 'Client';
-    $_SESSION['email'] = 'aidansmith@gmail.com';
-    $_SESSION['phone_number'] = '4031231234';
-    $_SESSION['password'] = $password;
-    // Redirect to home page
-    header('Location: home.php');
-  } else {
-    // User not found, display error message
-    $error = "Invalid username or password!";
-  }
-
+  // if ($email_or_username == "omar.ragab" && $password == "1234") {
+  //   // Set session variables
+  //   $_SESSION['username'] = $email_or_username;
+  //   $_SESSION['name'] = 'Omar Ragab';
+  //   $_SESSION['user_type'] = 'Admin';
+  //   $_SESSION['email'] = 'omarmsragab2003@gmail.com';
+  //   $_SESSION['phone_number'] = '9023290244';
+  //   $_SESSION['password'] = $password;
+  //   // Redirect to home page
+  //   header('Location: home.php');
+  // } else if ($email_or_username == "aidan.smith" && $password == "1234") {
+  //   // Set session variables
+  //   $_SESSION['username'] = $email_or_username;
+  //   $_SESSION['name'] = 'Aidan Smith';
+  //   $_SESSION['user_type'] = 'Client';
+  //   $_SESSION['email'] = 'aidansmith@gmail.com';
+  //   $_SESSION['phone_number'] = '4031231234';
+  //   $_SESSION['password'] = $password;
+  //   // Redirect to home page
+  //   header('Location: home.php');
+  // } else {
+  //   // User not found, display error message
+  //   $error = "Invalid username or password!";
+  // }
+  //
   // Connect to your database
   $conn = new mysqli('sql.freedb.tech', 'freedb_Youssef', 'fp53R5UKVn*M@XW', 'freedb_Equiterra');
 
   if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
+
   } 
+
+  //Query the database to find the user
+  $sql = "SELECT * FROM Web_user WHERE Username = ? AND Password = ?";
+  $stmt = $conn->prepare($sql);
+  $stmt->bind_param('ss', $email_or_username, $password);
+  $stmt->execute();
+  $result = $stmt->get_result();
+
+
+  if ($result->num_rows > 0) {
+    // User found, set session variables
+    $user = $result->fetch_assoc();
+    //$_SESSION['username'] = $user['username'];
+    $_SESSION['user_type'] = $user['User_type'];
+    
+
+    // Redirect to home page
+    header('Location: home.php');
+    exit();
+  } else {
+    // User not found, display error message
+    $error = "Invalid username or password!";
+  }
+
+  $conn->close();
 }
-  // Query the database to find the user
-//   $sql = "SELECT * FROM Farrier WHERE Fusername = ? AND Fpassword = ?";
-//   $stmt = $conn->prepare($sql);
-//   $stmt->bind_param('ss', $email_or_username, $password);
-//   $stmt->execute();
-//   $result = $stmt->get_result();
-
-//   echo "Hello" . $result;
-
-//   if ($result->num_rows > 0) {
-//     // User found, set session variables
-//     $user = $result->fetch_assoc();
-//     //$_SESSION['username'] = $user['username'];
-//     $_SESSION['user_type'] = $user['user_type'];
-    
-
-//     // Redirect to home page
-//     header('Location: home.php');
-    
-//   } else {
-//     // User not found, display error message
-//     $error = "Invalid username or password!";
-//   }
-
-//   $conn->close();
-//}
 ?>
 
 <html>
