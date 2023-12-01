@@ -42,9 +42,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
-
   } 
-
+}
   // Query the database to find the user
 //   $sql = "SELECT * FROM Farrier WHERE Fusername = ? AND Fpassword = ?";
 //   $stmt = $conn->prepare($sql);
@@ -70,7 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 //   }
 
 //   $conn->close();
-// }
+//}
 ?>
 
 <html>
