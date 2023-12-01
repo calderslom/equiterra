@@ -41,34 +41,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $conn = new mysqli('sql.freedb.tech', 'freedb_Youssef', 'fp53R5UKVn*M@XW', 'freedb_Equiterra');
 
   if ($conn->connect_error) {
-    echo
     die("Connection failed: " . $conn->connect_error);
 
   } 
-  echo "Connected successfully";
 
-  // // Query the database to find the user
-  // $sql = "SELECT * FROM users WHERE username = ? OR email = ? AND password = ?";
-  // $stmt = $conn->prepare($sql);
-  // $stmt->bind_param('sss', $email_or_username, $email_or_username, $password);
-  // $stmt->execute();
-  // $result = $stmt->get_result();
+  // Query the database to find the user
+//   $sql = "SELECT * FROM Farrier WHERE Fusername = ? AND Fpassword = ?";
+//   $stmt = $conn->prepare($sql);
+//   $stmt->bind_param('ss', $email_or_username, $password);
+//   $stmt->execute();
+//   $result = $stmt->get_result();
 
-  // if ($result->num_rows > 0) {
-  //   // User found, set session variables
-  //   $user = $result->fetch_assoc();
-  //   $_SESSION['username'] = $user['username'];
-  //   $_SESSION['user_type'] = $user['user_type'];
+//   echo "Hello" . $result;
 
-  //   // Redirect to home page
-  //   header('Location: home.php');
-  // } else {
-  //   // User not found, display error message
-  //   $error = "Invalid username or password!";
-  // }
+//   if ($result->num_rows > 0) {
+//     // User found, set session variables
+//     $user = $result->fetch_assoc();
+//     //$_SESSION['username'] = $user['username'];
+//     $_SESSION['user_type'] = $user['user_type'];
+    
 
-  // $conn->close();
-}
+//     // Redirect to home page
+//     header('Location: home.php');
+    
+//   } else {
+//     // User not found, display error message
+//     $error = "Invalid username or password!";
+//   }
+
+//   $conn->close();
+// }
 ?>
 
 <html>
