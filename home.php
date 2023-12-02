@@ -21,7 +21,6 @@
               <a href="customers.php" class="large-button customer">Customers</a>
               <a href="account.php" class="large-button account">Account Info</a>
           <?php
-            session_start();
             } else if ($_SESSION['user_type'] == 'Client') {
           ?>
               <a href="horses.php" class="large-button horse">My Horses</a>
