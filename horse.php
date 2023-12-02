@@ -1,4 +1,5 @@
 <?php
+session_start();
 if (isset($_GET['horse_name'])) {
   $_SESSION['horse_name'] = urldecode($_GET['horse_name']);
 }

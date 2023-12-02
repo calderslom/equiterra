@@ -9,6 +9,7 @@
         <img class="horses-image" src="images/horses.png" alt="Horses">
         <div class="onboarding-overlay-inner table">
           <?php
+          session_start();
           // TODO: must be changed to the horses info from the database (using their username)
             if (isset($_SESSION['horses']) && count($_SESSION['horses']) > 0) {
               if ($_SESSION['user_type'] == "Admin") {
