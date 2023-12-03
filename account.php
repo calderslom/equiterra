@@ -1,5 +1,5 @@
 <?php
-session_start();
+//session_start();
   // TODO: must be update the user's info from the database (using their username) instead of using session variables
   if (isset($_POST['save_email'])) {
     if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
@@ -33,7 +33,7 @@ session_start();
           <h1 class="returning__header">Account Info</h1>
           <br>
           <?php
-          session_start();
+          //session_start();
             // TODO: must be changed to the user's info from the database (using their username)
             if (isset($_SESSION['username'])) {
               echo "<h3 class='returning__text'>Name: " . $_SESSION['name'] . "</h3>";

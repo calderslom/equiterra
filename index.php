@@ -42,7 +42,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
-
   } 
 
   //Query the database to find the user
@@ -53,12 +52,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $result = $stmt->get_result();
 
 
+  
   if ($result->num_rows > 0) {
     // User found, set session variables
     $user = $result->fetch_assoc();
-    //$_SESSION['username'] = $user['username'];
+    $_SESSION['username'] = $user['Username'];
     $_SESSION['user_type'] = $user['User_type'];
-    
+
 
     // Redirect to home page
     header('Location: home.php');
