@@ -16,7 +16,7 @@ function retrieve_user($conn)
         // Get the username from the session and sanitize it
         $username = $conn->real_escape_string($_SESSION['username']);
         // Prepare SQL statement for Client name retrieval
-        $stmt_user = $conn->prepare("SELECT * FROM Client WHERE Cusername = ?");
+        $stmt_user = $conn->prepare("SELECT * FROM Web_user WHERE Username = ?");
         $stmt_user->bind_param("s", $username);
         $stmt_user->execute();
         $user_result = $stmt_user->get_result();
