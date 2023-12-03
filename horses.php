@@ -1,14 +1,9 @@
 <?php
-session_start();
-// Function for outputting data to the console
-function debug_to_console($data)
-{
-  $output = $data;
-  if (is_array($output))
-    $output = implode(',', $output);
 
-  echo "<script>console.log('Debug Objects: " . $output . "' );</script>";
-}
+require_once 'client_functions.php';
+
+session_start();
+
 // Need to connect to the database for data retrieval. The $conn object will be used to communicate with the SQL database
 $conn = new mysqli('sql.freedb.tech', 'freedb_Youssef', 'fp53R5UKVn*M@XW', 'freedb_Equiterra');
 if ($conn->connect_error) {
@@ -56,19 +51,10 @@ if (isset($_SESSION['user_type']) && !empty($_SESSION['user_type'])) {
   else {
     // Ensuring there is a stored username
     if (isset($_SESSION['username']) && !empty($_SESSION['username'])) {
-      // Get the username from the session and sanitize it
-      $username = $conn->real_escape_string($_SESSION['username']);
-      // Prepare SQL statement for Client name retrieval
-      $stmtClient = $conn->prepare("SELECT Cname FROM Client WHERE Cusername = ?");
-      $stmtClient->bind_param("s", $username);
-      $stmtClient->execute();
-      $clientNameResult = $stmtClient->get_result();
-      // Check if the clientNameResult was successful
-      if ($clientNameResult) {
-        // Get the Client Tuple returned by the SQL Query
-        $clientRow = $clientNameResult->fetch_assoc();
-        // Retrieve the Cname attribute from the clientRow tuple and assign it to ownerName (we need to associate each horse with an owner)
-        $owner_name = $clientRow['Cname'];
+      if ($client = retrieve_client($conn)) {
+        //Retrieve the client tuple and use it to find the owner_name (we need to associate each horse with an owner)
+        $owner_name = $client['Cname'];
+        $username = $client['Cusername'];
         // GetClientHorses is a procedure which returns all horse tuples related to a Cusername which it takes as argument
         $stmt = $conn->prepare("CALL GetClientHorses(?)");
         // Bind the parameter
@@ -90,12 +76,52 @@ if (isset($_SESSION['user_type']) && !empty($_SESSION['user_type'])) {
           }
           // Store the $horses array in the session variable 'horses'
           $_SESSION['horses'] = $horses;
-        } else {
-          // Handle the error if necessary
-          debug_to_console("Error fetching client name: " . $stmtClient->error);
         }
       }
+    } else {
+      // Handle the error if necessary
+      debug_to_console("Error fetching client name: " . $stmtClient->error);
     }
+    // // Get the username from the session and sanitize it
+    // $username = $conn->real_escape_string($_SESSION['username']);
+    // // Prepare SQL statement for Client name retrieval
+    // $stmtClient = $conn->prepare("SELECT Cname FROM Client WHERE Cusername = ?");
+    // $stmtClient->bind_param("s", $username);
+    // $stmtClient->execute();
+    // $clientNameResult = $stmtClient->get_result();
+    // // Check if the clientNameResult was successful
+    // if ($clientNameResult) {
+    //   // Get the Client Tuple returned by the SQL Query
+    //   $clientRow = $clientNameResult->fetch_assoc();
+    //   // Retrieve the Cname attribute from the clientRow tuple and assign it to ownerName (we need to associate each horse with an owner)
+    //   $owner_name = $clientRow['Cname'];
+    //   // GetClientHorses is a procedure which returns all horse tuples related to a Cusername which it takes as argument
+    //   $stmt = $conn->prepare("CALL GetClientHorses(?)");
+    //   // Bind the parameter
+    //   $stmt->bind_param("s", $username);
+    //   // Execute the statement
+    //   $stmt->execute();
+    //   // Get the result
+    //   $result = $stmt->get_result();
+    //   // Initializing the $horses array
+    //   $horses = [];
+    //   // Ensuring tuples were returned by the SQL query
+    //   if ($result->num_rows > 0) {
+    //     // Loop until all tuples have been accessed
+    //     while ($row = $result->fetch_assoc()) {
+    //       // Access columns using associative names
+    //       $horseName = $row['Hname'];
+    //       // Add horse information to the array - Horse names are keys and ownernames are the elements they index
+    //       $horses[$horseName] = $owner_name;
+    //     }
+    //     // Store the $horses array in the session variable 'horses'
+    //     $_SESSION['horses'] = $horses;
+    //   } else {
+    //     // Handle the error if necessary
+    //     debug_to_console("Error fetching client name: " . $stmtClient->error);
+    //   }
+    // }
+
   }
 }
 $conn->close();     // Close connection to the database

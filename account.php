@@ -1,5 +1,35 @@
 <?php
-//session_start();
+
+// Required functions
+require_once 'user_functions.php';
+
+session_start();
+
+// Need to connect to the database for data retrieval. The $conn object will be used to communicate with the SQL database
+$conn = new mysqli('sql.freedb.tech', 'freedb_Youssef', 'fp53R5UKVn*M@XW', 'freedb_Equiterra');
+if ($conn->connect_error) {
+  die("Connection failed: " . $conn->connect_error);
+}
+
+// Retrieving a tuple from the User table based on the username of the person currently logged in.
+if($user = retrieve_user($conn)){
+  // Setting session variables for the user
+  $_SESSION['username'] = $user['Username'];
+  $_SESSION['name'] = $user['Name'];
+  $_SESSION['phone_number'] = $user['Phone_num'];
+  $_SESSION['email'] = $user['Email'];
+  $_SESSION['password'] = $user['Password'];
+
+  debug_to_console( $user['Username']);
+  debug_to_console( $user['Name']);
+  debug_to_console( $user['Phone_num']);
+  debug_to_console( $user['Password']);
+} else debug_to_console( "FAIL");
+
+
+
+
+
   // TODO: must be update the user's info from the database (using their username) instead of using session variables
   if (isset($_POST['save_email'])) {
     if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
