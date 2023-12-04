@@ -1,6 +1,8 @@
 <?php
 // Start the session
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+  session_start();
+}
 
 // $_SESSION['horses'] = array("Spirit" => "spongebob.squarepants", "Captain" => "squidward.tentacles", "Rain" => "mr.crabs");
 // $_SESSION['barns'] = array("Big Barn", "Bombastic Barn", "Baby Barn");

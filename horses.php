@@ -127,6 +127,31 @@ if (isset($_SESSION['user_type']) && !empty($_SESSION['user_type'])) {
 $conn->close();     // Close connection to the database
 ?>
 
+<script>
+  function searchTable() {
+    var input, filter, table, tr, td, i, txtValue;
+    input = document.getElementById("searchInput");
+    filter = input.value.toUpperCase();
+    table = document.getElementsByClassName("horse-table")[0];
+    tr = table.getElementsByTagName("tr");
+
+    for (i = 0; i < tr.length; i++) {
+      td = tr[i].getElementsByTagName("td");
+      for (var j = 0; j < td.length; j++) {
+        if (td[j]) {
+          txtValue = td[j].textContent || td[j].innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+            break;
+          } else {
+            tr[i].style.display = "none";
+          }
+        }       
+      }
+    }
+  }
+</script>
+
 <html>
 
 <head>
@@ -144,9 +169,12 @@ $conn->close();     // Close connection to the database
           //session_start();
           // TODO: must be changed to the horses info from the database (using their username)
           if (isset($_SESSION['horses']) && count($_SESSION['horses']) > 0) {
+            echo "<div class='action-bar'>";
+            echo "<div class='search-container'><input class='search-table' type='text' id='searchInput' onkeyup='searchTable()' placeholder='Search horses or owners..'></div>";
             if ($_SESSION['user_type'] == "Admin") {
               echo "<a href='add_horse.php'><button class='add-button'>Add Horse +</button></a>";
             }
+            echo "</div>";
             echo "<table class='horse-table'>";
             echo "<tr><th>Name</th><th>Owner</th><th>Action</th></tr>";
             // Output data of each row
