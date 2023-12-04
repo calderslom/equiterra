@@ -34,7 +34,7 @@
           // TODO: must be changed to the barns info from the database (using their username)
             if (isset($_SESSION['customers']) && count($_SESSION['customers']) > 0) {
               echo "<div class='action-bar'>";
-              echo "<div class='search-container'><input class='search-table' type='text' id='searchInput' onkeyup='searchTable()' placeholder='Search customers..'></div>";
+              echo "<div class='search-container'><input class='search-table' type='text' id='searchInput' onkeyup='searchTable()' placeholder='Search invoices..'></div>";
               if ($_SESSION['user_type'] == "Admin") {
                 echo "<a href='signup.php'><button class='add-button'>Add Customer +</button></a>";
               }
@@ -45,7 +45,7 @@
               foreach($_SESSION['customers'] as $customer) {
                 echo "<tr>";
                 echo "<td>" . $customer . "</td>";
-                echo "<td><a href='barn.php?customer_name=" . urlencode($customer) . "'><button class='table-button'>View/Edit</button></a></td>";
+                echo "<td><a href='customer.php?customer_name=" . urlencode($customer) . "'><button class='table-button'>View/Edit</button></a></td>";
                 echo "</tr>";
               }
               echo "</table>";

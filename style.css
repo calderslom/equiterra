@@ -144,6 +144,19 @@ ONBOARDING STYLES
 	display: block;
 }
 
+.flex-container {
+	margin-top: 50px;
+  display: flex;
+  justify-content: space-between;
+	gap: 20px;
+}
+
+.info {
+	margin-top: 30px;
+	width: 60%;
+	max-height: 200px;
+}
+
 .returning{max-width: 568px; padding: 40px;}
 	.returning__image{position: relative; left: -10px; width: 380px; display: block; margin: auto auto;}
 	.returning__header{display: grid; grid-template-columns: 1fr; justify-items: center; color: black;  font-size: 30px; font-family: 'source_code_probold'; text-align: center;}
@@ -427,4 +440,18 @@ select.form-control {
   border-radius: 10px; /* Adjust as needed */
   padding: 10px; /* Adjust as needed */
 	height: 30px;
+}
+
+.user-info {
+  display: flex;
+  justify-content: space-between;
+	padding: 0 50px;
+}
+
+.name {
+  text-align: left;
+}
+
+.username {
+  text-align: right;
 }

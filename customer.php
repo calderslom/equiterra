@@ -5,6 +5,31 @@ if (isset($_GET['customer_name'])) {
 // ...
 ?>
 
+<script>
+  function searchTable() {
+    var input, filter, table, tr, td, i, j, txtValue;
+    input = document.getElementById("searchInput");
+    filter = input.value.toUpperCase();
+    table = document.getElementsByClassName("horse-table")[0];
+    tr = table.getElementsByTagName("tr");
+
+    for (i = 0; i < tr.length; i++) {
+      td = tr[i].getElementsByTagName("td");
+      for (j = 0; j < td.length; j++) {
+        if (td[j]) {
+          txtValue = td[j].textContent || td[j].innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+            break;
+          } else {
+            tr[i].style.display = "none";
+          }
+        }       
+      }
+    }
+  }
+</script>
+
 <html>
   <head>
     <link rel="stylesheet" href="style.css">
@@ -13,6 +38,58 @@ if (isset($_GET['customer_name'])) {
     <div class="onboarding-overlay">
       <div class="onboarding-overlay-outer">
         <?php include 'navbar.php'; ?>
+        <!-- <div class='flex-container'> -->
+          <div class="onboarding-overlay-inner info">
+            <h1 class="returning__header">Customer Info</h1>
+            <?php
+            // TODO: must be changed to the customer's info from the database (using their username)
+            if (isset($_SESSION['username'])) {
+              echo "<div class='user-info'>";
+              echo "<div class='left'><h3 class='returning__text'>Name: " . $_SESSION['customer']['name'] . "</h3></div>";
+              echo "<div class='right'><h3 class='returning__text'>Username: " . $_SESSION['customer']['username'] . "</h3></div>";
+              echo "</div>";
+              echo "<div class='user-info'>";
+              echo "<div class='left'><h3 class='returning__text'>Email: " . $_SESSION['customer']['email'] . "</h3></div>";
+              echo "<div class='right'><h3 class='returning__text'>Phone Number: " . $_SESSION['customer']['phone_number'] . "</h3></div>";
+              echo "</div>";
+            }
+            ?>
+          </div>
+          <div class="onboarding-overlay-inner table">
+            <?php
+            // TODO: must be changed to the barns info from the database (using their username)
+              if (isset($_SESSION['invoices']) && count($_SESSION['invoices']) > 0) {
+                echo "<div class='action-bar'>";
+                echo "<div class='search-container'><input class='search-table' type='text' id='searchInput' onkeyup='searchTable()' placeholder='Search invoices..'></div>";
+                if ($_SESSION['user_type'] == "Admin") {
+                  echo "<a href='add_invoice.php'><button class='add-button'>Add Invoice +</button></a>";
+                }
+                echo "</div>";
+                echo "<table class='horse-table'>";
+                echo "<tr><th>Invoice Number</th><th>Status</th><th>Price</th><th>Date</th><th>Farrier</th><th>Action</th></tr>";
+                // Output data of each row
+                foreach($_SESSION['invoices'] as $invoice) {
+                  echo "<tr>";
+                  echo "<td>" . $invoice[0] . "</td>";
+                  echo "<td>" . $invoice[1] . "</td>";
+                  echo "<td>" . $invoice[2] . "</td>";
+                  echo "<td>" . $invoice[3] . "</td>";
+                  echo "<td>" . $invoice[4] . "</td>";
+                  // echo "<td><a href='add_invoice.php?invoice_number=" . urlencode($invoice[0]) . "'><button class='table-button'>View/Edit</button></a></td>";
+                  echo "<td><button class='table-button'>View/Edit</button></td>";
+                  echo "</tr>";
+                }
+                echo "</table>";
+              } else {
+                if ($_SESSION['user_type'] == "Admin") {
+                  echo "<div class='returning__header'>No invoices in database <a href='add_invoice.php'><button class='add-button'>Add Invoice +</button></a></div>";
+                } else {
+                  echo "<div class='returning__header'>No invoices in database</div>";
+                }
+              }
+            ?>
+          </div>
+        <!-- </div> -->
         <p class="overlay-copyright">&copy;2023 Omar, Aidan, Youssef</p>
       </div>
     </div>

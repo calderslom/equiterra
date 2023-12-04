@@ -5,8 +5,10 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 
 // $_SESSION['horses'] = array("Spirit" => "spongebob.squarepants", "Captain" => "squidward.tentacles", "Rain" => "mr.crabs");
-// $_SESSION['barns'] = array("Big Barn", "Bombastic Barn", "Baby Barn");
-// $_SESSION['customers'] = array("mr.crabs", "squidward.tentacles", "spongebob.squarepants");
+$_SESSION['barns'] = array("Big Barn", "Bombastic Barn", "Baby Barn");
+$_SESSION['customers'] = array("mr.crabs", "squidward.tentacles", "spongebob.squarepants");
+$_SESSION['invoices'] = array(array("1", "Paid", "100", "2020-01-01", "Omar Ragab"), array("2", "Unpaid", "200", "2020-02-02", "Aidan Smith"), array("3", "Paid", "300", "2020-03-03", "Omar Ragab"), array("4", "Unpaid", "400", "2020-04-04", "John Doe"));
+$_SESSION['customer'] = array("name" => "SpongeBob Squarepants", "username" => "spongebob.squarepants", "email" => "sponge@gmail.com", "phone_number" => "9021234567");
 // Assuming you have a form with 'email_or_username' and 'password' fields
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $email_or_username = $_POST['email_or_username'];
