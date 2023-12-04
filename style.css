@@ -154,7 +154,6 @@ ONBOARDING STYLES
 .info {
 	margin-top: 30px;
 	width: 60%;
-	max-height: 200px;
 }
 
 .returning{max-width: 568px; padding: 40px;}
@@ -445,13 +444,12 @@ select.form-control {
 .user-info {
   display: flex;
   justify-content: space-between;
-	padding: 0 50px;
+  padding: 0 50px;
 }
 
-.name {
+.user-info .right-column {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
   text-align: left;
-}
-
-.username {
-  text-align: right;
 }
