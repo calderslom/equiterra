@@ -25,7 +25,7 @@
               }
               echo "</table>";
             } else {
-              echo "<div class='returning__header'>No customers in database <button class='add-button'>Add Customer +</button></div>";
+              echo "<div class='returning__header'>No customers in database <a href='signup.php'><button class='add-button'>Add Customer +</button></a></div>";
             }
           ?>
         </div>

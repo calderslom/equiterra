@@ -25,7 +25,7 @@
               }
               echo "</table>";
             } else {
-              echo "<div class='returning__header'>No barns in database <button class='add-button'>Add Barn +</button></div>";
+              echo "<div class='returning__header'>No barns in database <a href='add_barn.php'><button class='add-button'>Add Barn +</button></a></div>";
             }
           ?>
         </div>

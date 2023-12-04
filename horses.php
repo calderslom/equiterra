@@ -159,7 +159,7 @@ $conn->close();     // Close connection to the database
             }
             echo "</table>";
           } else {
-            echo "<div class='returning__header'>No horses in database <button class='add-button'>Add Horse +</button></div>";
+            echo "<div class='returning__header'>No horses in database <a href='add_horse.php'><button class='add-button'>Add Horse +</button></a></div>";
           }
           ?>
         </div>
