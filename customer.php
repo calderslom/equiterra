@@ -68,15 +68,14 @@ if (isset($_GET['customer_name'])) {
               }
               echo "</div>";
               echo "<table class='horse-table'>";
-              echo "<tr><th>Invoice Number</th><th>Status</th><th>Price</th><th>Date</th><th>Farrier</th><th>Action</th></tr>";
+              echo "<tr><th>Invoice Number</th><th>Horse</th><th>Date</th><th>Status</th><th>Action</th></tr>";
               // Output data of each row
               foreach($_SESSION['invoices'] as $invoice) {
                 echo "<tr>";
-                echo "<td>" . $invoice[0] . "</td>";
-                echo "<td>" . $invoice[1] . "</td>";
-                echo "<td>" . $invoice[2] . "</td>";
-                echo "<td>" . $invoice[3] . "</td>";
-                echo "<td>" . $invoice[4] . "</td>";
+                echo "<td>" . $invoice["number"] . "</td>";
+                echo "<td>" . $invoice["horse"] . "</td>";
+                echo "<td>" . $invoice["date"] . "</td>";
+                echo "<td>" . $invoice["status"] . "</td>";
                 // echo "<td><a href='add_invoice.php?invoice_number=" . urlencode($invoice[0]) . "'><button class='table-button'>View/Edit</button></a></td>";
                 echo "<td><button class='table-button'>View/Edit</button></td>";
                 echo "</tr>";

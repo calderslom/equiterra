@@ -325,6 +325,18 @@ select.form-control {
 	margin-right: auto;
 }
 
+.right-red-button {
+	background-color: rgb(231, 0, 0);
+	color: white;
+	font-size: 15px;
+	border: none;
+	padding: 5px 10px;
+	margin-left: 95px;
+	cursor: pointer;
+	border-radius: 10px;
+	float: right;
+}
+
 .red-button {
 	background-color: rgb(231, 0, 0);
 	color: white;

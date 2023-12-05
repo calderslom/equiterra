@@ -7,20 +7,37 @@ if (isset($_GET['invoice_number'])) {
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $i_number = $_POST["i_number"];
+  $customer = $_POST["customer"];
+  $horse = $_POST["horse"];
   $status = $_POST["status"];
   $price = $_POST["price"];
   $date = $_POST["date"];
   $farrier = $_POST["farrier"];
+  $services = $_POST["services"]; // services is an array
 
   if (!is_numeric($price)) {
     $error = "Price must be a number!";
   } else {
-    array_push($_SESSION['invoices'], array($i_number, $status, $price, $date, $farrier));
+    // TODO: add invoice to database and services to database
+    array_push($_SESSION['invoices'], array($i_number, $customer, $horse, $status, $price, $date, $farrier));
     header('Location: customer.php');
   }
 }
-
 ?>
+
+<script>
+  function addService() {
+    var services = document.getElementById("services");
+    var input = document.createElement("input");
+    input.type = "text";
+    input.className = "form-control rounded";
+    input.id = "services";
+    input.name = "services[]";
+    input.placeholder = "Enter service";
+    services.parentNode.appendChild(input);
+  }
+</script>
+
 <html>
 <!-- Rest of your HTML code -->
 <html>
@@ -38,6 +55,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="form-group">
               <label for="i_number">Invoice Number</label>
               <input type="text" class="form-control" id="i_number" name="i_number" value="<?php echo isset($_POST['i_number']) ? $_POST['i_number'] : '' ?>" required />
+            </div>
+            <div class="form-group">
+              <label for="customer">Customer</label>
+              <select class="form-control rounded" id="customer" name="customer" value="<?php echo isset($_POST['customer']) ? $_POST['customer'] : '' ?>" required>
+                <option value="">Select Customer</option>
+                <?php
+                // Check if the session variable exists and is not empty
+                if (isset($_SESSION['customers']) && count($_SESSION['customers']) > 0) {
+                  // Loop through the array and create the option elements
+                  foreach ($_SESSION['customers'] as $customer) {
+                    $selected = isset($_POST['customer']) && $_POST['customer'] == $customer ? 'selected' : '';
+                    echo "<option value='{$customer}' {$selected}>{$customer}</option>";
+                  }
+                }
+                ?>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="horse">Horse</label>
+              <select class="form-control rounded" id="horse" name="horse" value="<?php echo isset($_POST['horse']) ? $_POST['horse'] : '' ?>" required>
+                <option value="">Select Horse</option>
+                <?php
+                // TODO: make it only horses for that specific customer
+                if (isset($_SESSION['horses']) && count($_SESSION['horses']) > 0) {
+                  // Loop through the array and create the option elements
+                  foreach ($_SESSION['horses'] as $horse) {
+                    $selected = isset($_POST['horse']) && $_POST['horse'] == $horse ? 'selected' : '';
+                    echo "<option value='{$horse}' {$selected}>{$horse}</option>";
+                  }
+                }
+                ?>
+              </select>
             </div>
             <div class="form-group">
               <label for="status">Status</label>
@@ -71,7 +120,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 ?>
               </select>
             </div>
+            <br>
+            <div class="form-group">
+              <label for="services">Services<button class="right-red-button" type="button" onclick="addService()">Add another service</button></label>
+              <input type="text" class="form-control rounded" id="services" name="services[]" placeholder="Enter service" required > 
+            </div>
             <?php
+            if (isset($services)) {
+              foreach ($services as $service) {
+                echo "$service";
+              }
+            }
             if (isset($error)) {
               echo "<p style='color:red; text-align:center; font-size:20px;'>$error</p>";
             }
@@ -83,4 +142,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       </div>
     </div>
   </body>
-</html>
+</html> 
