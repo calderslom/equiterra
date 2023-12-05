@@ -13,16 +13,6 @@ if (isset($_POST['save_status'])) {
     $_SESSION['invoices'][0]["status"] = $_POST['status'];
   }
 }
-if (isset($_POST['save_price'])) {
-  if (!is_numeric($_POST['price'])) {
-    $error = "Price must be a number!";
-  } else {
-    $_SESSION['invoices'][0]["price"] = $_POST['price'];
-  }
-}
-if (isset($_POST['save_date'])) {
-  $_SESSION['invoices'][0]["date"] = $_POST['date'];
-}
 // ...
 ?>
 
@@ -34,7 +24,7 @@ if (isset($_POST['save_date'])) {
     <div class="onboarding-overlay">
       <div class="onboarding-overlay-outer">
         <?php include 'navbar.php'; ?>
-        <div class="onboarding-overlay-inner info">
+        <div class="onboarding-overlay-inner returning">
         <?php
         // TODO: must be changed to the user's info from the database (using their username)
           echo "<h1 class='returning__header'>Invoice #" . $_SESSION['invoice_number'] . "</h1>";
@@ -56,16 +46,8 @@ if (isset($_POST['save_date'])) {
             } else {
               echo "<h3 class='returning__text'>Status: " . $_SESSION['invoices'][0]["status"] . "<form method='POST' style='display:inline;'><input type='hidden' name='edit' value='status'><input type='submit' value='Edit' class='red-button'></form></h3>";
             }
-            if (isset($_POST['edit']) && $_POST['edit'] == 'price') {
-              echo "<form method='POST'><h3 class='returning__text'>Price: <input class='edit-input' type='price' name='price' value='" . $_SESSION['invoices'][0]["price"] . "' required><input type='submit' name='save_price' value='Save' class='save-button'></h3></form>";
-            } else {
-              echo "<h3 class='returning__text'>Price: " . $_SESSION['invoices'][0]["price"] . "<form method='POST' style='display:inline;'><input type='hidden' name='edit' value='price'><input type='submit' value='Edit' class='red-button'></form></h3>";
-            }
-            if (isset($_POST['edit']) && $_POST['edit'] == 'date') {
-              echo "<form method='POST'><h3 class='returning__text'>Date: <input class='edit-input' type='date' name='date' value='" . $_SESSION['invoices'][0]["date"] . "' required><input type='submit' name='save_date' value='Save' class='save-button'></h3></form>";
-            } else {
-              echo "<h3 class='returning__text'>Date: " . $_SESSION['invoices'][0]["date"] . "<form method='POST' style='display:inline;'><input type='hidden' name='edit' value='date'><input type='submit' value='Edit' class='red-button'></form></h3>";
-            }
+            echo "<h3 class='returning__text'>Price: " . $_SESSION['invoices'][0]["price"] . "</h3>";
+            echo "<h3 class='returning__text'>Date: " . $_SESSION['invoices'][0]["date"] . "</h3>";
             echo "</div>";
             echo "</div>";
             if (isset($error)) {

@@ -71,13 +71,12 @@ if (isset($_GET['customer_name'])) {
               }
               echo "</div>";
               echo "<table class='horse-table'>";
-              echo "<tr><th>Invoice Number</th><th>Horse</th><th>Date</th><th>Status</th><th>Action</th></tr>";
+              echo "<tr><th>Invoice Number</th><th>Price</th><th>Status</th><th>Action</th></tr>";
               // Output data of each row
               foreach($_SESSION['invoices'] as $invoice) {
                 echo "<tr>";
                 echo "<td>" . $invoice["number"] . "</td>";
-                echo "<td>" . $invoice["horse"] . "</td>";
-                echo "<td>" . $invoice["date"] . "</td>";
+                echo "<td>" . $invoice["price"] . "</td>";
                 echo "<td>" . $invoice["status"] . "</td>";
                 echo "<td><a href='invoice.php?invoice_number=" . urlencode($invoice["number"]) . "'><button class='table-button'>View/Edit</button></a></td>";
                 // echo "<td><button class='table-button'>View/Edit</button></td>";
