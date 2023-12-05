@@ -1,4 +1,7 @@
 <?php
+if (session_status() == PHP_SESSION_NONE) {
+  session_start();
+}
 if (isset($_GET['customer_name'])) {
   $_SESSION['customer_name'] = urldecode($_GET['customer_name']);
 }
@@ -76,8 +79,8 @@ if (isset($_GET['customer_name'])) {
                 echo "<td>" . $invoice["horse"] . "</td>";
                 echo "<td>" . $invoice["date"] . "</td>";
                 echo "<td>" . $invoice["status"] . "</td>";
-                // echo "<td><a href='add_invoice.php?invoice_number=" . urlencode($invoice[0]) . "'><button class='table-button'>View/Edit</button></a></td>";
-                echo "<td><button class='table-button'>View/Edit</button></td>";
+                echo "<td><a href='invoice.php?invoice_number=" . urlencode($invoice["number"]) . "'><button class='table-button'>View/Edit</button></a></td>";
+                // echo "<td><button class='table-button'>View/Edit</button></td>";
                 echo "</tr>";
               }
               echo "</table>";

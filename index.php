@@ -8,6 +8,7 @@ if (session_status() == PHP_SESSION_NONE) {
 $_SESSION['barns'] = array("Big Barn", "Bombastic Barn", "Baby Barn");
 $_SESSION['customers'] = array("mr.crabs", "squidward.tentacles", "spongebob.squarepants");
 $_SESSION['invoices'] = array(array("number" => "1", "customer" => "mr.crabs", "horse" => "Spirit", "status" => "Paid", "price" => "100", "date" => "2020-01-01", "farrier" => "mr.crabs"), array("number" => "2", "customer" => "mr.crabs", "horse" => "Captain", "status" => "Unpaid", "price" => "200", "date" => "2020-02-02", "farrier" => "mr.crabs"), array("number" => "3", "customer" => "squidward.tentacles", "horse" => "Rain", "status" => "Paid", "price" => "300", "date" => "2020-03-03", "farrier" => "mr.crabs"));
+$_SESSION['invoice_services'] = array("checkup", "shoeing", "trimming");
 $_SESSION['customer'] = array("name" => "SpongeBob Squarepants", "username" => "spongebob.squarepants", "email" => "sponge@gmail.com", "phone_number" => "9021234567");
 $_SESSION['barn'] = array("name" => "Big Barn", "contact" => "John Doe", "email" => "barn@gmail.com", "phone_number" => "9021234567", "street_number" => "123", "street_name" => "Main Street", "city" => "Halifax", "province" => "NS", "postal_code" => "B3H 3H3");
 $_SESSION['dummy_horses'] = array("Spirit" => "Spongebob Squarepants", "Captain" => "Squidward Tentacles", "Rain" => "Mr. Crabs");

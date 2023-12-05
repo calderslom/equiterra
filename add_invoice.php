@@ -90,7 +90,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
             <div class="form-group">
               <label for="status">Status</label>
-              <select class="form-control rounded" id="status" name="status" value="<?php echo isset($_POST['status']) ? $_POST['status'] : '' ?>" required>
+              <select class="form-control" id="status" name="status" value="<?php echo isset($_POST['status']) ? $_POST['status'] : '' ?>" required>
                 <option value="">Select Status</option>
                 <option value="Paid">Paid</option>
                 <option value="Unpaid">Unpaid</option>
