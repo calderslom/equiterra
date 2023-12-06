@@ -6,6 +6,10 @@ if (isset($_GET['horse_name'])) {
   $_SESSION['horse_name'] = urldecode($_GET['horse_name']);
 }
 // ...
+
+if (isset($_POST['save_conf_notes'])) {
+  $_SESSION['horse']['conf_notes'] = $_POST['conf_notes'];
+}
 ?>
 
 <script>
@@ -44,11 +48,27 @@ if (isset($_GET['horse_name'])) {
             echo "<h3 class='returning__text'>Owner: " . $_SESSION['horse']['owner'] . "</h3>";
             echo "<h3 class='returning__text'>Barn: " . $_SESSION['horse']['barn'] . "</h3>";
             echo "<h3 class='returning__text'>Breed: " . $_SESSION['horse']['breed'] . "</h3>";
-            echo "<h3 class='returning__text'>Confirmation Notes: ";
-            echo "<button class='expand-arrow' onclick='expandNotes()'>▼</button>";
-            echo "<div class='conf-notes-short'>" . substr($_SESSION['horse']['conf_notes'], 0, 50) . "... </div>";
-            echo "<div class='conf-notes-full' style='display: none;'>" . $_SESSION['horse']['conf_notes'] . "</div>";
-            echo "</h3>";
+            if ($_SESSION['user_type'] == "Admin") {
+              if (isset($_POST['edit']) && $_POST['edit'] == 'conf_notes') {
+                echo "<form method='POST'><h3 class='returning__text'>Confirmation Notes:";
+                echo "<input type='submit' name='save_conf_notes' value='Save' class='conf-save'>";
+                echo "<div><textarea class='edit-input' type='conf_notes' name='conf_notes' style='height: 100px; width: 400px;'>" . $_SESSION['horse']['conf_notes'] . "</textarea></div>";
+                echo "</h3></form>";
+              } else {
+                echo "<h3 class='returning__text'>Confirmation Notes: ";
+                echo "<button class='expand-arrow' onclick='expandNotes()'>▼</button>";
+                echo "<form method='POST' style='display:inline;'><input type='hidden' name='edit' value='conf_notes'><input type='submit' value='Edit' class='conf-button'></form>";
+                echo "<div class='conf-notes-short'>" . substr($_SESSION['horse']['conf_notes'], 0, 50) . "</div>";
+                echo "<div class='conf-notes-full' style='display: none;'>" . $_SESSION['horse']['conf_notes'] . "</div>";
+                echo "</h3>";
+              }
+            } else {
+              echo "<h3 class='returning__text'>Confirmation Notes: ";
+              echo "<button class='expand-arrow' onclick='expandNotes()'>▼</button>";
+              echo "<div class='conf-notes-short'>" . substr($_SESSION['horse']['conf_notes'], 0, 50) . "</div>";
+              echo "<div class='conf-notes-full' style='display: none;'>" . $_SESSION['horse']['conf_notes'] . "</div>";
+              echo "</h3>";
+            }
             echo "</div>";
             echo "<div>";
             echo "<h3 class='returning__text'>Gender: " . $_SESSION['horse']['gender'] . "</h3>";

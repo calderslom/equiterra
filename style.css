@@ -361,6 +361,28 @@ select.form-control {
 	float: right;
 }
 
+.conf-button {
+	background-color: rgb(231, 0, 0);
+	color: white;
+	font-size: 15px;
+	border: none;
+	padding: 5px 10px;
+	margin-left: 20px;
+	cursor: pointer;
+	border-radius: 10px;
+}
+
+.conf-save {
+	background-color: green;
+	color: white;
+	font-size: 15px;
+	border: none;
+	padding: 5px 10px;
+	margin-left: 50px;
+	cursor: pointer;
+	border-radius: 10px;
+}
+
 .table-button {
 	background-color: rgb(204, 1, 1);
 	color: white;
