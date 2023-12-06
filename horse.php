@@ -27,6 +27,29 @@ if (isset($_POST['save_conf_notes'])) {
       arrow.innerHTML = '▼';
     }
   }
+
+  function searchTable() {
+    var input, filter, table, tr, td, i, j, txtValue;
+    input = document.getElementById("searchInput");
+    filter = input.value.toUpperCase();
+    table = document.getElementsByClassName("horse-table")[0];
+    tr = table.getElementsByTagName("tr");
+
+    for (i = 0; i < tr.length; i++) {
+      td = tr[i].getElementsByTagName("td");
+      for (j = 0; j < td.length; j++) {
+        if (td[j]) {
+          txtValue = td[j].textContent || td[j].innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+            break;
+          } else {
+            tr[i].style.display = "none";
+          }
+        }
+      }
+    }
+  }
 </script>
 
 <html>
@@ -77,6 +100,41 @@ if (isset($_POST['save_conf_notes'])) {
             echo "<h3 class='returning__text'>Birthdate: " . $_SESSION['horse']['birthdate'] . "</h3>";
             echo "</div>";
             echo "</div>";
+          }
+          ?>
+        </div>
+        <div class="onboarding-overlay-inner table">
+          <h1 class="returning__header">Shoeing Protocols</h1>
+          <?php
+          // TODO: must be changed to the customer info from the database (using their username)
+          if (isset($_SESSION['shoeing_protocols']) && count($_SESSION['shoeing_protocols']) > 0) {
+            echo "<div class='action-bar'>";
+            echo "<div class='search-container'><input class='search-table' type='text' id='searchInput' onkeyup='searchTable()' placeholder='Search shoeing protocols..'></div>";
+            if ($_SESSION['user_type'] == "Admin") {
+              echo "<a href='add_invoice.php'><button class='add-button'>Add Shoeing Protocol +</button></a>";
+            }
+            echo "</div>";
+            echo "<table class='horse-table'>";
+            echo "<tr><th>Date</th><th>Action</th></tr>";
+            // Output data of each row
+            foreach ($_SESSION['shoeing_protocols'] as $protocol) {
+              echo "<tr>";
+              echo "<td>" . $protocol["date"] . "</td>";
+              if ($_SESSION['user_type'] == "Admin") {
+                echo "<td><a href='shoeing_protocol.php?protocol_date=" . urlencode($protocol["date"]) . "&protocol_horse=" . urlencode($_SESSION["shoeing_protocol"]["horse"]) . "'><button class='table-button'>View/Edit</button></a></td>";
+              } else {
+                echo "<td><a href='shoeing_protocol.php?protocol_date=" . urlencode($protocol["date"]) . "&protocol_horse=" . urlencode($_SESSION["shoeing_protocol"]["horse"]) . "'><button class='table-button'>View</button></a></td>";
+              }
+              
+              echo "</tr>";
+            }
+            echo "</table>";
+          } else {
+            if ($_SESSION['user_type'] == "Admin") {
+              echo "<div class='returning__header'>No invoices in database <a href='add_invoice.php'><button class='add-button'>Add Shoeing Protocol +</button></a></div>";
+            } else {
+              echo "<div class='returning__header'>No invoices in database</div>";
+            }
           }
           ?>
         </div>
