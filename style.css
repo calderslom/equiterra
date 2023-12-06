@@ -512,3 +512,29 @@ textarea.form-control {
   align-items: flex-start;
   gap: 20px; /* Add space between images */
 }
+
+.image-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.delete-button {
+	background-color: red;
+	color: white;
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: none;
+}
+
+.image-wrapper:hover .delete-button {
+  display: block;
+}
+
+.url-textbox {
+	width: 800px;
+	height: 32px;
+	border-radius: 5px;
+	border: 1px solid #ccc;
+	margin-right: 10px;
+}
