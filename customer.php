@@ -1,12 +1,51 @@
 <?php
+
 if (session_status() == PHP_SESSION_NONE) {
   session_start();
 }
 if (isset($_GET['customer_name'])) {
   $_SESSION['customer_name'] = urldecode($_GET['customer_name']);
 }
-// ...
-?>
+
+// Import Functions
+require_once 'user_functions.php';
+require_once 'retrieval_functions.php';
+require_once 'update_database.php';
+
+session_start();
+
+// Need to connect to the database for data retrieval. The $conn object will be used to communicate with the SQL database
+$conn = new mysqli('sql.freedb.tech', 'freedb_Youssef', 'fp53R5UKVn*M@XW', 'freedb_Equiterra');
+if ($conn->connect_error) {
+  die("Connection failed: " . $conn->connect_error);
+}
+
+// Retrieving a tuple from the User table based on the username of the person currently logged in.
+if ($user = retrieve_user($conn)) {
+  // Setting session variables for the user
+  $_SESSION['customer']['username'] = $user['Username'];
+  $_SESSION['customer']['name'] = $user['Name'];
+  $_SESSION['customer']['phone_number'] = $user['Phone_num'];
+  $_SESSION['customer']['email'] = $user['Email'];
+} else debug_to_console("User retrieval failed.");
+
+
+// Populating the invoices session variable array
+if (isset($_SESSION['user_type']) && !empty($_SESSION['user_type'])) {
+
+  // This condidition will pass when an Admin is logged in
+  if ($_SESSION['user_type'] == 'Admin') {
+    retrieve_invoices_admin($conn);
+  }
+  else { // Client/User is logged in
+     if (!retrieve_invoices_client($conn)) {
+      debug_to_console("Error retrieving invoices for client.");
+     }
+  }
+}
+
+?> // End of PHP
+
 
 <script>
   function searchTable() {
@@ -27,16 +66,19 @@ if (isset($_GET['customer_name'])) {
           } else {
             tr[i].style.display = "none";
           }
-        }       
+        }
       }
     }
   }
 </script>
 
 <html>
+
+<head>
+  <link rel="stylesheet" href="style.css">
+
   <head>
-    <link rel="stylesheet" href="style.css">
-  <head>
+
   <body>
     <div class="onboarding-overlay">
       <div class="onboarding-overlay-outer">
@@ -63,33 +105,35 @@ if (isset($_GET['customer_name'])) {
           <h1 class="returning__header">Invoices</h1>
           <?php
           // TODO: must be changed to the customer info from the database (using their username)
-            if (isset($_SESSION['invoices']) && count($_SESSION['invoices']) > 0) {
-              echo "<div class='action-bar'>";
-              echo "<div class='search-container'><input class='search-table' type='text' id='searchInput' onkeyup='searchTable()' placeholder='Search invoices..'></div>";
-              if ($_SESSION['user_type'] == "Admin") {
-                echo "<a href='add_invoice.php'><button class='add-button'>Add Invoice +</button></a>";
-              }
-              echo "</div>";
-              echo "<table class='horse-table'>";
-              echo "<tr><th>Invoice Number</th><th>Price</th><th>Status</th><th>Action</th></tr>";
-              // Output data of each row
-              foreach($_SESSION['invoices'] as $invoice) {
-                echo "<tr>";
-                echo "<td>" . $invoice["number"] . "</td>";
-                echo "<td>" . $invoice["price"] . "</td>";
-                echo "<td>" . $invoice["status"] . "</td>";
-                echo "<td><a href='invoice.php?invoice_number=" . urlencode($invoice["number"]) . "'><button class='table-button'>View/Edit</button></a></td>";
-                // echo "<td><button class='table-button'>View/Edit</button></td>";
-                echo "</tr>";
-              }
-              echo "</table>";
-            } else {
-              if ($_SESSION['user_type'] == "Admin") {
-                echo "<div class='returning__header'>No invoices in database <a href='add_invoice.php'><button class='add-button'>Add Invoice +</button></a></div>";
-              } else {
-                echo "<div class='returning__header'>No invoices in database</div>";
-              }
+          if (isset($_SESSION['invoices']) && count($_SESSION['invoices']) > 0) {
+            echo "<div class='action-bar'>";
+            echo "<div class='search-container'><input class='search-table' type='text' id='searchInput' onkeyup='searchTable()' placeholder='Search invoices..'></div>";
+            if ($_SESSION['user_type'] == "Admin") {
+              echo "<a href='add_invoice.php'><button class='add-button'>Add Invoice +</button></a>";
             }
+            echo "</div>";
+            echo "<table class='horse-table'>";
+            echo "<tr><th>Invoice Number</th><th>Price</th><th>Status</th><th>Date</th><th>Action</th></tr>";
+            // Output data of each row
+            foreach ($_SESSION['invoices'] as $invoice) {
+              echo "<tr>";
+              echo "<td>" . $invoice["number"] . "</td>";
+              //echo "<td>" . $invoice["horse"] . "</td>";
+              //echo "<td>" . $invoice["date"] . "</td>";
+              echo "<td>" . $invoice["price"] . "</td>";
+              echo "<td>" . $invoice["status"] . "</td>";
+              echo "<td><a href='invoice.php?invoice_number=" . urlencode($invoice["number"]) . "'><button class='table-button'>View/Edit</button></a></td>";
+              // echo "<td><button class='table-button'>View/Edit</button></td>";
+              echo "</tr>";
+            }
+            echo "</table>";
+          } else {
+            if ($_SESSION['user_type'] == "Admin") {
+              echo "<div class='returning__header'>No invoices in database <a href='add_invoice.php'><button class='add-button'>Add Invoice +</button></a></div>";
+            } else {
+              echo "<div class='returning__header'>No invoices in database</div>";
+            }
+          }
           ?>
         </div>
         <p class="overlay-copyright">&copy;2023 Omar, Aidan, Youssef</p>

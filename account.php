@@ -1,7 +1,8 @@
 <?php
 
-// Required functions
+// Include functions
 require_once 'user_functions.php';
+require_once 'update_database.php';
 
 session_start();
 
@@ -33,6 +34,7 @@ if (isset($_POST['save_phone_number'])) {
     $error = "Invalid phone number format! Format: 1234567890";
   } else {
     $_SESSION['phone_number'] = $_POST['phone_number'];
+    update_phone_number($conn);
   }
 }
 if (isset($_POST['save_password'])) {

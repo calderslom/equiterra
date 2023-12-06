@@ -1,4 +1,7 @@
 <?php
+// Include functions
+require_once 'utility.php';
+
 session_start();
 
 /**
@@ -27,16 +30,6 @@ function retrieve_client($conn)
             return $client_tuple;
         } else return false;
     } else return false;
-}
-
-// Function for outputting data to the console
-function debug_to_console($data)
-{
-    $output = $data;
-    if (is_array($output))
-        $output = implode(',', $output);
-
-    echo "<script>console.log('Debug Objects: " . $output . "' );</script>";
 }
 
 ?>
