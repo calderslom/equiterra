@@ -497,3 +497,18 @@ textarea.form-control {
 	border: 1px solid black;
   border-radius: 10px;
 }
+
+.horse-image {
+	height: 200px;
+  display: inline-block;
+  margin: 10px;
+  object-fit: cover; /* Ensure images cover their area without stretching */
+}
+
+.image-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
+  align-items: flex-start;
+  gap: 20px; /* Add space between images */
+}

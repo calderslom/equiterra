@@ -98,6 +98,7 @@ if (isset($_POST['save_conf_notes'])) {
             echo "<h3 class='returning__text'>Discipline: " . $_SESSION['horse']['discipline'] . "</h3>";
             echo "<h3 class='returning__text'>Height: " . $_SESSION['horse']['height'] . "</h3>";
             echo "<h3 class='returning__text'>Birthdate: " . $_SESSION['horse']['birthdate'] . "</h3>";
+            echo "<h3 class='returning__text'><a href='images.php?horse_name=" . urlencode($_SESSION['horse_name']) . "'>Images</a></h3>";
             echo "</div>";
             echo "</div>";
           }
