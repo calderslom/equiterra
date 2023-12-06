@@ -1,5 +1,7 @@
 <?php
-// Start the session
+if (session_status() == PHP_SESSION_NONE) {
+  session_start();
+}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $barn_name = $_POST["barn_name"];

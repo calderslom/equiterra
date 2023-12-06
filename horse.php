@@ -98,7 +98,7 @@ if (isset($_POST['save_conf_notes'])) {
             echo "<h3 class='returning__text'>Discipline: " . $_SESSION['horse']['discipline'] . "</h3>";
             echo "<h3 class='returning__text'>Height: " . $_SESSION['horse']['height'] . "</h3>";
             echo "<h3 class='returning__text'>Birthdate: " . $_SESSION['horse']['birthdate'] . "</h3>";
-            echo "<h3 class='returning__text'><a href='images.php?horse_name=" . urlencode($_SESSION['horse_name']) . "'>Images</a></h3>";
+            echo "<h3 class='returning__text'><a href='images.php'>Images</a></h3>";
             echo "</div>";
             echo "</div>";
           }
@@ -112,7 +112,7 @@ if (isset($_POST['save_conf_notes'])) {
             echo "<div class='action-bar'>";
             echo "<div class='search-container'><input class='search-table' type='text' id='searchInput' onkeyup='searchTable()' placeholder='Search shoeing protocols..'></div>";
             if ($_SESSION['user_type'] == "Admin") {
-              echo "<a href='add_shoeing_protocol.php'><button class='add-button'>Add Shoeing Protocol +</button></a>";
+              echo "<a href='add_shoeing_protocol.php?horse_name=" . urlencode($_SESSION['horse_name']) . "'><button class='add-button'>Add Shoeing Protocol +</button></a>";
             }
             echo "</div>";
             echo "<table class='horse-table'>";

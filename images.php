@@ -2,9 +2,9 @@
 if (session_status() == PHP_SESSION_NONE) {
   session_start();
 }
-if (isset($_GET['horse_name'])) {
-  $_SESSION['horse_name'] = urldecode($_GET['horse_name']);
-}
+// if (isset($_GET['horse_name'])) {
+//   $_SESSION['horse_name'] = urldecode($_GET['horse_name']);
+// }
 
 if (isset($_POST['url'])) {
   if (($key = array_search($_POST['url'], $_SESSION['images'])) !== false) {
