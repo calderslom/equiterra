@@ -111,7 +111,7 @@ if (isset($_POST['save_conf_notes'])) {
             echo "<div class='action-bar'>";
             echo "<div class='search-container'><input class='search-table' type='text' id='searchInput' onkeyup='searchTable()' placeholder='Search shoeing protocols..'></div>";
             if ($_SESSION['user_type'] == "Admin") {
-              echo "<a href='add_invoice.php'><button class='add-button'>Add Shoeing Protocol +</button></a>";
+              echo "<a href='add_shoeing_protocol.php'><button class='add-button'>Add Shoeing Protocol +</button></a>";
             }
             echo "</div>";
             echo "<table class='horse-table'>";
@@ -131,9 +131,9 @@ if (isset($_POST['save_conf_notes'])) {
             echo "</table>";
           } else {
             if ($_SESSION['user_type'] == "Admin") {
-              echo "<div class='returning__header'>No invoices in database <a href='add_invoice.php'><button class='add-button'>Add Shoeing Protocol +</button></a></div>";
+              echo "<div class='returning__header'>No shoeing protocols in database <a href='add_shoeing_protocol.php'><button class='add-button'>Add Shoeing Protocol +</button></a></div>";
             } else {
-              echo "<div class='returning__header'>No invoices in database</div>";
+              echo "<div class='returning__header'>No shoeing protocols in database</div>";
             }
           }
           ?>

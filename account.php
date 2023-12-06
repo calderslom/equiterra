@@ -4,7 +4,9 @@
 require_once 'user_functions.php';
 require_once 'update_database.php';
 
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+  session_start();
+}
 
 // Need to connect to the database for data retrieval. The $conn object will be used to communicate with the SQL database
 $conn = new mysqli('sql.freedb.tech', 'freedb_Youssef', 'fp53R5UKVn*M@XW', 'freedb_Equiterra');

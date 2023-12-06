@@ -2,14 +2,6 @@
 if (session_status() == PHP_SESSION_NONE) {
   session_start();
 }
-
-if (isset($_GET['protocol_horse'])) {
-  $_SESSION['protocol_horse'] = urldecode($_GET['protocol_horse']);
-}
-if (isset($_GET['protocol_date'])) {
-  $_SESSION['protocol_date'] = urldecode($_GET['protocol_date']);
-}
-
 // ...
 ?>
 
