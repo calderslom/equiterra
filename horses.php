@@ -1,6 +1,9 @@
 <?php
 
+// Include functions
+require_once 'utility.php';
 require_once 'client_functions.php';
+
 
 session_start();
 
