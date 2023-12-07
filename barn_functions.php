@@ -4,7 +4,6 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 // Include functions
 require_once 'utility.php';
-require_once 'client_functions.php';
 
 /**
  * Retrieves all barn names from the Barn table and stores them in the session.
@@ -49,8 +48,6 @@ function retrieve_barn_details($conn)
         $stmt_barn->execute();
         // Get the result set
         $barn_result = $stmt_barn->get_result();
-        // Creating an array to store the barn details
-        $barns = [];
         // Check if any barns were retrieved
         if ($tuple = $barn_result->fetch_assoc()) {
             // Add barn details to the array

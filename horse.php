@@ -1,15 +1,34 @@
 <?php
+// Include functions
+require_once 'utility.php';
+require_once 'client_functions.php';
+require_once 'horse_functions.php';
+
 if (session_status() == PHP_SESSION_NONE) {
   session_start();
 }
-if (isset($_GET['horse_name'])) { // Session 'horse_name' now contains the name of the horse.
+if (isset($_GET['horse_name'])) { // Session 'horse_name' now contains the name of the horse. This is the key for the Horse table
   $_SESSION['horse_name'] = urldecode($_GET['horse_name']);
 }
-// ...
-
 if (isset($_POST['save_conf_notes'])) {
   $_SESSION['horse']['conf_notes'] = $_POST['conf_notes'];
 }
+
+// Include functions
+require_once 'utility.php';
+require_once 'horse_functions.php';
+
+
+// Need to connect to the database for data retrieval. The $conn object will be used to communicate with the SQL database
+$conn = new mysqli('sql.freedb.tech', 'freedb_Youssef', 'fp53R5UKVn*M@XW', 'freedb_Equiterra');
+if ($conn->connect_error) {
+  die("Connection failed: " . $conn->connect_error);
+}
+
+retrieve_horse_details($conn);
+retrieve_shoeing_protocol_dates($conn);
+
+$conn->close();     // Close connection to the database
 ?>
 
 <script>
@@ -61,7 +80,7 @@ if (isset($_POST['save_conf_notes'])) {
       <div class="onboarding-overlay-outer">
         <?php include 'navbar.php'; ?>
         <div class="onboarding-overlay-inner info">
-          <h1 class="returning__header">Horse Info</h1>
+          <h1 class="returning__header">Horse Details</h1>
           <?php
           // TODO: must be changed to the horse's info from the database (using their username)
           if (isset($_SESSION['horse'])) {
@@ -120,11 +139,11 @@ if (isset($_POST['save_conf_notes'])) {
             // Output data of each row
             foreach ($_SESSION['shoeing_protocols'] as $protocol) {
               echo "<tr>";
-              echo "<td>" . $protocol["date"] . "</td>";
+              echo "<td>" . $protocol . "</td>";
               if ($_SESSION['user_type'] == "Admin") {
-                echo "<td><a href='shoeing_protocol.php?protocol_date=" . urlencode($protocol["date"]) . "&protocol_horse=" . urlencode($_SESSION["shoeing_protocol"]["horse"]) . "'><button class='table-button'>View/Edit</button></a></td>";
+                echo "<td><a href='shoeing_protocol.php?protocol_date=" . urlencode($protocol) . "&protocol_horse=" . urlencode($_SESSION["shoeing_protocol"]["horse"]) . "'><button class='table-button'>View/Edit</button></a></td>";
               } else {
-                echo "<td><a href='shoeing_protocol.php?protocol_date=" . urlencode($protocol["date"]) . "&protocol_horse=" . urlencode($_SESSION["shoeing_protocol"]["horse"]) . "'><button class='table-button'>View</button></a></td>";
+                echo "<td><a href='shoeing_protocol.php?protocol_date=" . urlencode($protocol) . "&protocol_horse=" . urlencode($_SESSION["shoeing_protocol"]["horse"]) . "'><button class='table-button'>View</button></a></td>";
               }
               
               echo "</tr>";
