@@ -21,33 +21,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $email_or_username = $_POST['email_or_username'];
   $password = $_POST['password'];
 
-  // for now Check if username or email = "omarragab" and password = "1234"
-  // TODO: will need to be changed to the user's info from the database
-  // if ($email_or_username == "omar.ragab" && $password == "1234") {
-  //   // Set session variables
-  //   $_SESSION['username'] = $email_or_username;
-  //   $_SESSION['name'] = 'Omar Ragab';
-  //   $_SESSION['user_type'] = 'Admin';
-  //   $_SESSION['email'] = 'omarmsragab2003@gmail.com';
-  //   $_SESSION['phone_number'] = '9023290244';
-  //   $_SESSION['password'] = $password;
-  //   // Redirect to home page
-  //   header('Location: home.php');
-  // } else if ($email_or_username == "aidan.smith" && $password == "1234") {
-  //   // Set session variables
-  //   $_SESSION['username'] = $email_or_username;
-  //   $_SESSION['name'] = 'Aidan Smith';
-  //   $_SESSION['user_type'] = 'Client';
-  //   $_SESSION['email'] = 'aidansmith@gmail.com';
-  //   $_SESSION['phone_number'] = '4031231234';
-  //   $_SESSION['password'] = $password;
-  //   // Redirect to home page
-  //   header('Location: home.php');
-  // } else {
-  //   // User not found, display error message
-  //   $error = "Invalid username or password!";
-  // }
-  //
   // Connect to your database
   $conn = new mysqli('sql.freedb.tech', 'freedb_Youssef', 'fp53R5UKVn*M@XW', 'freedb_Equiterra');
 
@@ -63,7 +36,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $result = $stmt->get_result();
 
 
-  
   if ($result->num_rows > 0) {
     // User found, set session variables
     $user = $result->fetch_assoc();
@@ -82,11 +54,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $conn->close();
 }
 ?>
-
 <html>
+
+<head>
+  <link rel="stylesheet" href="style.css">
+
   <head>
-    <link rel="stylesheet" href="style.css">
-  <head>
+
   <body>
     <div class="onboarding-overlay">
       <div class="onboarding-overlay-outer">
@@ -115,4 +89,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       </div>
     </div>
   </body>
+
 </html>

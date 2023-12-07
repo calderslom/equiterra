@@ -2,13 +2,14 @@
 // Include functions
 require_once 'utility.php';
 require_once 'retrieval_functions.php';
+require_once 'barn_functions.php';
+require_once 'client_functions.php';
 
 if (session_status() == PHP_SESSION_NONE) {
   session_start();
 }
 if (isset($_GET['barn_name'])) {
   $_SESSION['barn_name'] = urldecode($_GET['barn_name']);
-  //debug_to_console($_SESSION['barn_name']);
 }
 
 // Need to connect to the database for data retrieval. The $conn object will be used to communicate with the SQL database
@@ -18,6 +19,7 @@ if ($conn->connect_error) {
 }
 
 retrieve_barn_details($conn);
+retrieve_barn_horses($conn);
 
 $conn->close();     // Close connection to the database
 ?>
@@ -82,14 +84,14 @@ $conn->close();     // Close connection to the database
           <h1 class="returning__header">Barn Horses</h1>
           <?php
           // TODO: must be changed to the horses info from the database (using the barn_name)
-          if (isset($_SESSION['dummy_horses']) && count($_SESSION['dummy_horses']) > 0) {
+          if (isset($_SESSION['barn_horses']) && count($_SESSION['barn_horses']) > 0) {
             echo "<div class='action-bar'>";
             echo "<div class='search-container'><input class='search-table' type='text' id='searchInput' onkeyup='searchTable()' placeholder='Search horses or owners..'></div>";
             echo "</div>";
             echo "<table class='horse-table'>";
             echo "<tr><th>Name</th><th>Owner</th><th>Action</th></tr>";
             // Output data of each row
-            foreach ($_SESSION['dummy_horses'] as $horse => $owner) {
+            foreach ($_SESSION['barn_horses'] as $horse => $owner) {
               echo "<tr>";
               echo "<td>" . $horse . "</td>";
               echo "<td>" . $owner . "</td>";

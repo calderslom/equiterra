@@ -1,9 +1,21 @@
 <?php
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
-  }
+}
+
 // Include functions
 require_once 'utility.php';
+
+
+function retrieve_client_name($conn, $Cusername)
+{
+    // Prepare SQL statement for Client name retrieval
+    $stmtClient = $conn->prepare("SELECT Cname FROM Client WHERE Cusername = ?");
+    $stmtClient->bind_param("s", $Cusername);
+    $stmtClient->execute();
+    $clientNameResult = $stmtClient->get_result();
+    return $clientNameResult;
+}
 
 /**
  * Retrieves client usernames and names from the Client table and stores them in the session.
@@ -17,7 +29,7 @@ require_once 'utility.php';
 function retrieve_client_names($conn)
 {
     // Prepare SQL statement for retrieval of ALL clients
-    $stmt_user = $conn->prepare("SELECT * FROM Client");
+    $stmt_user = $conn->prepare("SELECT Cusername, Cname FROM Client");
     $stmt_user->execute();
     $client_result = $stmt_user->get_result();
     // Creating an array to store the invoices
@@ -42,7 +54,8 @@ function retrieve_client_names($conn)
  * @param mysqli $conn - The MySQLi database connection.
  * @return array|null - An array containing invoice information, or null if no invoices are found.
  */
-function retrieve_invoices_client($conn) {
+function retrieve_invoices_client($conn)
+{
     if (isset($_SESSION['Cusername']) && !empty($_SESSION['Cusername'])) {
         // Get the username from the session and sanitize it
         $username = $conn->real_escape_string($_SESSION['Cusername']);
@@ -55,9 +68,11 @@ function retrieve_invoices_client($conn) {
         $invoices = [];
         // Check if any invoices were retrieved
         while ($tuple = $invoice_result->fetch_assoc()) {
-            $invoices[] = [ "number" => $tuple["Number"],
-                            "status" => $tuple["Status"],
-                            "price" => $tuple["Price"]];                
+            $invoices[] = [
+                "number" => $tuple["Number"],
+                "status" => $tuple["Status"],
+                "price" => $tuple["Price"]
+            ];
         }
         $_SESSION['invoices'] = $invoices;
     }
@@ -88,7 +103,5 @@ function retrieve_client($conn)
             $client_tuple = $client_result->fetch_assoc();
             return $client_tuple;
         } else return false;
-    } 
+    }
 }
-
-?>

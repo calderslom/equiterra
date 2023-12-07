@@ -29,13 +29,8 @@ if (isset($_SESSION['user_type']) && !empty($_SESSION['user_type'])) {
       while ($row = $result->fetch_assoc()) {
         // Access columns using associative names
         $horseName = $row['Hname'];
-        // Get the Client username from the Horse tuple
-        $client_username = $row['Cusername'];
-        // Prepare SQL statement for Client name retrieval
-        $stmtClient = $conn->prepare("SELECT Cname FROM Client WHERE Cusername = ?");
-        $stmtClient->bind_param("s", $client_username);
-        $stmtClient->execute();
-        $clientNameResult = $stmtClient->get_result();
+        // Get the name of the client using the clients username
+        $clientNameResult = retrieve_client_name($conn, $row['Cusername']);
         // Check if the clientNameResult was successful
         if ($clientNameResult) {
           // Get the Client Tuple returned by the SQL Query
