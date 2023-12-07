@@ -62,8 +62,9 @@ $conn->close();     // Close connection to the database
               // Output data of each row
               foreach($_SESSION['clients'] as $client) {
                 echo "<tr>";
-                echo "<td>" . $client['client'] . "</td>";
-                echo "<td><a href='customer.php?customer_name=" . urlencode($client['client']) . "'><button class='table-button'>View/Edit</button></a></td>";
+                echo "<td>" . $client['name'] . "</td>";
+                // This is where we pass data to the next page via the URL. Whatever we place in urlencode will come after "client_username" - which we can specify ourselves
+                echo "<td><a href='customer.php?client_username=" . urlencode($client['username']) . "'><button class='table-button'>View/Edit</button></a></td>";
                 echo "</tr>";
               }
               echo "</table>";

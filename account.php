@@ -1,8 +1,9 @@
 <?php
 
 // Include functions
-require_once 'user_functions.php';
+require_once 'retrieval_functions.php';
 require_once 'update_database.php';
+require_once 'utility.php';
 
 // Check if a session is already ongoing - start one if not.
 if (session_status() == PHP_SESSION_NONE) {

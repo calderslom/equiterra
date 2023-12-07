@@ -1,16 +1,18 @@
 <?php
+// Import Functions
+require_once 'retrieval_functions.php';
+require_once 'update_database.php';
 
 if (session_status() == PHP_SESSION_NONE) {
   session_start();
 }
-if (isset($_GET['customer_name'])) {
-  $_SESSION['customer_name'] = urldecode($_GET['customer_name']);
+
+// This is where we retrieve information from the URL that was set by the previous page - customers in this case.
+if (isset($_GET['client_username'])) {
+  $_SESSION['Cusername'] = urldecode($_GET['client_username']);
 }
 
-// Import Functions
-require_once 'user_functions.php';
-require_once 'retrieval_functions.php';
-require_once 'update_database.php';
+debug_to_console($_SESSION['Cusername']);
 
 session_start();
 
@@ -21,18 +23,15 @@ if ($conn->connect_error) {
 }
 
 // Retrieving a tuple from the User table based on the username of the person currently logged in.
-if ($user = retrieve_user($conn)) {
+if ($user = retrieve_client($conn)) {
   // Setting session variables for the user
-  $_SESSION['customer']['username'] = $user['Username'];
-  $_SESSION['customer']['name'] = $user['Name'];
+  $_SESSION['customer']['username'] = $user['CUsername'];
+  $_SESSION['customer']['name'] = $user['Cname'];
   $_SESSION['customer']['phone_number'] = $user['Phone_num'];
   $_SESSION['customer']['email'] = $user['Email'];
 } else debug_to_console("User retrieval failed.");
 
-if (!retrieve_invoices_client($conn)) {
-  debug_to_console("Error retrieving invoices for client.");
-}
-
+retrieve_invoices_client($conn);
 
 // // Populating the invoices session variable array
 // if (isset($_SESSION['user_type']) && !empty($_SESSION['user_type'])) {

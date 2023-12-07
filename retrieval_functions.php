@@ -5,11 +5,20 @@ if (session_status() == PHP_SESSION_NONE) {
 // Include functions
 require_once 'utility.php';
 
-function retrieve_invoices_client($conn)
-{
-    if (isset($_SESSION['username']) && !empty($_SESSION['username'])) {
+/**
+ * Retrieves invoices for a client from the Invoice table.
+ *
+ * This function retrieves invoices for the client identified by the
+ * username stored in the session. It prepares an SQL statement, executes
+ * it, and creates an array containing the retrieved invoice information.
+ *
+ * @param mysqli $conn - The MySQLi database connection.
+ * @return array|null - An array containing invoice information, or null if no invoices are found.
+ */
+function retrieve_invoices_client($conn) {
+    if (isset($_SESSION['Cusername']) && !empty($_SESSION['Cusername'])) {
         // Get the username from the session and sanitize it
-        $username = $conn->real_escape_string($_SESSION['username']);
+        $username = $conn->real_escape_string($_SESSION['Cusername']);
         // Prepare SQL statement for Invoice retrieval by client name
         $stmt_user = $conn->prepare("SELECT * FROM Invoice WHERE Cusername = ?");
         $stmt_user->bind_param("s", $username);
@@ -19,12 +28,11 @@ function retrieve_invoices_client($conn)
         $invoices = [];
         // Check if any invoices were retrieved
         while ($tuple = $invoice_result->fetch_assoc()) {
-            $invoices[] = [
-                "number" => $tuple["Number"],
-                "status" => $tuple["Status"],
-                "price" => $tuple["Price"]
-            ];
+            $invoices[] = [ "number" => $tuple["Number"],
+                            "status" => $tuple["Status"],
+                            "price" => $tuple["Price"]];                
         }
+        $_SESSION['invoices'] = $invoices;
     }
 }
 
@@ -32,27 +40,25 @@ function retrieve_invoice_details($conn)
 {
 }
 
-function retrieve_invoices_admin($conn)
-{
-    // Prepare SQL statement for ALL Invoice retrieval
-    $stmt_user = $conn->prepare("SELECT * FROM Invoice");
-    $stmt_user->execute();
-    $invoice_result = $stmt_user->get_result();
-    // Creating an array to store the invoices
-    $invoices = [];
-    // Check if any invoices were retrieved
-    while ($tuple = $invoice_result->fetch_assoc()) {
-        $invoices[] = [
-            "number" => $tuple["Number"],
-            "status" => $tuple["Status"],
-            "price" => $tuple["Price"],
-            "username" => $tuple["Cusername"]
-        ];
-    }
-    $_SESSION['invoices'] = $invoices;
-}
-
-
+// function retrieve_invoices_admin($conn)
+// {
+//     // Prepare SQL statement for ALL Invoice retrieval
+//     $stmt_user = $conn->prepare("SELECT * FROM Invoice");
+//     $stmt_user->execute();
+//     $invoice_result = $stmt_user->get_result();
+//     // Creating an array to store the invoices
+//     $invoices = [];
+//     // Check if any invoices were retrieved
+//     while ($tuple = $invoice_result->fetch_assoc()) {
+//         $invoices[] = [
+//             "number" => $tuple["Number"],
+//             "status" => $tuple["Status"],
+//             "price" => $tuple["Price"],
+//             "username" => $tuple["Cusername"]
+//         ];
+//     }
+//     $_SESSION['invoices'] = $invoices;
+// }
 
 
 /**
@@ -76,11 +82,67 @@ function retrieve_client_names($conn)
     while ($tuple = $client_result->fetch_assoc()) {
         $clients[] = [
             "username" => $tuple["Cusername"],
-            "client" => $tuple["Cname"],
+            "name" => $tuple["Cname"],
         ];
     }
     $_SESSION['clients'] = $clients;
 }
+
+
+/**
+ * Retrieve user information based on the session username.
+ *
+ * @param mysqli $conn - The MySQLi database connection object.
+ *
+ * @return array|false - An associative array representing the client information
+ *                      if successful, or false if there was an error.
+ */
+function retrieve_client($conn)
+{
+    if (isset($_SESSION['Cusername']) && !empty($_SESSION['Cusername'])) {
+        // Get the username from the session and sanitize it
+        $username = $conn->real_escape_string($_SESSION['Cusername']);
+        // Prepare SQL statement for Client name retrieval
+        $stmt_user = $conn->prepare("SELECT * FROM Client WHERE Cusername = ?");
+        $stmt_user->bind_param("s", $username);
+        $stmt_user->execute();
+        $user_result = $stmt_user->get_result();
+        // Check if the clientNameResult was successful
+        if ($user_result) {
+            // Get the Client Tuple returned by the SQL Query
+            $user_tuple = $user_result->fetch_assoc();
+            return $user_tuple;
+        } else return false;
+    } else return false;
+}
+
+/**
+ * Retrieve user information based on the session username.
+ *
+ * @param mysqli $conn - The MySQLi database connection object.
+ *
+ * @return array|false - An associative array representing the client information
+ *                      if successful, or false if there was an error.
+ */
+function retrieve_user($conn)
+{
+    if (isset($_SESSION['user_type']) && !empty($_SESSION['user_type'])) {
+        // Get the username from the session and sanitize it
+        $username = $conn->real_escape_string($_SESSION['username']);
+        // Prepare SQL statement for Client name retrieval
+        $stmt_user = $conn->prepare("SELECT * FROM Web_user WHERE Username = ?");
+        $stmt_user->bind_param("s", $username);
+        $stmt_user->execute();
+        $user_result = $stmt_user->get_result();
+        // Check if the clientNameResult was successful
+        if ($user_result) {
+            // Get the Client Tuple returned by the SQL Query
+            $user_tuple = $user_result->fetch_assoc();
+            return $user_tuple;
+        } else return false;
+    } else return false;
+}
+
 
 /**
  * Retrieves all barn names from the Barn table and stores them in the session.
@@ -112,50 +174,11 @@ function retrieve_all_barns($conn)
 
 
 
-// function retrieve_barn_details($conn)
-// {
-//     if (isset($_SESSION['barn_name']) && !empty($_SESSION['barn_name'])) {
-//         // Get the barn name from the session and sanitize it
-//         $barn_name = $conn->real_escape_string($_SESSION['barn_name']);
-//         // Prepare SQL statement for Invoice retrieval by client name
-//         // Prepare SQL statement for retrieval of ALL Barn details for a specific barn.
-//         $stmt_barn = $conn->prepare("SELECT * FROM Barn WHERE Bname = ?");
-//         $stmt_barn->bind_param("s", $barn_name);
-//         $stmt_barn->execute();
-//         // Get the result set
-//         $barn_result = $stmt_barn->get_result();
-//         // Creating an array to store the barn details
-//         $barns = [];
-//         // Check if any barns were retrieved
-//         while ($tuple = $barn_result->fetch_assoc()) {
-//             // Add barn details to the array
-//             //debug_to_console($tuple["Street_name"]);
-//             $barns[] = [
-//                 "name" => $tuple["Bname"],
-//                 "email" => $tuple["Email"],
-//                 "street_number" => $tuple["Street_num"],
-//                 "city" => $tuple["City"],
-//                 "postal_code" => $tuple["Postal_code"],
-//                 "contact" => $tuple["Contact"],
-//                 "phone_number" => $tuple["Phone_num"],
-//                 "street_name" => $tuple["Street_name"],
-//                 "province" => $tuple["Province"]
-//             ];
-//         }
-//         // Store the array in the session under the key 'barns'
-//         $_SESSION['barn'] = $barns;
-//     } else {
-//         return false;
-//     }
-// }
-
-
 function retrieve_barn_details($conn)
 {
     if (isset($_SESSION['barn_name']) && !empty($_SESSION['barn_name'])) {
         // Get the barn name from the session and sanitize it
         $barn_name = $conn->real_escape_string($_SESSION['barn_name']);
-        // Prepare SQL statement for Invoice retrieval by client name
         // Prepare SQL statement for retrieval of ALL Barn details for a specific barn.
         $stmt_barn = $conn->prepare("SELECT * FROM Barn WHERE Bname = ?");
         $stmt_barn->bind_param("s", $barn_name);
