@@ -1,8 +1,9 @@
 <?php
 
-// Include functions
-require_once 'utility.php';
+// Include Functions
 require_once 'retrieval_functions.php';
+require_once 'client_functions.php';
+require_once 'update_database.php';
 
 // Need to connect to the database for data retrieval. The $conn object will be used to communicate with the SQL database
 $conn = new mysqli('sql.freedb.tech', 'freedb_Youssef', 'fp53R5UKVn*M@XW', 'freedb_Equiterra');

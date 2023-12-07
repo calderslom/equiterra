@@ -1,7 +1,9 @@
 <?php
-// Import Functions
+// Include Functions
 require_once 'retrieval_functions.php';
+require_once 'client_functions.php';
 require_once 'update_database.php';
+
 
 if (session_status() == PHP_SESSION_NONE) {
   session_start();
@@ -22,10 +24,10 @@ if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
 
-// Retrieving a tuple from the User table based on the username of the person currently logged in.
+// Retrieving a tuple from the Client table based on the client username passed in via the URL
 if ($user = retrieve_client($conn)) {
   // Setting session variables for the user
-  $_SESSION['customer']['username'] = $user['CUsername'];
+  $_SESSION['customer']['username'] = $user['Cusername'];
   $_SESSION['customer']['name'] = $user['Cname'];
   $_SESSION['customer']['phone_number'] = $user['Phone_num'];
   $_SESSION['customer']['email'] = $user['Email'];
