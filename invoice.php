@@ -37,14 +37,18 @@ if (isset($_POST['save_status'])) {
             echo "<h3 class='returning__text'>Farrier: " . $_SESSION['invoices'][0]["farrier"] . "</h3>";
             echo "</div>";
             echo "<div>";
-            if (isset($_POST['edit']) && $_POST['edit'] == 'status') {
-              echo "<form method='POST'><h3 class='returning__text'>Status: <select class='form-control edit' id='status' name='status' style='width: 200px; font-size: 18px;' value=" . $_SESSION['invoices'][0]["status"] . "required>
-                  <option value=''>Select Status</option>
-                  <option value='Paid'>Paid</option>
-                  <option value='Unpaid'>Unpaid</option>
-                </select><input type='submit' name='save_status' value='Save' class='save-button'></h3></form>";
+            if ($_SESSION['user_type'] == "Admin") {
+              if (isset($_POST['edit']) && $_POST['edit'] == 'status') {
+                echo "<form method='POST'><h3 class='returning__text'>Status: <select class='form-control edit' id='status' name='status' style='width: 200px; font-size: 18px;' value=" . $_SESSION['invoices'][0]["status"] . "required>
+                    <option value=''>Select Status</option>
+                    <option value='Paid'>Paid</option>
+                    <option value='Unpaid'>Unpaid</option>
+                  </select><input type='submit' name='save_status' value='Save' class='save-button'></h3></form>";
+              } else {
+                echo "<h3 class='returning__text'>Status: " . $_SESSION['invoices'][0]["status"] . "<form method='POST' style='display:inline;'><input type='hidden' name='edit' value='status'><input type='submit' value='Edit' class='red-button'></form></h3>";
+              }
             } else {
-              echo "<h3 class='returning__text'>Status: " . $_SESSION['invoices'][0]["status"] . "<form method='POST' style='display:inline;'><input type='hidden' name='edit' value='status'><input type='submit' value='Edit' class='red-button'></form></h3>";
+              echo "<h3 class='returning__text'>Status: " . $_SESSION['invoices'][0]["status"] . "</h3>";
             }
             echo "<h3 class='returning__text'>Price: " . $_SESSION['invoices'][0]["price"] . "</h3>";
             echo "<h3 class='returning__text'>Date: " . $_SESSION['invoices'][0]["date"] . "</h3>";

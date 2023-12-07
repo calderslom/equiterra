@@ -9,7 +9,7 @@
   if ($_SESSION['user_type'] == 'Admin') {
     // Display links for admin
     echo '<a class="'.(basename($_SERVER['PHP_SELF']) == 'barns.php' ? 'active' : '').'" href="barns.php">Barns</a>';
-    echo '<a class="'.(basename($_SERVER['PHP_SELF']) == 'customers.php' ? 'active' : '').'" href="customers.php">Customers</a>';
+    echo '<a class="'.(basename($_SERVER['PHP_SELF']) == 'customers.php' ? 'active' : '').'" href="customers.php">Clients</a>';
   } else if ($_SESSION['user_type'] == 'Client') {
     // Display links for client
     echo '<a class="'.(basename($_SERVER['PHP_SELF']) == 'customer.php' ? 'active' : '').'" href="customer.php">Details</a>';

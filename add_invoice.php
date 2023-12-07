@@ -1,9 +1,9 @@
 <?php
-// Start the session
-if (isset($_GET['invoice_number'])) {
-  $_SESSION['invoice_number'] = urldecode($_GET['invoice_number']);
-  // TODO: get invoice info from database
+if (session_status() == PHP_SESSION_NONE) {
+  session_start();
 }
+
+// customer name is still storesd in $_SESSION['customer_name']
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $i_number = $_POST["i_number"];

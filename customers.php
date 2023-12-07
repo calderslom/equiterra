@@ -1,3 +1,21 @@
+<?php
+
+// Include functions
+require_once 'utility.php';
+require_once 'retrieval_functions.php';
+
+// Need to connect to the database for data retrieval. The $conn object will be used to communicate with the SQL database
+$conn = new mysqli('sql.freedb.tech', 'freedb_Youssef', 'fp53R5UKVn*M@XW', 'freedb_Equiterra');
+if ($conn->connect_error) {
+  die("Connection failed: " . $conn->connect_error);
+}
+
+// Populate session array "clients"
+retrieve_client_names($conn);
+
+$conn->close();     // Close connection to the database
+?>
+
 <script>
   function searchTable() {
     var input, filter, table, tr, td, i, txtValue;
@@ -32,20 +50,20 @@
         <div class="onboarding-overlay-inner table">
           <?php
           // TODO: must be changed to the barns info from the database (using their username)
-            if (isset($_SESSION['customers']) && count($_SESSION['customers']) > 0) {
+            if (isset($_SESSION['clients']) && count($_SESSION['clients']) > 0) {
               echo "<div class='action-bar'>";
               echo "<div class='search-container'><input class='search-table' type='text' id='searchInput' onkeyup='searchTable()' placeholder='Search invoices..'></div>";
               if ($_SESSION['user_type'] == "Admin") {
-                echo "<a href='signup.php'><button class='add-button'>Add Customer +</button></a>";
+                echo "<a href='signup.php'><button class='add-button'>Add Client +</button></a>";
               }
               echo "</div>";
               echo "<table class='horse-table'>";
               echo "<tr><th>Name</th><th>Action</th></tr>";
               // Output data of each row
-              foreach($_SESSION['customers'] as $customer) {
+              foreach($_SESSION['clients'] as $client) {
                 echo "<tr>";
-                echo "<td>" . $customer . "</td>";
-                echo "<td><a href='customer.php?customer_name=" . urlencode($customer) . "'><button class='table-button'>View/Edit</button></a></td>";
+                echo "<td>" . $client['client'] . "</td>";
+                echo "<td><a href='customer.php?customer_name=" . urlencode($client['client']) . "'><button class='table-button'>View/Edit</button></a></td>";
                 echo "</tr>";
               }
               echo "</table>";

@@ -59,6 +59,7 @@ ONBOARDING STYLES
 		.onboarding-form__btn{display: block; margin-bottom: 0px; width: 100%; max-width: 320px; margin: 20px auto;}
 	}
 
+
 .welcome{}
 	.welcome__image{max-height: 420px; float: right; margin-top: -170px; margin-right: 20px;}
 
@@ -162,6 +163,12 @@ ONBOARDING STYLES
 	.returning__text{color: black; font-size: 20px;}
 	.returning__btn{background: darkgreen; padding: 20px 30px; border-radius: 20px; border: none; margin-top: 30px; width: 100%; max-width: 320px; margin-left: auto; margin-right: auto; display: block; font-size: 15px; font-weight: 500;}
 	.returning__btn:hover{background: black; transition: all .3s;}
+
+.shoe{
+	margin-top: 70px;
+	width: 500px;
+	padding: 40px;
+}
 
 .table {
 	width: 90%;
@@ -361,6 +368,28 @@ select.form-control {
 	float: right;
 }
 
+.conf-button {
+	background-color: rgb(231, 0, 0);
+	color: white;
+	font-size: 15px;
+	border: none;
+	padding: 5px 10px;
+	margin-left: 20px;
+	cursor: pointer;
+	border-radius: 10px;
+}
+
+.conf-save {
+	background-color: green;
+	color: white;
+	font-size: 15px;
+	border: none;
+	padding: 5px 10px;
+	margin-left: 50px;
+	cursor: pointer;
+	border-radius: 10px;
+}
+
 .table-button {
 	background-color: rgb(204, 1, 1);
 	color: white;
@@ -474,4 +503,49 @@ textarea.form-control {
   background-color: transparent;
 	border: 1px solid black;
   border-radius: 10px;
+}
+
+.horse-image {
+	height: 200px;
+  display: inline-block;
+  margin: 10px;
+  object-fit: cover; /* Ensure images cover their area without stretching */
+}
+
+.image-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
+  align-items: flex-start;
+  gap: 20px; /* Add space between images */
+}
+
+.image-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.delete-button {
+	background-color: red;
+	color: white;
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: none;
+}
+
+.image-wrapper:hover .delete-button {
+  display: block;
+}
+
+.url-textbox {
+	width: 800px;
+	height: 32px;
+	border-radius: 5px;
+	border: 1px solid #ccc;
+	margin-right: 10px;
+}
+
+.narrower {
+	width: 70%; /* Adjust this value to make the container less wide */
 }
