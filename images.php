@@ -45,6 +45,8 @@ function addImageInput() {
         <?php include 'navbar.php'; ?>
         <br><br><br>
         <div class="onboarding-overlay-inner table">
+        <a href='horse.php'><button class='back-button'>< Horse</button></a>
+        <br>
         <?php
           echo "<h1 class='returning__header'>Images for " . $_SESSION['horse_name'] . "</h1>";
           if (isset($_SESSION['images']) && is_array($_SESSION['images'])) {

@@ -59,6 +59,7 @@ ONBOARDING STYLES
 		.onboarding-form__btn{display: block; margin-bottom: 0px; width: 100%; max-width: 320px; margin: 20px auto;}
 	}
 
+
 .welcome{}
 	.welcome__image{max-height: 420px; float: right; margin-top: -170px; margin-right: 20px;}
 
@@ -162,6 +163,12 @@ ONBOARDING STYLES
 	.returning__text{color: black; font-size: 20px;}
 	.returning__btn{background: darkgreen; padding: 20px 30px; border-radius: 20px; border: none; margin-top: 30px; width: 100%; max-width: 320px; margin-left: auto; margin-right: auto; display: block; font-size: 15px; font-weight: 500;}
 	.returning__btn:hover{background: black; transition: all .3s;}
+
+.shoe{
+	margin-top: 70px;
+	width: 500px;
+	padding: 40px;
+}
 
 .table {
 	width: 90%;
@@ -537,4 +544,8 @@ textarea.form-control {
 	border-radius: 5px;
 	border: 1px solid #ccc;
 	margin-right: 10px;
+}
+
+.narrower {
+	width: 70%; /* Adjust this value to make the container less wide */
 }
