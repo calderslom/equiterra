@@ -2,7 +2,7 @@
 if (session_status() == PHP_SESSION_NONE) {
   session_start();
 }
-if (isset($_GET['horse_name'])) {
+if (isset($_GET['horse_name'])) { // Session 'horse_name' now contains the name of the horse.
   $_SESSION['horse_name'] = urldecode($_GET['horse_name']);
 }
 // ...

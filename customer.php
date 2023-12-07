@@ -29,21 +29,26 @@ if ($user = retrieve_user($conn)) {
   $_SESSION['customer']['email'] = $user['Email'];
 } else debug_to_console("User retrieval failed.");
 
-
-// Populating the invoices session variable array
-if (isset($_SESSION['user_type']) && !empty($_SESSION['user_type'])) {
-
-  // This condidition will pass when an Admin is logged in
-  if ($_SESSION['user_type'] == 'Admin') {
-    retrieve_invoices_admin($conn);
-  }
-  else { // Client/User is logged in
-     if (!retrieve_invoices_client($conn)) {
-      debug_to_console("Error retrieving invoices for client.");
-     }
-  }
+if (!retrieve_invoices_client($conn)) {
+  debug_to_console("Error retrieving invoices for client.");
 }
 
+
+// // Populating the invoices session variable array
+// if (isset($_SESSION['user_type']) && !empty($_SESSION['user_type'])) {
+
+//   // This condidition will pass when an Admin is logged in
+//   if ($_SESSION['user_type'] == 'Admin') {
+//     retrieve_invoices_admin($conn);
+//   }
+//   else { // Client/User is logged in
+//      if (!retrieve_invoices_client($conn)) {
+//       debug_to_console("Error retrieving invoices for client.");
+//      }
+//   }
+// }
+
+$conn->close();     // Close connection to the database
 ?> // End of PHP
 
 
@@ -119,13 +124,14 @@ if (isset($_SESSION['user_type']) && !empty($_SESSION['user_type'])) {
               echo "<tr>";
               echo "<td>" . $invoice["number"] . "</td>";
               echo "<td>" . $invoice["price"] . "</td>";
-              echo "<td>" . $invoice["status"] . "</td>";
+              if ($invoice["status"] == 1) echo "<td>" . "Paid" . "</td>";
+              else echo "<td>" . "Unpaid" . "</td>";
               if ($_SESSION['user_type'] == "Admin") {
                 echo "<td><a href='invoice.php?invoice_number=" . urlencode($invoice["number"]) . "'><button class='table-button'>View/Edit</button></a></td>";
               } else {
                 echo "<td><a href='invoice.php?invoice_number=" . urlencode($invoice["number"]) . "'><button class='table-button'>View</button></a></td>";
               }
-              
+
               echo "</tr>";
             }
             echo "</table>";
@@ -142,4 +148,5 @@ if (isset($_SESSION['user_type']) && !empty($_SESSION['user_type'])) {
       </div>
     </div>
   </body>
+
 </html>
