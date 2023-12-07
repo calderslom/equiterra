@@ -1,4 +1,7 @@
 <?php
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+  }
 
 // Function for outputting data to the console
 function debug_to_console($data)

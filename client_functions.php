@@ -1,8 +1,9 @@
 <?php
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+  }
 // Include functions
 require_once 'utility.php';
-
-session_start();
 
 /**
  * Retrieve client information based on the session username.
@@ -29,7 +30,7 @@ function retrieve_client($conn)
             $client_tuple = $client_result->fetch_assoc();
             return $client_tuple;
         } else return false;
-    } else return false;
+    } 
 }
 
 ?>
