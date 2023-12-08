@@ -5,9 +5,16 @@ if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
 
+// Include functions
+require_once 'client_functions.php';
+require_once 'barn_functions.php';
+
 if (session_status() == PHP_SESSION_NONE) {
   session_start();
 }
+
+retrieve_client_names($conn);
+retrieve_all_barns($conn);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $horse_name = $_POST["horse_name"];
@@ -17,11 +24,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $birthdate = $_POST["birthdate"];
   $breed = $_POST["breed"];
   $conf_notes = $_POST["conf_notes"];
-  $owner = $_POST["owner"];
+  $owner = trim($_POST["owner"]);
   $barn = $_POST["barn"];
+  $status = 1;
+  debug_to_console($owner);
+  debug_to_console($gender);
   $stmt_insert = $conn->prepare("CALL AddHorse(?,?,?,?,?,?,?,?,?,?)");
   // Bind parameters and execute the SQL statement
-  $stmt_insert->bind_param("ssssssssss", $horse_name, $gender, $discipline, $height, $birthdate, $breed, $conf_notes, $barn, $owner, "1");
+  $stmt_insert->bind_param("sssssssssi", $horse_name, $gender, $discipline, $height, $birthdate, $breed, $conf_notes, $barn, $owner, $status);
   $stmt_insert->execute();
 
 
@@ -56,11 +66,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <option value="">Select Owner</option>
                 <?php
                 // Check if the session variable exists and is not empty
-                if (isset($_SESSION['customers']) && count($_SESSION['customers']) > 0) {
-                  // Loop through the array and create the option elements
-                  foreach ($_SESSION['customers'] as $customer) {
-                    $selected = isset($_POST['owner']) && $_POST['owner'] == $customer ? 'selected' : '';
-                    echo "<option value='{$customer}' {$selected}>{$customer}</option>";
+                if (isset($_SESSION['clients']) && count($_SESSION['clients']) > 0) {
+                  // Loop through the array and create the option elements. The options displayed are Client names, but the value they select is the client username
+                  foreach ($_SESSION['clients'] as $client) {
+                    $selected = isset($_POST['owner']) && $_POST['owner'] == $client['username'] ? 'selected' : ''; // Need the client username to update database
+                    echo "<option value='{$client['username']}' {$selected}>{$client['name']}</option>"; // Display name but retrieve username
                   }
                 }
                 ?>
@@ -90,8 +100,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               <label for="gender">Gender</label>
               <select class="form-control rounded" id="gender" name="gender" value="<?php echo isset($_POST['gender']) ? $_POST['gender'] : '' ?>" required>
                 <option value="">Select Gender</option>
-                <option value="Admin">Male</option>
-                <option value="Client">Female</option>
+                <option value="M">Male</option>
+                <option value="F">Female</option>
               </select>
             </div>
             <div class="form-group">

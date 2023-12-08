@@ -20,6 +20,10 @@ function retrieve_client_name($conn, $Cusername)
 /**
  * Retrieves client usernames and names from the Client table and stores them in the session.
  *
+ * The session variable containing the array is 'clients'.
+ * Each element consists of two key-value pairs, username is the key Cusername (the client username)
+ * name is the key Cname (the clients full Name).
+ * 
  * This function prepares and executes an SQL statement to retrieve all clients
  * from the Client table. It then creates an array containing client usernames
  * and names and stores the array in the session under the key 'clients'.
@@ -43,6 +47,7 @@ function retrieve_client_names($conn)
     }
     $_SESSION['clients'] = $clients;
 }
+
 
 /**
  * Retrieves invoices for a client from the Invoice table.
