@@ -9,9 +9,12 @@ if (session_status() == PHP_SESSION_NONE) {
   session_start();
 }
 
-// This is where we retrieve information from the URL that was set by the previous page - customers in this case.
-if (isset($_GET['client_username'])) {
+
+if (isset($_GET['client_username'])) {  // This will be set if the admin is using the page
   $_SESSION['Cusername'] = urldecode($_GET['client_username']);
+}
+else { // Client is logged in
+  $_SESSION['Cusername'] = $_SESSION['username'];
 }
 
 debug_to_console($_SESSION['Cusername']);

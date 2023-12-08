@@ -14,11 +14,6 @@ if (isset($_POST['save_conf_notes'])) {
   $_SESSION['horse']['conf_notes'] = $_POST['conf_notes'];
 }
 
-// Include functions
-require_once 'utility.php';
-require_once 'horse_functions.php';
-
-
 // Need to connect to the database for data retrieval. The $conn object will be used to communicate with the SQL database
 $conn = new mysqli('sql.freedb.tech', 'freedb_Youssef', 'fp53R5UKVn*M@XW', 'freedb_Equiterra');
 if ($conn->connect_error) {
@@ -139,11 +134,11 @@ $conn->close();     // Close connection to the database
             // Output data of each row
             foreach ($_SESSION['shoeing_protocols'] as $protocol) {
               echo "<tr>";
-              echo "<td>" . $protocol . "</td>";
+              echo "<td>" . $protocol['date'] . "</td>";
               if ($_SESSION['user_type'] == "Admin") {
-                echo "<td><a href='shoeing_protocol.php?protocol_date=" . urlencode($protocol) . "&protocol_horse=" . urlencode($_SESSION["shoeing_protocol"]["horse"]) . "'><button class='table-button'>View/Edit</button></a></td>";
+                echo "<td><a href='shoeing_protocol.php?protocol_date=" . urlencode($protocol['date']) . "&protocol_horse=" . urlencode($protocol['horse_name']) . "'><button class='table-button'>View/Edit</button></a></td>";
               } else {
-                echo "<td><a href='shoeing_protocol.php?protocol_date=" . urlencode($protocol) . "&protocol_horse=" . urlencode($_SESSION["shoeing_protocol"]["horse"]) . "'><button class='table-button'>View</button></a></td>";
+                echo "<td><a href='shoeing_protocol.php?protocol_date=" . urlencode($protocol['date']) . "&protocol_horse=" . urlencode($protocol['horse_name']) . "'><button class='table-button'>View</button></a></td>";
               }
               
               echo "</tr>";

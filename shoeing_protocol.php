@@ -1,4 +1,13 @@
 <?php
+// Include functions
+require_once 'utility.php';
+require_once 'horse_functions.php';
+
+// Unset session variable arrays
+// unset($_SESSION['shoeing_protocols']); // Temporary fix for session variables not unsetting
+// unset($_SESSION['shoeing_protocol']); // Temporary fix for session variables not unsetting
+
+
 if (session_status() == PHP_SESSION_NONE) {
   session_start();
 }
@@ -18,6 +27,15 @@ if (isset($_POST['save_status'])) {
   }
 }
 
+// Need to connect to the database for data retrieval. The $conn object will be used to communicate with the SQL database
+$conn = new mysqli('sql.freedb.tech', 'freedb_Youssef', 'fp53R5UKVn*M@XW', 'freedb_Equiterra');
+if ($conn->connect_error) {
+  die("Connection failed: " . $conn->connect_error);
+}
+
+retrieve_shoeing_protocol_details($conn);
+
+$conn->close();     // Close connection to the database
 // ...
 ?>
 
@@ -52,12 +70,12 @@ if (isset($_POST['save_status'])) {
         <div class="onboarding-overlay-inner shoe">
           <a href='horse.php'><button class='back-button'>< Horse</button></a>
           <br><br>
-          <h1 class="returning__header">Shoeing Protocol Info</h1>
+          <h1 class="returning__header">Shoeing Protocol Details</h1>
           <br>
           <?php
           // TODO: must be changed to the protocol's info from the database (using their horse name and date)
           if (isset($_SESSION['protocol_horse']) && isset($_SESSION['protocol_date'])) {
-            echo "<h3 class='returning__text'>Horse: " . $_SESSION['shoeing_protocol']['horse'] . "</h3>";
+            echo "<h3 class='returning__text'>Horse: " . $_SESSION['shoeing_protocol']['horse_name'] . "</h3>";
             echo "<h3 class='returning__text'>Date: " . $_SESSION['shoeing_protocol']['date']  . "</h3>";
             echo "<h3 class='returning__text'>Left Front: " . $_SESSION['shoeing_protocol']['left_front']  . "</h3>";
             echo "<h3 class='returning__text'>Left Hind: " . $_SESSION['shoeing_protocol']['left_hind']  . "</h3>";
@@ -75,7 +93,13 @@ if (isset($_POST['save_status'])) {
                 echo "<h3 class='returning__text'>Status: " . $_SESSION['shoeing_protocol']["status"] . "<form method='POST' style='display:inline;'><input type='hidden' name='edit' value='status'><input type='submit' value='Edit' class='red-button'></form></h3>";
               }
             } else {
-              echo "<h3 class='returning__text'>Status: " . $_SESSION['shoeing_protocol']["status"] . "</h3>";
+              if ($_SESSION['shoeing_protocol']["status"] == 1){
+                echo "<h3 class='returning__text'>Status: " . "Current" . "</h3>";
+              }
+              else { // Past protocol
+                echo "<h3 class='returning__text'>Status: " . "Past" . "</h3>";
+              }
+              
             }
 
             echo "<h3 class='returning__text'>Notes: ";
