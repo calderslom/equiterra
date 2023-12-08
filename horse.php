@@ -3,15 +3,10 @@
 require_once 'utility.php';
 require_once 'client_functions.php';
 require_once 'horse_functions.php';
+require_once 'update_database.php';
 
 if (session_status() == PHP_SESSION_NONE) {
   session_start();
-}
-if (isset($_GET['horse_name'])) { // Session 'horse_name' now contains the name of the horse. This is the key for the Horse table
-  $_SESSION['horse_name'] = urldecode($_GET['horse_name']);
-}
-if (isset($_POST['save_conf_notes'])) {
-  $_SESSION['horse']['conf_notes'] = $_POST['conf_notes'];
 }
 
 // Need to connect to the database for data retrieval. The $conn object will be used to communicate with the SQL database
@@ -19,6 +14,16 @@ $conn = new mysqli('sql.freedb.tech', 'freedb_Youssef', 'fp53R5UKVn*M@XW', 'free
 if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
+
+if (isset($_GET['horse_name'])) { // Session 'horse_name' now contains the name of the horse. This is the key for the Horse table
+  $_SESSION['horse_name'] = urldecode($_GET['horse_name']);
+}
+if (isset($_POST['save_conf_notes'])) {
+  $_SESSION['horse']['conf_notes'] = $_POST['conf_notes'];
+  update_conformation_notes($conn);
+}
+
+
 
 retrieve_horse_details($conn);
 retrieve_shoeing_protocol_dates($conn);
@@ -100,7 +105,7 @@ $conn->close();     // Close connection to the database
                 echo "</h3>";
               }
             } else {
-              echo "<h3 class='returning__text'>Confirmation Notes: ";
+              echo "<h3 class='returning__text'>Conformation Notes: ";
               echo "<button class='expand-arrow' onclick='expandNotes()'>▼</button>";
               echo "<div class='conf-notes-short'>" . substr($_SESSION['horse']['conf_notes'], 0, 50) . "</div>";
               echo "<div class='conf-notes-full' style='display: none;'>" . $_SESSION['horse']['conf_notes'] . "</div>";
@@ -121,7 +126,6 @@ $conn->close();     // Close connection to the database
         <div class="onboarding-overlay-inner table">
           <h1 class="returning__header">Shoeing Protocols</h1>
           <?php
-          // TODO: must be changed to the customer info from the database (using their username)
           if (isset($_SESSION['shoeing_protocols']) && count($_SESSION['shoeing_protocols']) > 0) {
             echo "<div class='action-bar'>";
             echo "<div class='search-container'><input class='search-table' type='text' id='searchInput' onkeyup='searchTable()' placeholder='Search shoeing protocols..'></div>";

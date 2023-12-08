@@ -1,4 +1,10 @@
 <?php
+// Need to connect to the database for data retrieval. The $conn object will be used to communicate with the SQL database
+$conn = new mysqli('sql.freedb.tech', 'freedb_Youssef', 'fp53R5UKVn*M@XW', 'freedb_Equiterra');
+if ($conn->connect_error) {
+  die("Connection failed: " . $conn->connect_error);
+}
+
 if (session_status() == PHP_SESSION_NONE) {
   session_start();
 }
@@ -14,11 +20,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $right_hind = $_POST["right_hind"];
   $status = $_POST["status"];
   $notes = $_POST["notes"];
+  $stmt_insert = $conn->prepare("CALL AddShoeingProtocol(?,?,?,?,?,?,?,?)");
+  // Bind parameters and execute the SQL statement
+  $stmt_insert->bind_param("ssssssss", $horse, $date, $left_front, $right_front, $left_hind, $right_hind, $status, $notes);
+  $stmt_insert->execute();
+
 
   // TODO: will need to be added to the shoeing protocol for horse's info in the database
   array_push($_SESSION['shoeing_protocols'], array("date" => $date));
   // Redirect to horse page
   header('Location: horse.php');
+  $conn->close();     // Close connection to the database
 }
 
 ?>
@@ -60,8 +72,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               <label for="status">Status</label>
               <select class="form-control" id="status" name="status" required>
                 <option value="">Select status</option>
-                <option value="0" <?php echo (isset($_POST['status']) && $_POST['status'] == '0') ? 'selected' : '' ?>>0</option>
-                <option value="1" <?php echo (isset($_POST['status']) && $_POST['status'] == '1') ? 'selected' : '' ?>>1</option>
+                <option value="0" <?php echo (isset($_POST['status']) && $_POST['status'] == '0') ? 'selected' : '' ?>>Past</option>
+                <option value="1" <?php echo (isset($_POST['status']) && $_POST['status'] == '1') ? 'selected' : '' ?>>Current</option>
               </select>
             </div>
             <div class="form-group">

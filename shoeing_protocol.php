@@ -2,11 +2,13 @@
 // Include functions
 require_once 'utility.php';
 require_once 'horse_functions.php';
+require_once 'update_database.php';
 
-// Unset session variable arrays
-// unset($_SESSION['shoeing_protocols']); // Temporary fix for session variables not unsetting
-// unset($_SESSION['shoeing_protocol']); // Temporary fix for session variables not unsetting
-
+// Need to connect to the database for data retrieval. The $conn object will be used to communicate with the SQL database
+$conn = new mysqli('sql.freedb.tech', 'freedb_Youssef', 'fp53R5UKVn*M@XW', 'freedb_Equiterra');
+if ($conn->connect_error) {
+  die("Connection failed: " . $conn->connect_error);
+}
 
 if (session_status() == PHP_SESSION_NONE) {
   session_start();
@@ -24,13 +26,8 @@ if (isset($_POST['save_status'])) {
     $error = "Please select a status!";
   } else {
     $_SESSION['shoeing_protocol']["status"] = $_POST['status'];
+    update_protocol_status($conn);
   }
-}
-
-// Need to connect to the database for data retrieval. The $conn object will be used to communicate with the SQL database
-$conn = new mysqli('sql.freedb.tech', 'freedb_Youssef', 'fp53R5UKVn*M@XW', 'freedb_Equiterra');
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
 }
 
 retrieve_shoeing_protocol_details($conn);
@@ -86,11 +83,17 @@ $conn->close();     // Close connection to the database
               if (isset($_POST['edit']) && $_POST['edit'] == 'status') {
                 echo "<form method='POST'><h3 class='returning__text'>Status: <select class='form-control edit' id='status' name='status' style='width: 200px; font-size: 18px;' value=" . $_SESSION['shoeing_protocol']["status"] . "required>
                     <option value=''>Select Status</option>
-                    <option value='0'>0</option>
-                    <option value='1'>1</option>
+                    <option value='0'>Past</option>
+                    <option value='1'>Current</option>
                   </select><input type='submit' name='save_status' value='Save' class='save-button'></h3></form>";
               } else {
-                echo "<h3 class='returning__text'>Status: " . $_SESSION['shoeing_protocol']["status"] . "<form method='POST' style='display:inline;'><input type='hidden' name='edit' value='status'><input type='submit' value='Edit' class='red-button'></form></h3>";
+                if ($_SESSION['shoeing_protocol']["status"] == 1){
+                  echo "<h3 class='returning__text'>Status: " . "Current" . "<form method='POST' style='display:inline;'><input type='hidden' name='edit' value='status'><input type='submit' value='Edit' class='red-button'></form></h3>";
+                }
+                else { // Past protocol
+                  echo "<h3 class='returning__text'>Status: " . "Past" . "<form method='POST' style='display:inline;'><input type='hidden' name='edit' value='status'><input type='submit' value='Edit' class='red-button'></form></h3>";
+                }
+                
               }
             } else {
               if ($_SESSION['shoeing_protocol']["status"] == 1){
@@ -99,7 +102,6 @@ $conn->close();     // Close connection to the database
               else { // Past protocol
                 echo "<h3 class='returning__text'>Status: " . "Past" . "</h3>";
               }
-              
             }
 
             echo "<h3 class='returning__text'>Notes: ";

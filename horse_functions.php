@@ -7,34 +7,42 @@ require_once 'utility.php';
 require_once 'client_functions.php';
 
 
+/**
+ * Retrieve shoeing protocol details for a specific horse on a given date and store them in the session.
+ *
+ * @param mysqli $conn - The MySQLi database connection object.
+ */
 function retrieve_shoeing_protocol_details($conn)
-{   
-    // Wiping any previous shoeing_protocols
-    unset($_SESSION['shoeing_protocol']); 
-    // Get the horse name from the session and sanitize it
-    $horse_name = $conn->real_escape_string($_SESSION['protocol_horse']);
-    // Prepare SQL procedure for retrieval of ALL horse details for a specific horse.
-    $stmt_horse = $conn->prepare("CALL GetShoeingProtocol(?,?)");
-    //$stmt_horse = $conn->prepare("SELECT * FROM Shoeing_Protocol WHERE Hname = ? AND Date = ?");
-    $stmt_horse->bind_param("ss", $horse_name, $_SESSION['protocol_date']);
-    debug_to_console($_SESSION['protocol_date']);
-    $stmt_horse->execute();
-    // Get the result set
-    $horse_result = $stmt_horse->get_result();
-    if ($tuple = $horse_result->fetch_assoc()) {
-        $_SESSION['shoeing_protocol']['horse_name'] = $tuple['Hname'];
-        $_SESSION['shoeing_protocol']['left_front'] = $tuple['Left_Front'];
-        $_SESSION['shoeing_protocol']['right_front'] = $tuple['Right_Front'];
-        $_SESSION['shoeing_protocol']['left_hind'] = $tuple['Left_Rear'];
-        $_SESSION['shoeing_protocol']['right_hind'] = $tuple['Right_Rear'];
-        $_SESSION['shoeing_protocol']['status'] = $tuple['Status'];
-        $_SESSION['shoeing_protocol']['notes'] = $tuple['Notes'];
-        $_SESSION['shoeing_protocol']['date'] = $tuple['Date'];
-        debug_to_console($tuple['Date']);
-        debug_to_console($tuple['Left_Front']);
+{
+    if (
+        isset($_SESSION['protocol_horse']) && !empty($_SESSION['protocol_horse'])
+        && isset($_SESSION['protocol_date']) && !empty($_SESSION['protocol_date'])
+    ) {
+        // Wiping any previous shoeing_protocols
+        unset($_SESSION['shoeing_protocol']);
+        // Get the horse name from the session and sanitize it
+        $horse_name = $conn->real_escape_string($_SESSION['protocol_horse']);
+        // Prepare SQL procedure for retrieval of ALL horse details for a specific horse.
+        $stmt_horse = $conn->prepare("CALL GetShoeingProtocol(?,?)");
+        //$stmt_horse = $conn->prepare("SELECT * FROM Shoeing_Protocol WHERE Hname = ? AND Date = ?");
+        $stmt_horse->bind_param("ss", $horse_name, $_SESSION['protocol_date']);
+        $stmt_horse->execute();
+        // Get the result set
+        $horse_result = $stmt_horse->get_result();
+        if ($tuple = $horse_result->fetch_assoc()) {
+            $_SESSION['shoeing_protocol']['horse_name'] = $tuple['Hname'];
+            $_SESSION['shoeing_protocol']['left_front'] = $tuple['Left_Front'];
+            $_SESSION['shoeing_protocol']['right_front'] = $tuple['Right_Front'];
+            $_SESSION['shoeing_protocol']['left_hind'] = $tuple['Left_Rear'];
+            $_SESSION['shoeing_protocol']['right_hind'] = $tuple['Right_Rear'];
+            $_SESSION['shoeing_protocol']['status'] = $tuple['Status'];
+            $_SESSION['shoeing_protocol']['notes'] = $tuple['Notes'];
+            $_SESSION['shoeing_protocol']['date'] = $tuple['Date'];
+            debug_to_console($tuple['Date']);
+            debug_to_console($tuple['Left_Front']);
+        }
     }
 }
-
 
 /**
  * Retrieves shoeing protocol dates for a specific horse and stores them in the session.
@@ -46,24 +54,26 @@ function retrieve_shoeing_protocol_details($conn)
  */
 function retrieve_shoeing_protocol_dates($conn)
 {
-    // Get the horse name from the session and sanitize it
-    $horse_name = $conn->real_escape_string($_SESSION['horse_name']);
-    // Prepare SQL procedure for retrieval of ALL Shoeing protocol dates for a specific horse.
-    $stmt_horse = $conn->prepare("CALL GetShoeingProtocolDates(?)");
-    $stmt_horse->bind_param("s", $horse_name);
-    $stmt_horse->execute();
-    // Get the result set
-    $protocol_result = $stmt_horse->get_result();
-    // Creating an array to store the protocol dates and horse name
-    $shoeing_protocols = [];
-    // Check if any invoices were retrieved
-    while ($tuple = $protocol_result->fetch_assoc()) {
-        $shoeing_protocols[] = [
-            "date" => $tuple["Date"],
-            "horse_name" => $tuple["Hname"]
-        ];
+    if (isset($_SESSION['horse_name']) && !empty($_SESSION['horse_name'])) {
+        // Get the horse name from the session and sanitize it
+        $horse_name = $conn->real_escape_string($_SESSION['horse_name']);
+        // Prepare SQL procedure for retrieval of ALL Shoeing protocol dates for a specific horse.
+        $stmt_horse = $conn->prepare("CALL GetShoeingProtocolDates(?)");
+        $stmt_horse->bind_param("s", $horse_name);
+        $stmt_horse->execute();
+        // Get the result set
+        $protocol_result = $stmt_horse->get_result();
+        // Creating an array to store the protocol dates and horse name
+        $shoeing_protocols = [];
+        // Check if any invoices were retrieved
+        while ($tuple = $protocol_result->fetch_assoc()) {
+            $shoeing_protocols[] = [
+                "date" => $tuple["Date"],
+                "horse_name" => $tuple["Hname"]
+            ];
+        }
+        $_SESSION['shoeing_protocols'] = $shoeing_protocols;
     }
-    $_SESSION['shoeing_protocols'] = $shoeing_protocols;
 }
 
 /**
@@ -76,25 +86,27 @@ function retrieve_shoeing_protocol_dates($conn)
  */
 function retrieve_horse_details($conn)
 {
-    // Get the horse name from the session and sanitize it
-    $horse_name = $conn->real_escape_string($_SESSION['horse_name']);
-    // Prepare SQL procedure for retrieval of ALL horse details for a specific horse.
-    $stmt_horse = $conn->prepare("CALL GetHorseDetails(?)");
-    $stmt_horse->bind_param("s", $horse_name);
-    $stmt_horse->execute();
-    // Get the result set
-    $horse_result = $stmt_horse->get_result();
-    while ($tuple = $horse_result->fetch_assoc()) {
-        $_SESSION['horse']['name'] = $tuple['Hname'];
-        $_SESSION['horse']['gender'] = $tuple['Gender'];
-        $_SESSION['horse']['discipline'] = $tuple['Discipline'];
-        $_SESSION['horse']['height'] = $tuple['Height'];
-        $_SESSION['horse']['birthdate'] = $tuple['Birthdate'];
-        $_SESSION['horse']['breed'] = $tuple['Breed'];
-        $_SESSION['horse']['conf_notes'] = $tuple['Conf_notes'];
-        $_SESSION['horse']['bname'] = $tuple['Bname'];
-        $_SESSION['horse']['owner'] = $tuple['Cname'];
-        $_SESSION['horse']['name'] = $tuple['Hname'];
-        $_SESSION['horse']['cusername'] = $tuple['Cusername'];
+    if (isset($_SESSION['horse_name']) && !empty($_SESSION['horse_name'])) {
+        // Get the horse name from the session and sanitize it
+        $horse_name = $conn->real_escape_string($_SESSION['horse_name']);
+        // Prepare SQL procedure for retrieval of ALL horse details for a specific horse.
+        $stmt_horse = $conn->prepare("CALL GetHorseDetails(?)");
+        $stmt_horse->bind_param("s", $horse_name);
+        $stmt_horse->execute();
+        // Get the result set
+        $horse_result = $stmt_horse->get_result();
+        while ($tuple = $horse_result->fetch_assoc()) {
+            $_SESSION['horse']['name'] = $tuple['Hname'];
+            $_SESSION['horse']['gender'] = $tuple['Gender'];
+            $_SESSION['horse']['discipline'] = $tuple['Discipline'];
+            $_SESSION['horse']['height'] = $tuple['Height'];
+            $_SESSION['horse']['birthdate'] = $tuple['Birthdate'];
+            $_SESSION['horse']['breed'] = $tuple['Breed'];
+            $_SESSION['horse']['conf_notes'] = $tuple['Conf_notes'];
+            $_SESSION['horse']['bname'] = $tuple['Bname'];
+            $_SESSION['horse']['owner'] = $tuple['Cname'];
+            $_SESSION['horse']['name'] = $tuple['Hname'];
+            $_SESSION['horse']['cusername'] = $tuple['Cusername'];
+        }
     }
 }
