@@ -1,7 +1,17 @@
 <?php
+
 // Start the session
 if (session_status() == PHP_SESSION_NONE) {
   session_start();
+}
+
+// Include functions
+require_once 'client_functions.php';
+
+// Need to connect to the database for data retrieval. The $conn object will be used to communicate with the SQL database
+$conn = new mysqli('sql.freedb.tech', 'freedb_Youssef', 'fp53R5UKVn*M@XW', 'freedb_Equiterra');
+if ($conn->connect_error) {
+  die("Connection failed: " . $conn->connect_error);
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -12,23 +22,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $phone_number = $_POST["phone_number"];
   $password = $_POST["password"];
   $confirm_password = $_POST["confirm_password"];
+  
+  // debug_to_console($username);
+  // $client_name = retrieve_client_name($conn, $username);
+  // debug_to_console($client_name['Cname']);
 
   if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     $error = "Invalid email format!";
   } elseif (!preg_match("/^\(\d{3}\) \d{3}-\d{4}$/", $phone_number)) {
     $error = "Invalid phone number! Proper format: (123) 456-7890";
-  } elseif ($password !== $confirm_password) {
+  } elseif ($password != $confirm_password) {
     $error = "Passwords do not match!";
+  } elseif (!retrieve_client_name($conn, $username)) { // This function will only return a name if the user ALREADY exists in the database
+    $error = "A user with these credentials already exists. Please contact the administrator for further assistance.";
   } else {
     // TODO: will need to be added to the user's info from the database
-    $_SESSION['username'] = $username;
-    $_SESSION['name'] = $name;
-    $_SESSION['user_type'] = $user_type;
-    $_SESSION['email'] = $email;
-    $_SESSION['phone_number'] = $phone_number;
-    $_SESSION['password'] = $password;
+    // $_SESSION['username'] = $username;
+    // $_SESSION['name'] = $name;
+    // $_SESSION['user_type'] = $user_type;
+    // $_SESSION['email'] = $email;
+    // $_SESSION['phone_number'] = $phone_number;
+    // $_SESSION['password'] = $password;
 
-    array_push($_SESSION['customers'], $username);
+    //array_push($_SESSION['customers'], $username);
 
     // Redirect to home page
     if ($user_type == 'Admin') {
@@ -38,6 +54,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
   }
 }
+
+$conn->close();
 ?>
 <html>
 <!-- Rest of your HTML code -->

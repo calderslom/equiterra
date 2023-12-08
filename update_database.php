@@ -112,7 +112,7 @@ function update_email($conn)
         $stmt_user->bind_param("ss", $email, $username);
         $stmt_user->execute();
     } else {
-        debug_to_console("Cannot update phone number.");
+        debug_to_console("Cannot update email.");
     }
     // Must update Client Table if user is a Client
     if (isset($_SESSION['user_type']) && !empty($_SESSION['user_type'])) {
@@ -150,18 +150,18 @@ function update_password($conn)
         $stmt_user->bind_param("ss", $password, $username);
         $stmt_user->execute();
     } else {
-        debug_to_console("Cannot update phone number.");
+        debug_to_console("Cannot update password.");
     }
-    // Must update Client Table if user is a Client
-    if (isset($_SESSION['user_type']) && !empty($_SESSION['user_type'])) {
-        if ($_SESSION['user_type'] == "Client") {
-            // Get the username from the session and sanitize it
-            $username = $conn->real_escape_string($_SESSION['username']);
-            $password = $conn->real_escape_string($_SESSION['password']);
-            // Prepare SQL statement for Invoice retrieval by client name
-            $stmt_user = $conn->prepare("UPDATE Client SET Cpassword = ? WHERE Cusername = ?;");
-            $stmt_user->bind_param("ss", $password, $username);
-            $stmt_user->execute();
-        }
-    }
+    // // Must update Client Table if user is a Client
+    // if (isset($_SESSION['user_type']) && !empty($_SESSION['user_type'])) {
+    //     if ($_SESSION['user_type'] == "Client") {
+    //         // Get the username from the session and sanitize it
+    //         $username = $conn->real_escape_string($_SESSION['username']);
+    //         $password = $conn->real_escape_string($_SESSION['password']);
+    //         // Prepare SQL statement for Invoice retrieval by client name
+    //         $stmt_user = $conn->prepare("UPDATE Client SET Cpassword = ? WHERE Cusername = ?;");
+    //         $stmt_user->bind_param("ss", $password, $username);
+    //         $stmt_user->execute();
+    //     }
+    // }
 }

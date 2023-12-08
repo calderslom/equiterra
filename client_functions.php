@@ -21,8 +21,16 @@ function retrieve_client_name($conn, $Cusername)
     $stmtClient = $conn->prepare("SELECT Cname FROM Client WHERE Cusername = ?");
     $stmtClient->bind_param("s", $Cusername);
     $stmtClient->execute();
-    $clientNameResult = $stmtClient->get_result();
-    return $clientNameResult;
+    $client_name_result = $stmtClient->get_result();
+    // Check if the clientNameResult was successful
+    if ($client_name_result) {
+    // Get and return the Client Tuple returned by the SQL Query
+        $result = $client_name_result->fetch_assoc();
+        debug_to_console($result['Cname']);
+        return $result;
+    }
+    // Return false if database retrieval is not succesful.
+    return false;   
 }
 
 /**
