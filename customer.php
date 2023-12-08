@@ -93,7 +93,7 @@ $conn->close();     // Close connection to the database
       <div class="onboarding-overlay-outer">
         <?php include 'navbar.php'; ?>
         <div class="onboarding-overlay-inner info">
-          <h1 class="returning__header">Customer Info</h1>
+          <h1 class="returning__header">Client Information</h1>
           <?php
           // TODO: must be changed to the customer's info from the database (using their username)
           if (isset($_SESSION['customer'])) {

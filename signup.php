@@ -51,8 +51,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="onboarding-overlay-inner returning">
           <?php
           if (isset($_SESSION['user_type']) && $_SESSION['user_type'] == 'Admin') {
-            echo "<a href='customers.php'><button class='back-button'>< Customers</button></a><br>";
-            echo"<h1 class='returning__header'>Add Customer</h1>";
+            echo "<a href='customers.php'><button class='back-button'>< Clients</button></a><br>";
+            echo"<h1 class='returning__header'>Add Client</h1>";
           } else {
             echo"<img class='returning__image' src='images/logo.gif' alt='Horse logo'>";
             echo"<h1 class='returning__header'>Sign up to Equiterra</h1>";
