@@ -105,7 +105,11 @@ $conn->close();     // Close connection to the database
             }
             echo "</table>";
           } else {
-            echo "<div class='returning__header'>No horses in database <a href='add_horse.php'><button class='add-button'>Add Horse +</button></a></div>";
+            if ($_SESSION['user_type'] == "Admin") {
+              echo "<div class='returning__header'>No horses in database <a href='add_horse.php'><button class='add-button'>Add Horse +</button></a></div>";
+            } else {
+              echo "<div class='returning__header'>No horses in database</div>";
+            }
           }
           ?>
         </div>
