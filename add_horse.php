@@ -1,4 +1,10 @@
 <?php
+// Need to connect to the database for data retrieval. The $conn object will be used to communicate with the SQL database
+$conn = new mysqli('sql.freedb.tech', 'freedb_Youssef', 'fp53R5UKVn*M@XW', 'freedb_Equiterra');
+if ($conn->connect_error) {
+  die("Connection failed: " . $conn->connect_error);
+}
+
 if (session_status() == PHP_SESSION_NONE) {
   session_start();
 }
@@ -13,11 +19,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $conf_notes = $_POST["conf_notes"];
   $owner = $_POST["owner"];
   $barn = $_POST["barn"];
+  $stmt_insert = $conn->prepare("CALL AddHorse(?,?,?,?,?,?,?,?,?,?)");
+  // Bind parameters and execute the SQL statement
+  $stmt_insert->bind_param("ssssssssss", $horse_name, $gender, $discipline, $height, $birthdate, $breed, $conf_notes, $barn, $owner, "1");
+  $stmt_insert->execute();
 
-  // TODO: will need to be added to the horse's info from the database
+
   array_push($_SESSION['horses'], $horse_name);
   // Redirect to home page
   header('Location: horses.php');
+  $conn->close();     
 }
 
 ?>
