@@ -5,6 +5,7 @@ if (session_status() == PHP_SESSION_NONE) {
 // Include functions
 require_once 'utility.php';
 
+
 /**
  * Retrieves all barn names from the Barn table and stores them in the session.
  * Barn names are themselves the primary key in the Barn SQL table.
@@ -89,3 +90,5 @@ function retrieve_barn_horses($conn)
         $_SESSION['barn_horses'][$tuple['Hname']] = $tuple['Cname'];
     }
 }
+
+?>

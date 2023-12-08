@@ -58,7 +58,7 @@ $conn->close();     // Close connection to the database
       <div class="onboarding-overlay-outer">
         <?php include 'navbar.php'; ?>
         <div class="onboarding-overlay-inner info">
-          <h1 class="returning__header">Barn Info</h1>
+          <h1 class="returning__header">Barn Information</h1>
           <?php
           // TODO: must be changed to the barn's info from the database (using their username)
           if (isset($_SESSION['barn'])) {

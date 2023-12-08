@@ -117,7 +117,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               <input type="text" class="form-control" id="discipline" name="discipline" value="<?php echo isset($_POST['discipline']) ? $_POST['discipline'] : '' ?>" required />
             </div>
             <div class="form-group">
-              <label for="conf_notes">Confirmation Notes</label>
+              <label for="conf_notes">Conformation Notes</label>
               <textarea class="form-control" id="conf_notes" name="conf_notes" rows="4"><?php echo isset($_POST['conf_notes']) ? $_POST['conf_notes'] : '' ?></textarea>
             </div>
             <?php
@@ -126,7 +126,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
             ?>
             <button class="onboarding-form__btn returning__btn" type="submit">Add Horse</button>
-            <label class="signup"> *If the horse owner (customer) or barn does not exist yet, you might need to add them first.</label>
+            <label class="signup"> *If the horse owner (client) or barn does not already exist, you will need to add them first.</label>
           </form>
         </div>
         <p class="overlay-copyright">&copy;2023 Omar, Aidan, Youssef</p>

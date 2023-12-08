@@ -2,6 +2,11 @@
 if (session_status() == PHP_SESSION_NONE) {
   session_start();
 }
+// Need to connect to the database for data retrieval. The $conn object will be used to communicate with the SQL database
+$conn = new mysqli('sql.freedb.tech', 'freedb_Youssef', 'fp53R5UKVn*M@XW', 'freedb_Equiterra');
+if ($conn->connect_error) {
+  die("Connection failed: " . $conn->connect_error);
+}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $barn_name = $_POST["barn_name"];
@@ -12,17 +17,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $street_name = $_POST["street_name"];
   $city = $_POST["city"];
   $province = $_POST["province"];
+  $postal_code = $_POST["postal_code"];;
 
   // TODO: will need to be added to the horse's info from the database
   if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     $error = "Invalid email format!";
-  } elseif (!preg_match("/^[0-9]{10}$/", $phone_number)) {
-    $error = "Invalid phone number format! Format: 1234567890";
+  } elseif (!preg_match("/^\(\d{3}\) \d{3}-\d{4}$/", $phone_number)) {
+    $error = "Invalid phone number!\n Proper format: (123) 456-7890";
   } else {
     array_push($_SESSION['barns'], $barn_name);
+    $stmt_insert = $conn->prepare("CALL AddBarn(?,?,?,?,?,?,?,?,?)");
+    // Bind parameters and execute the SQL statement
+    $stmt_insert->bind_param("sssssssss", $barn_name, $contact, $email, $phone_number, $street_number, $street_name, $city, $province, $postal_code);
+    $stmt_insert->execute();
     // Redirect to home page
     header('Location: barns.php');
   }
+  
+$conn->close();
 }
 
 ?>
@@ -38,7 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="onboarding-overlay-inner returning">
           <a href='barns.php'><button class='back-button'>< Barns</button></a>
           <br>
-          <h1 class="returning__header">Add barn</h1>
+          <h1 class="returning__header">Add Barn</h1>
           <form class="signin" method="post">
             <div class="form-group">
               <label for="barn_name">Barn Name</label>
@@ -71,6 +83,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="form-group">
               <label for="province">Province</label>
               <Input type="text" class="form-control" id="province" name="province" value="<?php echo isset($_POST['province']) ? $_POST['province'] : '' ?>" required />
+            </div>
+            <div class="form-group">
+              <label for="postal_code">Postal Code</label>
+              <Input type="text" class="form-control" id="postal_code" name="postal_code" value="<?php echo isset($_POST['postal_code']) ? $_POST['postal_code'] : '' ?>" required />
             </div>
             <?php
             if (isset($error)) {

@@ -36,8 +36,8 @@ if (isset($_POST['save_email'])) {
   }
 }
 if (isset($_POST['save_phone_number'])) {
-  if (!preg_match("/^[0-9]{10}$/", $_POST['phone_number'])) {
-    $error = "Invalid phone number format! Format: 1234567890";
+  if (!preg_match("/^\(\d{3}\) \d{3}-\d{4}$/", $_POST['phone_number'])) {
+    $error = "Invalid phone number! Proper format: (123) 456-7890";
   } else {
     $_SESSION['phone_number'] = $_POST['phone_number'];
     update_phone_number($conn);

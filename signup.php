@@ -15,8 +15,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     $error = "Invalid email format!";
-  } elseif (!preg_match("/^[0-9]{10}$/", $phone_number)) {
-    $error = "Invalid phone number format! Format: 1234567890";
+  } elseif (!preg_match("/^\(\d{3}\) \d{3}-\d{4}$/", $phone_number)) {
+    $error = "Invalid phone number! Proper format: (123) 456-7890";
   } elseif ($password !== $confirm_password) {
     $error = "Passwords do not match!";
   } else {

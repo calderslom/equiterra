@@ -7,6 +7,14 @@ if (session_status() == PHP_SESSION_NONE) {
 require_once 'utility.php';
 
 
+/**
+ * Retrieves the client name based on the provided client username.
+ *
+ * @param mysqli $conn - The MySQLi database connection object.
+ * @param string $Cusername - The client's username for whom to retrieve the name.
+ *
+ * @return mysqli_result|bool - The result set containing the client name, or false on failure.
+ */
 function retrieve_client_name($conn, $Cusername)
 {
     // Prepare SQL statement for Client name retrieval
