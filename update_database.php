@@ -36,9 +36,13 @@ function update_conformation_notes($conn)
         $conf_notes = $conn->real_escape_string($_SESSION['horse']['conf_notes']);
         $horse_name = $conn->real_escape_string($_SESSION['horse']['name']);
 
+        //Convert newline characters to HTML line breaks
+        //$conf_notes = nl2br($conf_notes);
+        
         // Remove newline, carriage return symbols, and escape characters from the conformation notes
         $conf_notes = trim($conf_notes);
         $conf_notes = stripslashes($conf_notes);
+
 
         // Prepare SQL statement for updating conformation notes by horse name
         $stmt_admin = $conn->prepare("CALL UpdateConformationNotes(?, ?)");

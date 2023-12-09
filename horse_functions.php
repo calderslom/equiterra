@@ -103,7 +103,7 @@ function retrieve_horse_details($conn)
             $_SESSION['horse']['birthdate'] = $tuple['Birthdate'];
             $_SESSION['horse']['breed'] = $tuple['Breed'];
             $_SESSION['horse']['conf_notes'] = $tuple['Conf_notes'];
-            $_SESSION['horse']['bname'] = $tuple['Bname'];
+            $_SESSION['horse']['barn'] = $tuple['Bname'];
             $_SESSION['horse']['owner'] = $tuple['Cname'];
             $_SESSION['horse']['name'] = $tuple['Hname'];
             $_SESSION['horse']['cusername'] = $tuple['Cusername'];
