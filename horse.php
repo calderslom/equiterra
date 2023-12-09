@@ -88,7 +88,7 @@ $conn->close();     // Close connection to the database
             echo "<div class='left-column'>";
             echo "<h3 class='returning__text'>Name: " . $_SESSION['horse']['name'] . "</h3>";
             echo "<h3 class='returning__text'>Owner: " . $_SESSION['horse']['owner'] . "</h3>";
-            echo "<h3 class='returning__text'>Barn: " . $_SESSION['horse']['bname'] . "</h3>";
+            echo "<h3 class='returning__text'>Barn: " . $_SESSION['horse']['barn'] . "</h3>";
             echo "<h3 class='returning__text'>Breed: " . $_SESSION['horse']['breed'] . "</h3>";
             if ($_SESSION['user_type'] == "Admin") {
               if (isset($_POST['edit']) && $_POST['edit'] == 'conf_notes') {
