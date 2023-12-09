@@ -27,8 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $owner = trim($_POST["owner"]);
   $barn = $_POST["barn"];
   $status = 1;
-  debug_to_console($owner);
-  debug_to_console($gender);
+
   $stmt_insert = $conn->prepare("CALL AddHorse(?,?,?,?,?,?,?,?,?,?)");
   // Bind parameters and execute the SQL statement
   $stmt_insert->bind_param("sssssssssi", $horse_name, $gender, $discipline, $height, $birthdate, $breed, $conf_notes, $barn, $owner, $status);

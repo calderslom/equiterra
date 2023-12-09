@@ -1,53 +1,55 @@
 <?php
 // Start the session
-if (session_status() == PHP_SESSION_NONE) {
+if (session_status() != PHP_SESSION_NONE) {
+  // Unset all of the session variables
+  session_unset();
+  // Destroy the session
+  session_destroy();
+} else {
   session_start();
 }
 
+// Include functions
+require_once 'client_functions.php';
+require_once 'retrieval_functions.php';
+
+
+// Need to connect to the database for data retrieval. The $conn object will be used to communicate with the SQL database
+$conn = new mysqli('sql.freedb.tech', 'freedb_Youssef', 'fp53R5UKVn*M@XW', 'freedb_Equiterra');
+if ($conn->connect_error) {
+  die("Connection failed: " . $conn->connect_error);
+}
+
 // $_SESSION['horses'] = array("Spirit" => "spongebob.squarepants", "Captain" => "squidward.tentacles", "Rain" => "mr.crabs");
-$_SESSION['horse'] = array("name" => "Spirit", "gender" => "Male", "height" => "15", "birthdate" => "2020-01-01", "breed" => "Arabian", "discipline" => "Dressage", "owner" => "spongebob.squarepants", "barn" => "Big Barn", "conf_notes" => "A paragraph is a series of sentences that are organized and coherent, and are all related to a single topic. Almost every piece of writing you do that is longer than a few sentences should be organized into paragraphs. A paragraph is a series of sentences that are organized and coherent, and are all related to a single topic. Almost every piece of writing you do that is longer than a few sentences should be organized into paragraphs. A paragraph is a series of sentences that are organized and coherent, and are all related to a single topic. Almost every piece of writing you do that is longer than a few sentences should be organized into paragraphs. A paragraph is a series of sentences that are organized and coherent, and are all related to a single topic. Almost every piece of writing you do that is longer than a few sentences should be organized into paragraphs.");
-$_SESSION['barns'] = array("Big Barn", "Bombastic Barn", "Baby Barn");
-$_SESSION['customers'] = array("mr.crabs", "squidward.tentacles", "spongebob.squarepants");
-$_SESSION['invoices'] = array(array("number" => "1", "customer" => "mr.crabs", "horse" => "Spirit", "status" => "Paid", "price" => "100", "date" => "2020-01-01", "farrier" => "mr.crabs"), array("number" => "2", "customer" => "mr.crabs", "horse" => "Captain", "status" => "Unpaid", "price" => "200", "date" => "2020-02-02", "farrier" => "mr.crabs"), array("number" => "3", "customer" => "squidward.tentacles", "horse" => "Rain", "status" => "Paid", "price" => "300", "date" => "2020-03-03", "farrier" => "mr.crabs"));
-$_SESSION['invoice_services'] = array("checkup", "shoeing", "trimming");
-$_SESSION['customer'] = array("name" => "SpongeBob Squarepants", "username" => "spongebob.squarepants", "email" => "sponge@gmail.com", "phone_number" => "9021234567");
-$_SESSION['barn'] = array("name" => "Big Barn", "contact" => "John Doe", "email" => "barn@gmail.com", "phone_number" => "9021234567", "street_number" => "123", "street_name" => "Main Street", "city" => "Halifax", "province" => "NS", "postal_code" => "B3H 3H3");
-$_SESSION['dummy_horses'] = array("Spirit" => "Spongebob Squarepants", "Captain" => "Squidward Tentacles", "Rain" => "Mr. Crabs");
+// $_SESSION['horse'] = array("name" => "Spirit", "gender" => "Male", "height" => "15", "birthdate" => "2020-01-01", "breed" => "Arabian", "discipline" => "Dressage", "owner" => "spongebob.squarepants", "barn" => "Big Barn", "conf_notes" => "A paragraph is a series of sentences that are organized and coherent, and are all related to a single topic. Almost every piece of writing you do that is longer than a few sentences should be organized into paragraphs. A paragraph is a series of sentences that are organized and coherent, and are all related to a single topic. Almost every piece of writing you do that is longer than a few sentences should be organized into paragraphs. A paragraph is a series of sentences that are organized and coherent, and are all related to a single topic. Almost every piece of writing you do that is longer than a few sentences should be organized into paragraphs. A paragraph is a series of sentences that are organized and coherent, and are all related to a single topic. Almost every piece of writing you do that is longer than a few sentences should be organized into paragraphs.");
+// $_SESSION['barns'] = array("Big Barn", "Bombastic Barn", "Baby Barn");
+// $_SESSION['customers'] = array("mr.crabs", "squidward.tentacles", "spongebob.squarepants");
+// $_SESSION['invoices'] = array(array("number" => "1", "customer" => "mr.crabs", "horse" => "Spirit", "status" => "Paid", "price" => "100", "date" => "2020-01-01", "farrier" => "mr.crabs"), array("number" => "2", "customer" => "mr.crabs", "horse" => "Captain", "status" => "Unpaid", "price" => "200", "date" => "2020-02-02", "farrier" => "mr.crabs"), array("number" => "3", "customer" => "squidward.tentacles", "horse" => "Rain", "status" => "Paid", "price" => "300", "date" => "2020-03-03", "farrier" => "mr.crabs"));
+// $_SESSION['invoice_services'] = array("checkup", "shoeing", "trimming");
+// $_SESSION['customer'] = array("name" => "SpongeBob Squarepants", "username" => "spongebob.squarepants", "email" => "sponge@gmail.com", "phone_number" => "9021234567");
+// $_SESSION['barn'] = array("name" => "Big Barn", "contact" => "John Doe", "email" => "barn@gmail.com", "phone_number" => "9021234567", "street_number" => "123", "street_name" => "Main Street", "city" => "Halifax", "province" => "NS", "postal_code" => "B3H 3H3");
+// $_SESSION['dummy_horses'] = array("Spirit" => "Spongebob Squarepants", "Captain" => "Squidward Tentacles", "Rain" => "Mr. Crabs");
 
 $_SESSION['images'] = array("https://images.rawpixel.com/image_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvZnJob3JzZV9nYWxsb3BfY2FudGVyX21hcmUtaW1hZ2Utcm01MDNfMS1sMDd0dW5iZy5qcGc.jpg", "https://thegraphicsfairy.com/wp-content/uploads/2022/02/Horse-Facebook.jpg", "https://i.pinimg.com/originals/12/1e/66/121e6645ef7bd81c4045affa9554e7f9.jpg", "https://i.pinimg.com/736x/ae/db/24/aedb24e05d051df2b9d74f2b9dc76556.jpg", "https://cowgirlmagazine.com/wp-content/uploads/2019/05/Memes.jpg");
+
 // Assuming you have a form with 'email_or_username' and 'password' fields
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $email_or_username = $_POST['email_or_username'];
   $password = $_POST['password'];
 
-  // Connect to your database
-  $conn = new mysqli('sql.freedb.tech', 'freedb_Youssef', 'fp53R5UKVn*M@XW', 'freedb_Equiterra');
-
-  if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-  } 
-
   //Query the database to find the user
-  $sql = "SELECT * FROM Web_user WHERE Username = ? AND Password = ?";
-  $stmt = $conn->prepare($sql);
-  $stmt->bind_param('ss', $email_or_username, $password);
-  $stmt->execute();
-  $result = $stmt->get_result();
+  $user = retrieve_user_login($conn, $email_or_username, $password);
 
-
-  if ($result->num_rows > 0) {
-    // User found, set session variables
-    $user = $result->fetch_assoc();
+  // This is simply a second (likely redundant) layer of error checking after the method above.
+  if ($user['Username'] == $email_or_username || $user['Email'] == $email_or_username) {
     $_SESSION['username'] = $user['Username'];
     $_SESSION['user_type'] = $user['User_type'];
-
-
     // Redirect to home page
     header('Location: home.php');
     exit();
   } else {
     // User not found, display error message
-    $error = "Invalid username or password!";
+    $error = "Invalid username or password.";
   }
 
   $conn->close();

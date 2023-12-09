@@ -7,6 +7,7 @@ if (session_status() == PHP_SESSION_NONE) {
 
 // Include functions
 require_once 'client_functions.php';
+require_once 'retrieval_functions.php';
 
 // Need to connect to the database for data retrieval. The $conn object will be used to communicate with the SQL database
 $conn = new mysqli('sql.freedb.tech', 'freedb_Youssef', 'fp53R5UKVn*M@XW', 'freedb_Equiterra');
@@ -22,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $phone_number = $_POST["phone_number"];
   $password = $_POST["password"];
   $confirm_password = $_POST["confirm_password"];
-  
+
   // debug_to_console($username);
   // $client_name = retrieve_client_name($conn, $username);
   // debug_to_console($client_name['Cname']);
@@ -33,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $error = "Invalid phone number! Proper format: (123) 456-7890";
   } elseif ($password != $confirm_password) {
     $error = "Passwords do not match!";
-  } elseif (!retrieve_client_name($conn, $username)) { // This function will only return a name if the user ALREADY exists in the database
+  } elseif (check_user_exists($conn, $username, $email)) { // This function will only return a name if the user ALREADY exists in the database
     $error = "A user with these credentials already exists. Please contact the administrator for further assistance.";
   } else {
     // TODO: will need to be added to the user's info from the database
@@ -43,6 +44,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // $_SESSION['email'] = $email;
     // $_SESSION['phone_number'] = $phone_number;
     // $_SESSION['password'] = $password;
+
+    $stmt_insert = $conn->prepare("CALL AddWebUser(?,?,?,?,?)");
+    // Bind parameters and execute the SQL statement
+    $stmt_insert->bind_param("sssss", $username, $password, $name, $email, $phone_number);
+    $stmt_insert->execute();
 
     //array_push($_SESSION['customers'], $username);
 
@@ -60,9 +66,12 @@ $conn->close();
 <html>
 <!-- Rest of your HTML code -->
 <html>
+
+<head>
+  <link rel="stylesheet" href="style.css">
+
   <head>
-    <link rel="stylesheet" href="style.css">
-  <head>
+
   <body>
     <div class="onboarding-overlay">
       <div class="onboarding-overlay-outer">
@@ -70,10 +79,10 @@ $conn->close();
           <?php
           if (isset($_SESSION['user_type']) && $_SESSION['user_type'] == 'Admin') {
             echo "<a href='customers.php'><button class='back-button'>< Clients</button></a><br>";
-            echo"<h1 class='returning__header'>Add Client</h1>";
+            echo "<h1 class='returning__header'>Add Client</h1>";
           } else {
-            echo"<img class='returning__image' src='images/logo.gif' alt='Horse logo'>";
-            echo"<h1 class='returning__header'>Sign up to Equiterra</h1>";
+            echo "<img class='returning__image' src='images/logo.gif' alt='Horse logo'>";
+            echo "<h1 class='returning__header'>Sign up to Equiterra</h1>";
           }
           ?>
           <form class="signin" method="post">
@@ -120,4 +129,5 @@ $conn->close();
       </div>
     </div>
   </body>
+
 </html>
