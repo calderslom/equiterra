@@ -53,7 +53,7 @@ $conn->close();     // Close connection to the database
           // TODO: must be changed to the barns info from the database (using their username)
             if (isset($_SESSION['clients']) && count($_SESSION['clients']) > 0) {
               echo "<div class='action-bar'>";
-              echo "<div class='search-container'><input class='search-table' type='text' id='searchInput' onkeyup='searchTable()' placeholder='Search invoices..'></div>";
+              echo "<div class='search-container'><input class='search-table' type='text' id='searchInput' onkeyup='searchTable()' placeholder='Search customers..'></div>";
               if ($_SESSION['user_type'] == "Admin") {
                 echo "<a href='signup.php'><button class='add-button'>Add Client +</button></a>";
               }
