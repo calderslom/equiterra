@@ -100,15 +100,15 @@ $conn->close();     // Close connection to the database
                 echo "<h3 class='returning__text'>Confirmation Notes: ";
                 echo "<button class='expand-arrow' onclick='expandNotes()'>▼</button>";
                 echo "<form method='POST' style='display:inline;'><input type='hidden' name='edit' value='conf_notes'><input type='submit' value='Edit' class='conf-button'></form>";
-                echo "<div class='conf-notes-short'>" . substr($_SESSION['horse']['conf_notes'], 0, 50) . "</div>";
-                echo "<div class='conf-notes-full' style='display: none;'>" . $_SESSION['horse']['conf_notes'] . "</div>";
+                echo "<div class='conf-notes-short'>" . substr(nl2br($_SESSION['horse']['conf_notes']), 0, 50) . "</div>";
+                echo "<div class='conf-notes-full' style='display: none;'>" . nl2br($_SESSION['horse']['conf_notes']) . "</div>";
                 echo "</h3>";
               }
             } else {
               echo "<h3 class='returning__text'>Conformation Notes: ";
               echo "<button class='expand-arrow' onclick='expandNotes()'>▼</button>";
-              echo "<div class='conf-notes-short'>" . substr($_SESSION['horse']['conf_notes'], 0, 50) . "</div>";
-              echo "<div class='conf-notes-full' style='display: none;'>" . $_SESSION['horse']['conf_notes'] . "</div>";
+              echo "<div class='conf-notes-short'>" . substr(nl2br($_SESSION['horse']['conf_notes']), 0, 50) . "</div>";
+              echo "<div class='conf-notes-full' style='display: none;'>" . nl2br($_SESSION['horse']['conf_notes']) . "</div>";
               echo "</h3>";
             }
             echo "</div>";

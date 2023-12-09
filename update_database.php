@@ -33,8 +33,8 @@ function update_conformation_notes($conn)
     // Check if horse name is set and not empty in the session
     if (isset($_SESSION['horse']['name']) && !empty($_SESSION['horse']['name'])) {
         // Get the conformation notes and horse name from the session and sanitize them
-        $conf_notes = $conn->real_escape_string($_SESSION['horse']['conf_notes']);
-        $horse_name = $conn->real_escape_string($_SESSION['horse']['name']);
+        $conf_notes = $_SESSION['horse']['conf_notes'];
+        $horse_name = $_SESSION['horse']['name'];
 
         //Convert newline characters to HTML line breaks
         //$conf_notes = nl2br($conf_notes);
