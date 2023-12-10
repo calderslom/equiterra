@@ -75,6 +75,7 @@ $conn->close();     // Close connection to the database
             echo "<h3 class='returning__text'>Phone Number: " . $_SESSION['barn']['phone_number'] . "</h3>";
             echo "<h3 class='returning__text'>Street Name: " . $_SESSION['barn']['street_name'] . "</h3>";
             echo "<h3 class='returning__text'>Province: " . $_SESSION['barn']['province'] . "</h3>";
+            echo "<h3 class='returning__text'>Number of Clients: " . $_SESSION['barn']['num_clients'] . "</h3>";
             echo "</div>";
             echo "</div>";
           }

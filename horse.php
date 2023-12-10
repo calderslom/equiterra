@@ -132,7 +132,7 @@ $conn->close();     // Close connection to the database
             echo "<div class='action-bar'>";
             echo "<div class='search-container'><input class='search-table' type='text' id='searchInput' onkeyup='searchTable()' placeholder='Search shoeing protocols..'></div>";
             if ($_SESSION['user_type'] == "Admin") {
-              echo "<a href='add_shoeing_protocol.php?horse_name=" . urlencode($_SESSION['horse_name']) . "'><button class='add-button'>Add Shoeing Protocol +</button></a>";
+              echo "<a href='add_shoeing_protocol.php'><button class='add-button'>Add Shoeing Protocol +</button></a>";
             }
             echo "</div>";
             echo "<table class='horse-table'>";
@@ -155,6 +155,37 @@ $conn->close();     // Close connection to the database
               echo "<div class='returning__header'>No shoeing protocols in database <a href='add_shoeing_protocol.php'><button class='add-button'>Add Shoeing Protocol +</button></a></div>";
             } else {
               echo "<div class='returning__header'>No shoeing protocols in database</div>";
+            }
+          }
+          ?>
+        </div>
+        <div class="onboarding-overlay-inner table">
+          <h1 class="returning__header">Analysis</h1>
+          <?php
+          if (isset($_SESSION['analysis']) && count($_SESSION['analysis']) > 0) {
+            echo "<div class='action-bar'>";
+            echo "<div class='search-container'><input class='search-table' type='text' id='searchInput' onkeyup='searchTable()' placeholder='Search analysis..'></div>";
+            if ($_SESSION['user_type'] == "Admin") {
+              echo "<a href='add_analysis.php'><button class='add-button'>Add Analysis +</button></a>";
+            }
+            echo "</div>";
+            echo "<table class='horse-table'>";
+            echo "<tr><th>Date</th><th>Type</th><th>Action</th></tr>";
+            // Output data of each row
+            foreach ($_SESSION['analysis'] as $analysis) {
+              echo "<tr>";
+              echo "<td>" . $analysis['date'] . "</td>";
+              echo "<td>" . $analysis['type'] . "</td>";
+              echo "<td><a href='anylysis.php?analysis_date=" . urlencode($analysis['date']) . "&analysis_type=" . urlencode($analysis['type']) . "&analysis_horse=" . urlencode($analysis['horse_name']) . "'><button class='table-button'>View</button></a></td>";
+              
+              echo "</tr>";
+            }
+            echo "</table>";
+          } else {
+            if ($_SESSION['user_type'] == "Admin") {
+              echo "<div class='returning__header'>No analysis in database <a href='add_analysis.php'><button class='add-button'>Add Analysis +</button></a></div>";
+            } else {
+              echo "<div class='returning__header'>No analysis protocols in database</div>";
             }
           }
           ?>
