@@ -8,6 +8,39 @@ require_once 'client_functions.php';
 
 
 /**
+ * Retrieves horse images from the database and stores them in the session.
+ *
+ * @param mysqli $conn - The MySQLi database connection object.
+ */
+function retrieve_horse_images($conn)
+{
+    if (isset($_SESSION['horse_name']) && !empty($_SESSION['horse_name'])) {
+        // Get the horse name from the session and sanitize it
+        $horse_name = $conn->real_escape_string($_SESSION['horse_name']);
+        debug_to_console($horse_name);
+        // Prepare SQL procedure for retrieval of horse images
+        $stmt_images = $conn->prepare("CALL GetHorseImages(?)");
+        $stmt_images->bind_param("s", $horse_name);
+        $stmt_images->execute();
+
+        // Get the result set
+        $images_result = $stmt_images->get_result();
+
+        // Creating an array to store the image URLs
+        $horse_images = [];
+
+        // Check if any images were retrieved
+        while ($image = $images_result->fetch_assoc()) {
+            debug_to_console($image['Image_path']);
+            $horse_images[] = $image['Image_path'];
+        }
+
+        // Store the image URLs in the session variable
+        $_SESSION['images'] = $horse_images;
+    }
+}
+
+/**
  * Retrieve shoeing protocol details for a specific horse on a given date and store them in the session.
  *
  * @param mysqli $conn - The MySQLi database connection object.

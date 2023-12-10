@@ -1,10 +1,26 @@
 <?php
+
+// Include functions
+require_once 'utility.php';
+require_once 'horse_functions.php';
+
+// Initiate session if there isn't one in progress.
 if (session_status() == PHP_SESSION_NONE) {
   session_start();
+  
 }
+
+// Need to connect to the database for data retrieval. The $conn object will be used to communicate with the SQL database
+$conn = new mysqli('sql.freedb.tech', 'freedb_Youssef', 'fp53R5UKVn*M@XW', 'freedb_Equiterra');
+if ($conn->connect_error) {
+  die("Connection failed: " . $conn->connect_error);
+}
+
 // if (isset($_GET['horse_name'])) {
 //   $_SESSION['horse_name'] = urldecode($_GET['horse_name']);
 // }
+
+
 
 if (isset($_POST['url'])) {
   if (($key = array_search($_POST['url'], $_SESSION['images'])) !== false) {
@@ -15,11 +31,15 @@ if (isset($_POST['url'])) {
 if (isset($_POST['add_url'])) {
   if (filter_var($_POST['add_url'], FILTER_VALIDATE_URL)) {
     array_push($_SESSION['images'], $_POST['add_url']);
+    retrieve_horse_images($conn);
   } else {
     $error = "Invalid Image URL!";
   }
 }
-// ...
+
+retrieve_horse_images($conn);
+
+$conn->close();
 ?>
 
 <script>
