@@ -69,7 +69,7 @@ function addImageInput() {
         <br>
         <?php
           echo "<h1 class='returning__header'>Images for " . $_SESSION['horse_name'] . "</h1>";
-          if (isset($_SESSION['images']) && is_array($_SESSION['images'])) {
+          if (isset($_SESSION['images']) && is_array($_SESSION['images']) && count($_SESSION['images']) > 0) {
             if ($_SESSION['user_type'] == "Admin") {
               echo "<div id='add-image-div' style='text-align: right; display: flex; align-items: center; justify-content: flex-end;'>";
               if (isset($error)) {
@@ -98,7 +98,7 @@ function addImageInput() {
             }
             echo "</div>";
           } else {
-            echo "<div class='returning__header'>No images found.</div>";
+            echo "<div class='returning__header'>No images found</div>";
           }
         ?>
         </div>

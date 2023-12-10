@@ -107,6 +107,8 @@ $conn->close();     // Close connection to the database
             echo "<h3 class='returning__text'>Phone Number: " . $_SESSION['customer']['phone_number'] . "</h3>";
             echo "</div>";
             echo "</div>";
+          } else {
+            echo "<div class='returning__header'>Administrator has not added client details</div>";
           }
           ?>
         </div>
@@ -122,7 +124,7 @@ $conn->close();     // Close connection to the database
             }
             echo "</div>";
             echo "<table class='horse-table'>";
-            echo "<tr><th>Invoice Number</th><th>Price</th><th>Status</th><th>Action</th></tr>";
+            echo "<tr><th>Invoice Number</th><th>Price</th><th>Status</th></tr>";
             // Output data of each row
             foreach ($_SESSION['invoices'] as $invoice) {
               echo "<tr>";
@@ -130,12 +132,6 @@ $conn->close();     // Close connection to the database
               echo "<td>" . $invoice["price"] . "</td>";
               if ($invoice["status"] == 1) echo "<td>" . "Paid" . "</td>";
               else echo "<td>" . "Unpaid" . "</td>";
-              if ($_SESSION['user_type'] == "Admin") {
-                echo "<td><a href='invoice.php?invoice_number=" . urlencode($invoice["number"]) . "'><button class='table-button'>View/Edit</button></a></td>";
-              } else {
-                echo "<td><a href='invoice.php?invoice_number=" . urlencode($invoice["number"]) . "'><button class='table-button'>View</button></a></td>";
-              }
-
               echo "</tr>";
             }
             echo "</table>";

@@ -26,7 +26,7 @@ if (isset($_GET['horse_name'])) {
           ?>
               <a href="horses.php" class="large-button horse">Horses</a>
               <a href="barns.php" class="large-button barn">Barns</a>
-              <a href="customers.php" class="large-button customer">Customers</a>
+              <a href="customers.php" class="large-button customer">Clients</a>
               <a href="account.php" class="large-button account">Account Info</a>
           <?php
             //session_start();

@@ -56,7 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($user_type == 'Admin') {
       header('Location: customers.php');
     } else {
-      header('Location: home.php');
+      header('Location: index.php');
     }
   }
 }

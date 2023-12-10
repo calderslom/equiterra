@@ -7,7 +7,7 @@ if (session_status() == PHP_SESSION_NONE) {
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $i_number = $_POST["i_number"];
-  $customer = $_POST["customer"];
+  $customer = $_SESSION['Cusername'];
   $horse = $_POST["horse"];
   $status = $_POST["status"];
   $price = $_POST["price"];
@@ -55,22 +55,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="form-group">
               <label for="i_number">Invoice Number</label>
               <input type="text" class="form-control" id="i_number" name="i_number" value="<?php echo isset($_POST['i_number']) ? $_POST['i_number'] : '' ?>" required />
-            </div>
-            <div class="form-group">
-              <label for="customer">Customer</label>
-              <select class="form-control rounded" id="customer" name="customer" value="<?php echo isset($_POST['customer']) ? $_POST['customer'] : '' ?>" required>
-                <option value="">Select Customer</option>
-                <?php
-                // Check if the session variable exists and is not empty
-                if (isset($_SESSION['customers']) && count($_SESSION['customers']) > 0) {
-                  // Loop through the array and create the option elements
-                  foreach ($_SESSION['customers'] as $customer) {
-                    $selected = isset($_POST['customer']) && $_POST['customer'] == $customer ? 'selected' : '';
-                    echo "<option value='{$customer}' {$selected}>{$customer}</option>";
-                  }
-                }
-                ?>
-              </select>
             </div>
             <div class="form-group">
               <label for="horse">Horse</label>
