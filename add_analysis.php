@@ -14,9 +14,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $type = $_POST["type"];
   $details = $_POST["details"];
 
-  // TODO: will need to be added to the analysis's info from the database
-  //array_push($_SESSION['analysis_table'], array("horse" => $horse, "date" => $date, "type" => $type, "details" => $details));
-
   $stmt_insert = $conn->prepare("CALL AddAnalysis(?,?,?,?)");
   // Bind parameters and execute the SQL statement
   $stmt_insert->bind_param("ssss", $details, $date, $type, $horse);

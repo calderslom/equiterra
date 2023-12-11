@@ -28,7 +28,12 @@ function update_protocol_status($conn)
 }
 
 
-
+/**
+ * Updates analysis details for a specific horse, date, and type in the database.
+ *
+ * @param mysqli $conn - The database connection object.
+ * @param string $new_details - The new analysis details to be updated.
+ */
 function update_analysis_details($conn, $new_details)
 {
     // Check if required session variables are set and not empty.
@@ -42,12 +47,13 @@ function update_analysis_details($conn, $new_details)
         $date = $conn->real_escape_string($_SESSION['analysis_date']);
         $type = $conn->real_escape_string($_SESSION['analysis_type']);
 
-        // Prepare a SQL procedure for the retrieval of Shoeing protocol details for a specific horse, date, and type.
+        // Prepare a SQL procedure for the update of Shoeing protocol details for a specific horse, date, and type.
         $stmt_horse = $conn->prepare("CALL UpdateAnalysisDetails(?,?,?,?)");
         $stmt_horse->bind_param("ssss", $new_details, $date, $type, $horse_name);
         $stmt_horse->execute();
     }
 }
+
 
 /**
  * Updates conformation notes for a specific horse in the database.
@@ -182,16 +188,4 @@ function update_password($conn)
     } else {
         debug_to_console("Cannot update password.");
     }
-    // // Must update Client Table if user is a Client
-    // if (isset($_SESSION['user_type']) && !empty($_SESSION['user_type'])) {
-    //     if ($_SESSION['user_type'] == "Client") {
-    //         // Get the username from the session and sanitize it
-    //         $username = $conn->real_escape_string($_SESSION['username']);
-    //         $password = $conn->real_escape_string($_SESSION['password']);
-    //         // Prepare SQL statement for Invoice retrieval by client name
-    //         $stmt_user = $conn->prepare("UPDATE Client SET Cpassword = ? WHERE Cusername = ?;");
-    //         $stmt_user->bind_param("ss", $password, $username);
-    //         $stmt_user->execute();
-    //     }
-    // }
 }

@@ -7,22 +7,39 @@ if (session_status() == PHP_SESSION_NONE) {
 require_once 'utility.php';
 
 
+/**
+ * Retrieves horse names associated with a client from the database and stores them in the session.
+ *
+ * @param mysqli $conn - The database connection object.
+ */
 function retrieve_client_horse_names($conn) {
+    // Check if the client's username is set and not empty in the session.
     if (isset($_SESSION['customer']['username']) && !empty($_SESSION['customer']['username'])) {
-        // Get the username from the session and sanitize it
+        // Get the username from the session and sanitize it.
         $username = $conn->real_escape_string($_SESSION['customer']['username']);
-        // Prepare SQL statement for Invoice retrieval by client name
+
+        // Prepare a SQL statement for retrieving horse names by client username.
         $stmt_user = $conn->prepare("SELECT Hname FROM Horse WHERE Cusername = ?");
         $stmt_user->bind_param("s", $username);
         $stmt_user->execute();
+
+        // Get the result set from the executed statement.
         $horse_result = $stmt_user->get_result();
+
+        // Create an array to store horse names.
         $horses = [];
+
+        // Loop through each horse record in the result set.
         while ($horse = $horse_result->fetch_assoc()) {
+            // Add horse name to the $horses array.
             $horses[] = $horse['Hname'];
         }
+
+        // Store the $horses array in the session under the 'horses' key.
         $_SESSION['horses'] = $horses;
     }
 }
+
 
 /**
  * Retrieves the client name based on the provided client username.
