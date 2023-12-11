@@ -43,19 +43,39 @@ function retrieve_user_login($conn, $username_or_email, $password)
     }
 }
 
+/**
+ * Checks if the given invoice number already exists in the database.
+ *
+ * @param mysqli $conn - The database connection object.
+ * @param string $invoice_number - The invoice number to check.
+ * @return bool - Returns true if the invoice number does not exist, false otherwise.
+ */
 function check_invoice_number($conn, $invoice_number) {
-    $stmt_invoice = $conn->prepare("Select Number FROM Invoice");
+    // Prepare a SQL statement to select the 'Number' column from the 'Invoice' table.
+    $stmt_invoice = $conn->prepare("SELECT Number FROM Invoice");
+
+    // Execute the prepared statement.
     $stmt_invoice->execute();
+
+    // Get the result set from the executed statement.
     $invoice_result = $stmt_invoice->get_result();
-    while ($invoice = $invoice_result->fetch_assoc()){
-        if ($invoice = $invoice_number) {
-            debug_to_console($invoice);
+
+    // Loop through each row in the result set.
+    while ($invoice = $invoice_result->fetch_assoc()) {
+        // Compare the current invoice number with the provided invoice number.
+        if ($invoice['Number'] == $invoice_number) {
+            // If a matching invoice number is found, output it to the console (you might want to replace this with logging).
+            debug_to_console($invoice_number);
+            // The invoice number already exists, so return false.
             return false;
-        }
-        else return true;
+        } 
+            // If the current invoice number does not match, continue checking the next row.
     }
 
+    // If no matching invoice number is found in the loop, return true (indicating that the invoice number does not exist in the database).
+    return true;
 }
+
 
 function check_user_exists($conn, $username, $email) {
     $stmt_user = $conn->prepare("CALL CheckUsernameEmail(?,?)");
