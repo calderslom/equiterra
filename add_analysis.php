@@ -39,7 +39,7 @@ $conn->close();
     <div class="onboarding-overlay">
       <div class="onboarding-overlay-outer">
         <div class="onboarding-overlay-inner returning">
-          <a href='barns.php'><button class='back-button'>< Horse</button></a>
+          <a href='horse.php'><button class='back-button'>< Horse</button></a>
           <br>
           <h1 class="returning__header">Add Analysis</h1>
           <form class="signin" method="post">

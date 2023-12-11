@@ -31,7 +31,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $date = $_POST["date"];
   $farrier = $_POST["farrier"];
   // CHECKING TO SEE IF INVOICE NUMBER ALREADY EXISTS IN THE DATABASE. PK cannot be duplicated
-  if (check_invoice_number($conn, $i_number)) {
+  if (!is_numeric($price)) {
+    $error = "Price must be a number!";
+  } else if (check_invoice_number($conn, $i_number)) {
     // Insert invoice
     $stmt_insert = $conn->prepare("CALL AddInvoice(?,?,?,?,?)");
     // Bind parameters and execute the SQL statement
@@ -48,14 +50,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt_insert_invoice->execute();
       }
     }
-  }
-  if (!is_numeric($price)) {
-    $error = "Price must be a number!";
-  } else {
-    // TODO: add invoice to database and services to database
-
-    //array_push($_SESSION['invoices'], array($i_number, $customer, $horse, $status, $price, $date, $farrier));
     header('Location: customer.php');
+  } else {
+    $error = "Invoice number already exists!";
   }
 }
 
@@ -96,23 +93,6 @@ $conn->close();
             <div class="form-group">
               <label for="i_number">Invoice Number</label>
               <input type="text" class="form-control" id="i_number" name="i_number" value="<?php echo isset($_POST['i_number']) ? $_POST['i_number'] : '' ?>" required />
-            </div>
-            <div class="form-group">
-              <label for="horse">Horse</label>
-              <select class="form-control rounded" id="horse" name="horse" value="<?php echo isset($_POST['horse']) ? $_POST['horse'] : '' ?>" required>
-                <option value="">Select Horse</option>
-                <?php
-                // TODO: make it only horses for that specific customer
-                if (isset($_SESSION['horses']) && count($_SESSION['horses']) > 0) {
-                  // Loop through the array and create the option elements
-                  foreach ($_SESSION['horses'] as $horse) {
-                    $selected = isset($_POST['horse']) && $_POST['horse'] == $horse ? 'selected' : '';
-                    //debug_to_console($horse);
-                    echo "<option value='{$horse}' {$selected}>{$horse}</option>";
-                  }
-                }
-                ?>
-              </select>
             </div>
             <div class="form-group">
               <label for="status">Status</label>

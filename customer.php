@@ -123,7 +123,11 @@ $conn->close();     // Close connection to the database
             }
             echo "</div>";
             echo "<table class='horse-table'>";
-            echo "<tr><th>Invoice Number</th><th>Price</th><th>Status</th></tr>";
+            if ($_SESSION['user_type'] == "Admin") {
+              echo "<tr><th>Invoice Number</th><th>Price</th><th>Status</th><th>Action</th></tr>";
+            } else {
+              echo "<tr><th>Invoice Number</th><th>Price</th><th>Status</th></tr>";
+            }
             // Output data of each row
             foreach ($_SESSION['invoices'] as $invoice) {
               echo "<tr>";
@@ -131,6 +135,10 @@ $conn->close();     // Close connection to the database
               echo "<td>" . $invoice["price"] . "</td>";
               if ($invoice["status"] == 1) echo "<td>" . "Paid" . "</td>";
               else echo "<td>" . "Unpaid" . "</td>";
+              if ($_SESSION['user_type'] == "Admin") {
+                echo "<td><a href='invoice.php?invoice_number=" . urlencode($invoice["number"]) . "'><button class='table-button'>Edit</button></a></td>";
+              }
+
               echo "</tr>";
             }
             echo "</table>";
