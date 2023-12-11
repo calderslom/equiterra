@@ -41,6 +41,38 @@ function retrieve_horse_images($conn)
 }
 
 /**
+ * Retrieves shoeing protocol dates for a specific horse and stores them in the session.
+ *
+ * @param mysqli $conn - The MySQLi database connection object.
+ *
+ * This function retrieves shoeing protocol dates for a specific horse from the database
+ * and stores them in the $_SESSION['shoeing_protocols'] array.
+ */
+function retrieve_analysis_dates_types($conn)
+{
+    if (isset($_SESSION['horse_name']) && !empty($_SESSION['horse_name'])) {
+        // Get the horse name from the session and sanitize it
+        $horse_name = $conn->real_escape_string($_SESSION['horse_name']);
+        // Prepare SQL procedure for retrieval of ALL Shoeing protocol dates for a specific horse.
+        $stmt_horse = $conn->prepare("CALL GetShoeingProtocolDates(?)");
+        $stmt_horse->bind_param("s", $horse_name);
+        $stmt_horse->execute();
+        // Get the result set
+        $protocol_result = $stmt_horse->get_result();
+        // Creating an array to store the protocol dates and horse name
+        $shoeing_protocols = [];
+        // Check if any invoices were retrieved
+        while ($tuple = $protocol_result->fetch_assoc()) {
+            $shoeing_protocols[] = [
+                "date" => $tuple["Date"],
+                "horse_name" => $tuple["Hname"]
+            ];
+        }
+        $_SESSION['shoeing_protocols'] = $shoeing_protocols;
+    }
+}
+
+/**
  * Retrieve shoeing protocol details for a specific horse on a given date and store them in the session.
  *
  * @param mysqli $conn - The MySQLi database connection object.

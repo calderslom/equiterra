@@ -17,9 +17,6 @@ else { // Client is logged in
   $_SESSION['Cusername'] = $_SESSION['username'];
 }
 
-//debug_to_console($_SESSION['Cusername']);
-
-
 // Need to connect to the database for data retrieval. The $conn object will be used to communicate with the SQL database
 $conn = new mysqli('sql.freedb.tech', 'freedb_Youssef', 'fp53R5UKVn*M@XW', 'freedb_Equiterra');
 if ($conn->connect_error) {
@@ -39,24 +36,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['invoiceNumber']) && i
   $invoiceNumber = $_POST['invoiceNumber'];
   $invoiceStatus = $_POST['invoiceStatus'];
   $newStatus = $invoiceStatus == 1 ? 0 : 1;
+  $stmt_update = $conn->prepare("CALL ChangeStatus(?,?)");
+  // Bind parameters and execute the SQL statement
+  $stmt_update->bind_param("ii", $newStatus, $invoiceNumber);
+  $stmt_update->execute();
+
   // TODO: update invoice status in the database using $invoiceNumber and $newStatus
 }
 
 retrieve_invoices_client($conn);
 
-// // Populating the invoices session variable array
-// if (isset($_SESSION['user_type']) && !empty($_SESSION['user_type'])) {
-
-//   // This condidition will pass when an Admin is logged in
-//   if ($_SESSION['user_type'] == 'Admin') {
-//     retrieve_invoices_admin($conn);
-//   }
-//   else { // Client/User is logged in
-//      if (!retrieve_invoices_client($conn)) {
-//       debug_to_console("Error retrieving invoices for client.");
-//      }
-//   }
-// }
 
 $conn->close();     // Close connection to the database
 ?> // End of PHP
