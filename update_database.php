@@ -5,7 +5,11 @@ if (session_status() == PHP_SESSION_NONE) {
 // Include functions
 require_once 'utility.php';
 
-
+/**
+ * Updates the status of a shoeing protocol for a specific horse in the database.
+ *
+ * @param mysqli $conn - The MySQLi database connection object.
+ */
 function update_protocol_status($conn)
 {
     if (

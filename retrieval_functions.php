@@ -6,6 +6,19 @@ if (session_status() == PHP_SESSION_NONE) {
 require_once 'utility.php';
 
 
+function retrieve_farriers($conn) {
+    $stmt_user = $conn->prepare("CALL GetFarriers");
+    $stmt_user->execute();
+    $user_result = $stmt_user->get_result();
+    $farriers = [];
+    while ($farrier_tuple = $user_result->fetch_assoc()) {
+        $farriers[] = [
+            "fname" => $farrier_tuple['Fname'],
+            "fusername" => $farrier_tuple['Fusername']
+        ];
+    }
+    $_SESSION['farriers'] = $farriers;
+}
 
 /**
  * Retrieve user information based on the session username.
@@ -28,6 +41,20 @@ function retrieve_user_login($conn, $username_or_email, $password)
     } else {
         return false;
     }
+}
+
+function check_invoice_number($conn, $invoice_number) {
+    $stmt_invoice = $conn->prepare("Select Number FROM Invoice");
+    $stmt_invoice->execute();
+    $invoice_result = $stmt_invoice->get_result();
+    while ($invoice = $invoice_result->fetch_assoc()){
+        if ($invoice = $invoice_number) {
+            debug_to_console($invoice);
+            return false;
+        }
+        else return true;
+    }
+
 }
 
 function check_user_exists($conn, $username, $email) {

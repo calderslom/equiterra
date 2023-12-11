@@ -7,6 +7,23 @@ if (session_status() == PHP_SESSION_NONE) {
 require_once 'utility.php';
 
 
+function retrieve_client_horse_names($conn) {
+    if (isset($_SESSION['customer']['username']) && !empty($_SESSION['customer']['username'])) {
+        // Get the username from the session and sanitize it
+        $username = $conn->real_escape_string($_SESSION['customer']['username']);
+        // Prepare SQL statement for Invoice retrieval by client name
+        $stmt_user = $conn->prepare("SELECT Hname FROM Horse WHERE Cusername = ?");
+        $stmt_user->bind_param("s", $username);
+        $stmt_user->execute();
+        $horse_result = $stmt_user->get_result();
+        $horses = [];
+        while ($horse = $horse_result->fetch_assoc()) {
+            $horses[] = $horse['Hname'];
+        }
+        $_SESSION['horses'] = $horses;
+    }
+}
+
 /**
  * Retrieves the client name based on the provided client username.
  *
@@ -76,9 +93,9 @@ function retrieve_client_names($conn)
  */
 function retrieve_invoices_client($conn)
 {
-    if (isset($_SESSION['Cusername']) && !empty($_SESSION['Cusername'])) {
+    if (isset($_SESSION['customer']['username']) && !empty($_SESSION['customer']['username'])) {
         // Get the username from the session and sanitize it
-        $username = $conn->real_escape_string($_SESSION['Cusername']);
+        $username = $conn->real_escape_string($_SESSION['customer']['username']);
         // Prepare SQL statement for Invoice retrieval by client name
         $stmt_user = $conn->prepare("SELECT * FROM Invoice WHERE Cusername = ?");
         $stmt_user->bind_param("s", $username);

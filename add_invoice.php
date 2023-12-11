@@ -1,28 +1,65 @@
 <?php
+
+// Include functions
+require_once 'retrieval_functions.php';
+require_once 'client_functions.php';
+require_once 'utility.php';
+
+// Need to connect to the database for data retrieval. The $conn object will be used to communicate with the SQL database
+$conn = new mysqli('sql.freedb.tech', 'freedb_Youssef', 'fp53R5UKVn*M@XW', 'freedb_Equiterra');
+if ($conn->connect_error) {
+  die("Connection failed: " . $conn->connect_error);
+}
+
+
 if (session_status() == PHP_SESSION_NONE) {
   session_start();
 }
 
-// customer name is still storesd in $_SESSION['customer_name']
+// customer name is stored in $_SESSION['customer']['username']
+retrieve_farriers($conn);
+
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  debug_to_console($_POST["farrier"]);
+  debug_to_console($_SESSION['customer']['username']);
+  // Need to check if the invoice number already exists. Can't have duplicate keys
   $i_number = $_POST["i_number"];
-  $customer = $_SESSION['Cusername'];
-  $horse = $_POST["horse"];
+  $customer = $_SESSION['customer']['username'];
   $status = $_POST["status"];
   $price = $_POST["price"];
   $date = $_POST["date"];
   $farrier = $_POST["farrier"];
-  $services = $_POST["services"]; // services is an array
-
+  // CHECKING TO SEE IF INVOICE NUMBER ALREADY EXISTS IN THE DATABASE. PK cannot be duplicated
+  if (check_invoice_number($conn, $i_number)) {
+    // Insert invoice
+    $stmt_insert = $conn->prepare("CALL AddInvoice(?,?,?,?,?)");
+    // Bind parameters and execute the SQL statement
+    $stmt_insert->bind_param("iiiss", $i_number, $status, $price, $farrier, $customer);
+    $stmt_insert->execute();
+    $services = $_POST["services"]; // services is an array
+    if (count($services) > 0) {
+      foreach ($services as $service) {
+        // Bind parameters and execute the SQL statement
+        debug_to_console($service);
+        debug_to_console($i_number);
+        $stmt_insert_invoice = $conn->prepare("CALL AddInvoiceService(?,?,?)");
+        $stmt_insert_invoice->bind_param("iss", $i_number, $service, $date);
+        $stmt_insert_invoice->execute();
+      }
+    }
+  }
   if (!is_numeric($price)) {
     $error = "Price must be a number!";
   } else {
     // TODO: add invoice to database and services to database
-    array_push($_SESSION['invoices'], array($i_number, $customer, $horse, $status, $price, $date, $farrier));
+
+    //array_push($_SESSION['invoices'], array($i_number, $customer, $horse, $status, $price, $date, $farrier));
     header('Location: customer.php');
   }
 }
+
+$conn->close();
 ?>
 
 <script>
@@ -41,14 +78,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html>
 <!-- Rest of your HTML code -->
 <html>
+
+<head>
+  <link rel="stylesheet" href="style.css">
+
   <head>
-    <link rel="stylesheet" href="style.css">
-  <head>
+
   <body>
     <div class="onboarding-overlay">
       <div class="onboarding-overlay-outer">
         <div class="onboarding-overlay-inner returning">
-          <a href='customer.php'><button class='back-button'>< Customer</button></a>
+          <a href='customer.php'><button class='back-button'>
+              < Client</button></a>
           <br>
           <h1 class="returning__header">Add Invoice</h1>
           <form class="signin" method="post">
@@ -66,6 +107,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                   // Loop through the array and create the option elements
                   foreach ($_SESSION['horses'] as $horse) {
                     $selected = isset($_POST['horse']) && $_POST['horse'] == $horse ? 'selected' : '';
+                    //debug_to_console($horse);
                     echo "<option value='{$horse}' {$selected}>{$horse}</option>";
                   }
                 }
@@ -94,11 +136,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <option value="">Select Farrier</option>
                 <?php
                 // TODO: change to actual farriers from database
-                if (isset($_SESSION['customers']) && count($_SESSION['customers']) > 0) {
+                if (isset($_SESSION['farriers']) && count($_SESSION['farriers']) > 0) {
                   // Loop through the array and create the option elements
-                  foreach ($_SESSION['customers'] as $customer) {
-                    $selected = isset($_POST['farrier']) && $_POST['farrier'] == $customer ? 'selected' : '';
-                    echo "<option value='{$customer}' {$selected}>{$customer}</option>";
+                  foreach ($_SESSION['farriers'] as $farrier) {
+                    // debug_to_console($farrier['fusername']);
+                    // debug_to_console($farrier['fname']);
+                    $selected = isset($_POST['farrier']) && $_POST['farrier'] == $farrier['fusername'] ? 'selected' : '';
+                    echo "<option value='{$farrier['fname']}' {$selected}>{$farrier['fname']}</option>";
                   }
                 }
                 ?>
@@ -107,7 +151,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <br>
             <div class="form-group">
               <label for="services">Services<button class="right-red-button" type="button" onclick="addService()">Add another service</button></label>
-              <input type="text" class="form-control rounded" id="services" name="services[]" placeholder="Enter service" required > 
+              <input type="text" class="form-control rounded" id="services" name="services[]" placeholder="Enter service" required>
             </div>
             <?php
             if (isset($services)) {
@@ -126,4 +170,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       </div>
     </div>
   </body>
-</html> 
+
+</html>

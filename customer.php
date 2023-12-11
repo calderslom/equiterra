@@ -17,9 +17,8 @@ else { // Client is logged in
   $_SESSION['Cusername'] = $_SESSION['username'];
 }
 
-debug_to_console($_SESSION['Cusername']);
+//debug_to_console($_SESSION['Cusername']);
 
-session_start();
 
 // Need to connect to the database for data retrieval. The $conn object will be used to communicate with the SQL database
 $conn = new mysqli('sql.freedb.tech', 'freedb_Youssef', 'fp53R5UKVn*M@XW', 'freedb_Equiterra');
