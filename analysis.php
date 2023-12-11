@@ -30,10 +30,7 @@ if ($conn->connect_error) {
 }
 
 if (isset($_POST['save_conf_notes'])) {
-  $_SESSION['analysis']['details'] = $_POST['details'];
-  $new_details = $_POST['details'];
-  // TODO update the details
-  update_analysis_details($conn, $new_details);
+  update_analysis_details($conn, $_POST['details']);
 }
 
 retrieve_analysis_details($conn);
