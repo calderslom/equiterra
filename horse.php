@@ -69,6 +69,29 @@ $conn->close();     // Close connection to the database
       }
     }
   }
+
+  function searchAnalysisTable() {
+    var input, filter, table, tr, td, i, j, txtValue;
+    input = document.getElementById("searchAnalysisInput");
+    filter = input.value.toUpperCase();
+    table = document.getElementsByClassName("horse-table")[1];
+    tr = table.getElementsByTagName("tr");
+
+    for (i = 0; i < tr.length; i++) {
+      td = tr[i].getElementsByTagName("td");
+      for (j = 0; j < td.length; j++) {
+        if (td[j]) {
+          txtValue = td[j].textContent || td[j].innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+            break;
+          } else {
+            tr[i].style.display = "none";
+          }
+        }
+      }
+    }
+  }
 </script>
 
 <html>
@@ -162,9 +185,9 @@ $conn->close();     // Close connection to the database
         <div class="onboarding-overlay-inner table">
           <h1 class="returning__header">Analysis</h1>
           <?php
-          if (isset($_SESSION['analysis']) && count($_SESSION['analysis']) > 0) {
+          if (isset($_SESSION['analysis_table']) && count($_SESSION['analysis_table']) > 0) {
             echo "<div class='action-bar'>";
-            echo "<div class='search-container'><input class='search-table' type='text' id='searchInput' onkeyup='searchTable()' placeholder='Search analysis..'></div>";
+            echo "<div class='search-container'><input class='search-table' type='text' id='searchAnalysisInput' onkeyup='searchAnalysisTable()' placeholder='Search analysis..'></div>";
             if ($_SESSION['user_type'] == "Admin") {
               echo "<a href='add_analysis.php'><button class='add-button'>Add Analysis +</button></a>";
             }
@@ -172,11 +195,11 @@ $conn->close();     // Close connection to the database
             echo "<table class='horse-table'>";
             echo "<tr><th>Date</th><th>Type</th><th>Action</th></tr>";
             // Output data of each row
-            foreach ($_SESSION['analysis'] as $analysis) {
+            foreach ($_SESSION['analysis_table'] as $analysis) {
               echo "<tr>";
               echo "<td>" . $analysis['date'] . "</td>";
               echo "<td>" . $analysis['type'] . "</td>";
-              echo "<td><a href='anylysis.php?analysis_date=" . urlencode($analysis['date']) . "&analysis_type=" . urlencode($analysis['type']) . "&analysis_horse=" . urlencode($analysis['horse_name']) . "'><button class='table-button'>View</button></a></td>";
+              echo "<td><a href='analysis.php?analysis_date=" . urlencode($analysis['date']) . "&analysis_type=" . urlencode($analysis['type']) . "&analysis_horse=" . urlencode($_SESSION['horse_name']) . "'><button class='table-button'>View</button></a></td>";
               
               echo "</tr>";
             }

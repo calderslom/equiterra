@@ -459,7 +459,7 @@ select.form-control {
 
 .horse-table tr:last-child td {
   border-bottom: none; /* Remove the bottom border from the last row */
-}	
+}
 
 .action-bar {
   display: flex;
