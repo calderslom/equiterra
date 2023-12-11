@@ -17,6 +17,9 @@ if ($conn->connect_error) {
 
 if (isset($_GET['horse_name'])) { // Session 'horse_name' now contains the name of the horse. This is the key for the Horse table
   $_SESSION['horse_name'] = urldecode($_GET['horse_name']);
+  retrieve_horse_details($conn);
+  retrieve_shoeing_protocol_dates($conn);
+  retrieve_analysis_dates_types($conn);
 }
 if (isset($_POST['save_conf_notes'])) {
   $_SESSION['horse']['conf_notes'] = $_POST['conf_notes'];
@@ -25,8 +28,7 @@ if (isset($_POST['save_conf_notes'])) {
 
 
 
-retrieve_horse_details($conn);
-retrieve_shoeing_protocol_dates($conn);
+
 
 $conn->close();     // Close connection to the database
 ?>
