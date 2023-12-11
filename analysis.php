@@ -2,6 +2,7 @@
 
 // Include functions
 require_once 'retrieval_functions.php';
+require_once 'horse_functions.php';
 require_once 'update_database.php';
 require_once 'utility.php';
 
@@ -30,8 +31,12 @@ if ($conn->connect_error) {
 
 if (isset($_POST['save_conf_notes'])) {
   $_SESSION['analysis']['details'] = $_POST['details'];
-  update_conformation_notes($conn);
+  $new_details = $_POST['details'];
+  // TODO update the details
+  update_analysis_details($conn, $new_details);
 }
+
+retrieve_analysis_details($conn);
 
 $conn->close();     // Close connection to the database
 ?>
@@ -67,7 +72,7 @@ $conn->close();     // Close connection to the database
         <div class="onboarding-overlay-inner returning">
           <a href='horse.php'><button class='back-button'>< Horse</button></a>
           <br>
-          <h1 class="returning__header">Analysis Info</h1>
+          <h1 class="returning__header">Analysis Details</h1>
           <br>
           <?php
           if (isset($_SESSION['username'])) {

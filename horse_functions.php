@@ -40,6 +40,45 @@ function retrieve_horse_images($conn)
     }
 }
 
+
+/**
+ * Retrieves analysis details for a specific horse, date, and type, and stores them in the session.
+ *
+ * @param mysqli $conn - The database connection object.
+ */
+function retrieve_analysis_details($conn)
+{
+    // Check if required session variables are set and not empty.
+    if (
+        (isset($_SESSION['horse_name']) && !empty($_SESSION['horse_name'])) &&
+        (isset($_SESSION['analysis_date']) && !empty($_SESSION['analysis_date'])) &&
+        (isset($_SESSION['analysis_type']) && !empty($_SESSION['analysis_type']))
+    ) {
+        // Get and sanitize horse name, analysis date, and analysis type from the session.
+        $horse_name = $conn->real_escape_string($_SESSION['horse_name']);
+        $date = $conn->real_escape_string($_SESSION['analysis_date']);
+        $type = $conn->real_escape_string($_SESSION['analysis_type']);
+
+        // Prepare a SQL procedure for the retrieval of Shoeing protocol details for a specific horse, date, and type.
+        $stmt_horse = $conn->prepare("CALL GetHorseAnalysisDetails(?,?,?)");
+        $stmt_horse->bind_param("sss", $horse_name, $date, $type);
+        $stmt_horse->execute();
+
+        // Get the result set from the executed statement.
+        $analysis_result = $stmt_horse->get_result();
+
+        // Create an array to store the protocol details.
+        $analysis_details = [];
+
+        // Check if any analysis details were retrieved.
+        if ($tuple = $analysis_result->fetch_assoc()) {
+            // Store the analysis details in the session under 'analysis' key.
+            $_SESSION['analysis']['details'] = $tuple['Details'];
+        }
+    }
+}
+
+
 /**
  * Retrieves analysis dates and types for a specific horse and stores them in the session.
  *
@@ -60,12 +99,12 @@ function retrieve_analysis_dates_types($conn)
         $analysis = [];
         // Check if any invoices were retrieved
         while ($tuple = $analysis_result->fetch_assoc()) {
-            $$analysis[] = [
+            $analysis[] = [
                 "date" => $tuple["Analysis_Date"],
                 "type" => $tuple["Type"]
             ];
         }
-        $_SESSION['analysis_table'] = $$analysis;
+        $_SESSION['analysis_table'] = $analysis;
     }
 }
 

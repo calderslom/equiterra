@@ -16,7 +16,7 @@ function update_protocol_status($conn)
         isset($_SESSION['protocol_horse']) && !empty($_SESSION['protocol_horse'])
         && isset($_SESSION['protocol_date']) && !empty($_SESSION['protocol_date'])
     ) {
-        
+
         $protocol_status = $conn->real_escape_string($_SESSION['shoeing_protocol']["status"]);
         $protocol_date = $conn->real_escape_string($_SESSION['protocol_date']);
         $horse_name = $conn->real_escape_string($_SESSION['protocol_horse']);
@@ -24,6 +24,28 @@ function update_protocol_status($conn)
         // Bind parameters and execute the SQL statement
         $stmt_update->bind_param("sss", $protocol_status, $horse_name, $protocol_date);
         $stmt_update->execute();
+    }
+}
+
+
+
+function update_analysis_details($conn, $new_details)
+{
+    // Check if required session variables are set and not empty.
+    if (
+        (isset($_SESSION['horse_name']) && !empty($_SESSION['horse_name'])) &&
+        (isset($_SESSION['analysis_date']) && !empty($_SESSION['analysis_date'])) &&
+        (isset($_SESSION['analysis_type']) && !empty($_SESSION['analysis_type']))
+    ) {
+        // Get and sanitize horse name, analysis date, and analysis type from the session.
+        $horse_name = $conn->real_escape_string($_SESSION['horse_name']);
+        $date = $conn->real_escape_string($_SESSION['analysis_date']);
+        $type = $conn->real_escape_string($_SESSION['analysis_type']);
+
+        // Prepare a SQL procedure for the retrieval of Shoeing protocol details for a specific horse, date, and type.
+        $stmt_horse = $conn->prepare("CALL UpdateAnalysisDetails(?,?,?,?)");
+        $stmt_horse->bind_param("ssss", $new_details, $date, $type, $horse_name);
+        $stmt_horse->execute();
     }
 }
 
@@ -42,7 +64,7 @@ function update_conformation_notes($conn)
 
         //Convert newline characters to HTML line breaks
         //$conf_notes = nl2br($conf_notes);
-        
+
         // Remove newline, carriage return symbols, and escape characters from the conformation notes
         $conf_notes = trim($conf_notes);
         $conf_notes = stripslashes($conf_notes);
