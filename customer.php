@@ -35,6 +35,13 @@ if ($user = retrieve_client($conn)) {
   $_SESSION['customer']['email'] = $user['Email'];
 } else debug_to_console("User retrieval failed.");
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['invoiceNumber']) && isset($_POST['invoiceStatus'])) {
+  $invoiceNumber = $_POST['invoiceNumber'];
+  $invoiceStatus = $_POST['invoiceStatus'];
+  $newStatus = $invoiceStatus == 1 ? 0 : 1;
+  // TODO: update invoice status in the database using $invoiceNumber and $newStatus
+}
+
 retrieve_invoices_client($conn);
 
 // // Populating the invoices session variable array
@@ -135,8 +142,10 @@ $conn->close();     // Close connection to the database
               echo "<td>" . $invoice["price"] . "</td>";
               if ($invoice["status"] == 1) echo "<td>" . "Paid" . "</td>";
               else echo "<td>" . "Unpaid" . "</td>";
+              $invoiceNumber = $invoice["number"];
+              $invoiceStatus = $invoice["status"];
               if ($_SESSION['user_type'] == "Admin") {
-                echo "<td><a href='invoice.php?invoice_number=" . urlencode($invoice["number"]) . "'><button class='table-button'>Edit</button></a></td>";
+                echo "<td><form method='post' style='margin: 0; padding: 0;'><input type='hidden' name='invoiceNumber' value=$invoiceNumber><input type='hidden' name='invoiceStatus' value=$invoiceStatus><input class='table-button' type='submit' value='Change Status'></form></td>";
               }
 
               echo "</tr>";

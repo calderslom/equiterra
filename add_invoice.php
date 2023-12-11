@@ -98,8 +98,8 @@ $conn->close();
               <label for="status">Status</label>
               <select class="form-control" id="status" name="status" value="<?php echo isset($_POST['status']) ? $_POST['status'] : '' ?>" required>
                 <option value="">Select Status</option>
-                <option value="Paid">Paid</option>
-                <option value="Unpaid">Unpaid</option>
+                <option value=1>Paid</option>
+                <option value=0>Unpaid</option>
               </select>
             </div>
             <div class="form-group">
