@@ -85,7 +85,6 @@ $conn->close();     // Close connection to the database
         <img class="horses-image" src="images/horses.png" alt="Horses">
         <div class="onboarding-overlay-inner table">
           <?php
-          // TODO: must be changed to the horses info from the database (using their username)
           if (isset($_SESSION['horses']) && count($_SESSION['horses']) > 0) {
             echo "<div class='action-bar'>";
             echo "<div class='search-container'><input class='search-table' type='text' id='searchInput' onkeyup='searchTable()' placeholder='Search horses or owners..'></div>";

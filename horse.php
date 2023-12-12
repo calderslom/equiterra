@@ -106,7 +106,6 @@ $conn->close();     // Close connection to the database
         <div class="onboarding-overlay-inner info">
           <h1 class="returning__header">Horse Details</h1>
           <?php
-          // TODO: must be changed to the horse's info from the database (using their username)
           if (isset($_SESSION['horse'])) {
             echo "<div class='user-info'>";
             echo "<div class='left-column'>";

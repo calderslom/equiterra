@@ -24,10 +24,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $password = $_POST["password"];
   $confirm_password = $_POST["confirm_password"];
 
-  // debug_to_console($username);
-  // $client_name = retrieve_client_name($conn, $username);
-  // debug_to_console($client_name['Cname']);
-
   if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     $error = "Invalid email format!";
   } elseif (!preg_match("/^\(\d{3}\) \d{3}-\d{4}$/", $phone_number)) {
@@ -37,20 +33,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   } elseif (check_user_exists($conn, $username, $email)) { // This function will only return a name if the user ALREADY exists in the database
     $error = "A user with these credentials already exists. Please contact the administrator for further assistance.";
   } else {
-    // TODO: will need to be added to the user's info from the database
-    // $_SESSION['username'] = $username;
-    // $_SESSION['name'] = $name;
-    // $_SESSION['user_type'] = $user_type;
-    // $_SESSION['email'] = $email;
-    // $_SESSION['phone_number'] = $phone_number;
-    // $_SESSION['password'] = $password;
 
     $stmt_insert = $conn->prepare("CALL AddWebUser(?,?,?,?,?)");
     // Bind parameters and execute the SQL statement
     $stmt_insert->bind_param("sssss", $username, $password, $name, $email, $phone_number);
     $stmt_insert->execute();
-
-    //array_push($_SESSION['customers'], $username);
 
     // Redirect to home page
     if ($user_type == 'Admin') {
@@ -63,8 +50,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 $conn->close();
 ?>
-<html>
-<!-- Rest of your HTML code -->
 <html>
 
 <head>

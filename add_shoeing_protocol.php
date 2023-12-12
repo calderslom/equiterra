@@ -26,7 +26,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $stmt_insert->execute();
 
 
-  // TODO: will need to be added to the shoeing protocol for horse's info in the database
   array_push($_SESSION['shoeing_protocols'], array("date" => $date));
   // Redirect to horse page
   header('Location: horse.php');
@@ -35,7 +34,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 ?>
 <html>
-<!-- Rest of your HTML code -->
 <html>
   <head>
     <link rel="stylesheet" href="style.css">

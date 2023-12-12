@@ -66,8 +66,6 @@ $conn->close();     // Close connection to the database
           <h1 class="returning__header">Account Info</h1>
           <br>
           <?php
-          //session_start();
-          // TODO: must be changed to the user's info from the database (using their username)
           if (isset($_SESSION['username'])) {
             echo "<h3 class='returning__text'>Name: " . $_SESSION['name'] . "</h3>";
             echo "<h3 class='returning__text'>Username: " . $_SESSION['username'] . "</h3>";

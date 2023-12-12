@@ -40,8 +40,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['invoiceNumber']) && i
   // Bind parameters and execute the SQL statement
   $stmt_update->bind_param("ii", $newStatus, $invoiceNumber);
   $stmt_update->execute();
-
-  // TODO: update invoice status in the database using $invoiceNumber and $newStatus
 }
 
 retrieve_invoices_client($conn);
@@ -90,7 +88,6 @@ $conn->close();     // Close connection to the database
         <div class="onboarding-overlay-inner info">
           <h1 class="returning__header">Client Information</h1>
           <?php
-          // TODO: must be changed to the customer's info from the database (using their username)
           if (isset($_SESSION['customer'])) {
             echo "<div class='user-info'>";
             echo "<div>";
@@ -110,7 +107,6 @@ $conn->close();     // Close connection to the database
         <div class="onboarding-overlay-inner table">
           <h1 class="returning__header">Invoices</h1>
           <?php
-          // TODO: must be changed to the customer info from the database (using their username)
           if (isset($_SESSION['invoices']) && count($_SESSION['invoices']) > 0) {
             echo "<div class='action-bar'>";
             echo "<div class='search-container'><input class='search-table' type='text' id='searchInput' onkeyup='searchTable()' placeholder='Search invoices..'></div>";

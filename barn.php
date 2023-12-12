@@ -60,7 +60,6 @@ $conn->close();     // Close connection to the database
         <div class="onboarding-overlay-inner info">
           <h1 class="returning__header">Barn Information</h1>
           <?php
-          // TODO: must be changed to the barn's info from the database (using their username)
           if (isset($_SESSION['barn'])) {
             echo "<div class='user-info'>";
             echo "<div>";
@@ -84,7 +83,6 @@ $conn->close();     // Close connection to the database
         <div class="onboarding-overlay-inner table">
           <h1 class="returning__header">Barn Horses</h1>
           <?php
-          // TODO: must be changed to the horses info from the database (using the barn_name)
           if (isset($_SESSION['barn_horses']) && count($_SESSION['barn_horses']) > 0) {
             echo "<div class='action-bar'>";
             echo "<div class='search-container'><input class='search-table' type='text' id='searchInput' onkeyup='searchTable()' placeholder='Search horses or owners..'></div>";

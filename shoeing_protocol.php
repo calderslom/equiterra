@@ -70,7 +70,6 @@ $conn->close();     // Close connection to the database
           <h1 class="returning__header">Shoeing Protocol Details</h1>
           <br>
           <?php
-          // TODO: must be changed to the protocol's info from the database (using their horse name and date)
           if (isset($_SESSION['protocol_horse']) && isset($_SESSION['protocol_date'])) {
             echo "<h3 class='returning__text'>Horse: " . $_SESSION['shoeing_protocol']['horse_name'] . "</h3>";
             echo "<h3 class='returning__text'>Date: " . $_SESSION['shoeing_protocol']['date']  . "</h3>";

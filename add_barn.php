@@ -19,7 +19,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $province = $_POST["province"];
   $postal_code = $_POST["postal_code"];;
 
-  // TODO: will need to be added to the horse's info from the database
   if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     $error = "Invalid email format!";
   } elseif (!preg_match("/^\(\d{3}\) \d{3}-\d{4}$/", $phone_number)) {

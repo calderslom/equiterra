@@ -115,12 +115,9 @@ $conn->close();
               <select class="form-control rounded" id="farrier" name="farrier" value="<?php echo isset($_POST['farrier']) ? $_POST['farrier'] : '' ?>" required>
                 <option value="">Select Farrier</option>
                 <?php
-                // TODO: change to actual farriers from database
                 if (isset($_SESSION['farriers']) && count($_SESSION['farriers']) > 0) {
                   // Loop through the array and create the option elements
                   foreach ($_SESSION['farriers'] as $farrier) {
-                    // debug_to_console($farrier['fusername']);
-                    // debug_to_console($farrier['fname']);
                     $selected = isset($_POST['farrier']) && $_POST['farrier'] == $farrier['fusername'] ? 'selected' : '';
                     echo "<option value='{$farrier['fname']}' {$selected}>{$farrier['fname']}</option>";
                   }
