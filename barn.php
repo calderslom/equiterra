@@ -20,6 +20,7 @@ if ($conn->connect_error) {
 
 retrieve_barn_details($conn);
 retrieve_barn_horses($conn);
+retrieve_barn_num_clients($conn);
 
 $conn->close();     // Close connection to the database
 ?>

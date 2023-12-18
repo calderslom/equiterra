@@ -35,6 +35,31 @@ function retrieve_all_barns($conn)
 }
 
 /**
+ * Retrieves the number of clients associated with a specific barn and stores it in the session.
+ * If there are no clients associated with a barn, the default session value is set to zero.
+ *
+ * @param mysqli $conn - The database connection object.
+ */
+function retrieve_barn_num_clients($conn)
+{
+    if (isset($_SESSION['barn_name']) && !empty($_SESSION['barn_name'])) {
+        // Get the barn name from the session and sanitize it
+        $barn_name = $conn->real_escape_string($_SESSION['barn_name']);
+        // Prepare SQL statement for retrieval of ALL Barn details for a specific barn.
+        $stmt_barn = $conn->prepare("CALL GetBarnNumClients(?)");
+        $stmt_barn->bind_param("s", $barn_name);
+        $stmt_barn->execute();
+        // Get the result set
+        $barn_result = $stmt_barn->get_result();
+        // Check if any barns were retrieved
+        $_SESSION['barn']['num_clients'] = 0;
+        while ($tuple = $barn_result->fetch_assoc()) {
+            $_SESSION['barn']['num_clients'] ++;
+        }
+    }
+}
+
+/**
  * Function to retrieve details of a specific barn from the database and store them in the session.
  * @param mysqli $conn - The database connection object.
  */
