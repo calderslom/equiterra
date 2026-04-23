@@ -1,0 +1,45 @@
+services:
+  # ── MySQL Database ──────────────────────────────────────────────────────────
+  db:
+    image: mysql:8.0
+    container_name: equiterra_db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: equiterra
+      MYSQL_USER: equiterra_admin
+      MYSQL_PASSWORD: equiterra_password
+    volumes:
+      # Init script automatically  on first startup
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+      # Persistent database data (between container restarts)
+      - db_data:/var/lib/mysql
+    ports:
+      - "3306:3306"   # Expose port for SQL table GUI
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # PHP + Apache Web Server
+  app:
+    build: .
+    container_name: equiterra_app
+    restart: unless-stopped
+    ports:
+      - "8080:80"     # Visit http://localhost:8080 in browser
+    volumes:
+      # Mount source so edits to PHP files are realized without rebuilding Docker image
+      - ./app:/var/www/html/
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DB_HOST: db
+      DB_NAME: equiterra
+      DB_USER: equiterra_admin
+      DB_PASS: equiterra_password
+
+volumes:
+  db_data:
