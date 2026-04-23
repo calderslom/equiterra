@@ -28,7 +28,7 @@ $conn->close();
 <html>
   <head>
     <link rel="stylesheet" href="style.css">
-  <head>
+</head>
   <body>
     <div class="onboarding-overlay">
       <div class="onboarding-overlay-outer">

@@ -1,4 +1,7 @@
 <?php
+if (session_status() == PHP_SESSION_NONE) {
+  session_start();
+}
 
 // Include functions
 require_once 'client_functions.php';
@@ -6,9 +9,6 @@ require_once 'barn_functions.php';
 // Connect to the database for data retrieval; use $conn for DB access
 require_once 'db_config.php';
 
-if (session_status() == PHP_SESSION_NONE) {
-  session_start();
-}
 
 retrieve_client_names($conn);
 retrieve_all_barns($conn);
@@ -43,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html>
   <head>
     <link rel="stylesheet" href="style.css">
-  <head>
+</head>
   <body>
     <div class="onboarding-overlay">
       <div class="onboarding-overlay-outer">

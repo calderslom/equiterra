@@ -1,16 +1,13 @@
 <?php
-
+// Check if a session is already ongoing - start one if not.
+if (session_status() == PHP_SESSION_NONE) {
+  session_start();
+}
 // Include functions
 require_once 'retrieval_functions.php';
 require_once 'update_database.php';
 require_once 'utility.php';
 require_once 'db_config.php';
-
-// Check if a session is already ongoing - start one if not.
-if (session_status() == PHP_SESSION_NONE) {
-  session_start();
-}
-
 
 // This block of code is responsible for population the user information using the Equiterra SQL database.
 // Retrieving a tuple from the User table based on the username of the person currently logged in.
@@ -52,7 +49,7 @@ $conn->close();     // Close connection to the database
 <head>
   <link rel="stylesheet" href="style.css">
 
-  <head>
+</head>
 
   <body>
     <div class="onboarding-overlay">

@@ -56,35 +56,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
   <link rel="stylesheet" href="style.css">
 
-  <head>
+</head>
 
-  <body>
-    <div class="onboarding-overlay">
-      <div class="onboarding-overlay-outer">
-        <div class="onboarding-overlay-inner returning">
-          <img class="returning__image" src="images/logo.gif" alt="Horse logo">
-          <h1 class="returning__header">Sign in to Equiterra</h1>
-          <form class="signin" method="post">
-            <div class="form-group">
-              <label for="email_or_username">Email or Username</label>
-              <Input class="form-control" id="email_or_username" name="email_or_username" aria-describedby="emailHelp" />
-            </div>
-            <div class="form-group">
-              <label for="password">Password</label>
-              <Input type="password" class="form-control" id="password" name="password" aria-describedby="emailHelp" />
-            </div>
-            <?php
-            if (isset($error)) {
-              echo "<p style='color:red; text-align:center; font-size:20px;'>$error</p>";
-            }
-            ?>
-            <button class="onboarding-form__btn returning__btn" type="submit">Sign in</button>
-            <label class="signup"> Not a member? <a href="signup.php">Sign up</a> now!</label>
-          </form>
-        </div>
-        <p class="overlay-copyright">&copy;2023 Omar, Aidan, Youssef</p>
+<body>
+  <div class="onboarding-overlay">
+    <div class="onboarding-overlay-outer">
+      <div class="onboarding-overlay-inner returning">
+        <img class="returning__image" src="images/logo.gif" alt="Horse logo">
+        <h1 class="returning__header">Sign in to Equiterra</h1>
+        <form class="signin" method="post">
+          <div class="form-group">
+            <label for="email_or_username">Email or Username</label>
+            <Input class="form-control" id="email_or_username" name="email_or_username" aria-describedby="emailHelp" />
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <Input type="password" class="form-control" id="password" name="password" aria-describedby="emailHelp" />
+          </div>
+          <?php
+          if (isset($error)) {
+            echo "<p style='color:red; text-align:center; font-size:20px;'>$error</p>";
+          }
+          ?>
+          <button class="onboarding-form__btn returning__btn" type="submit">Sign in</button>
+          <label class="signup"> Not a member? <a href="signup.php">Sign up</a> now!</label>
+        </form>
       </div>
+      <p class="overlay-copyright">&copy;2023 Omar, Aidan, Youssef</p>
     </div>
-  </body>
+  </div>
+</body>
 
 </html>

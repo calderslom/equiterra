@@ -1,4 +1,8 @@
 <?php
+if (session_status() == PHP_SESSION_NONE) {
+  session_start();
+}
+
 // Include Functions
 require_once 'retrieval_functions.php';
 require_once 'client_functions.php';
@@ -6,15 +10,12 @@ require_once 'update_database.php';
 // Connect to the database for data retrieval; use $conn for DB access
 require_once 'db_config.php';
 
-if (session_status() == PHP_SESSION_NONE) {
-  session_start();
-}
+
 
 
 if (isset($_GET['client_username'])) {  // This will be set if the admin is using the page
   $_SESSION['Cusername'] = urldecode($_GET['client_username']);
-}
-else { // Client is logged in
+} else { // Client is logged in
   $_SESSION['Cusername'] = $_SESSION['username'];
 }
 
@@ -41,7 +42,7 @@ retrieve_invoices_client($conn);
 
 
 $conn->close();     // Close connection to the database
-?> // End of PHP
+?>
 
 
 <script>
@@ -73,76 +74,74 @@ $conn->close();     // Close connection to the database
 
 <head>
   <link rel="stylesheet" href="style.css">
+</head>
 
-  <head>
-
-  <body>
-    <div class="onboarding-overlay">
-      <div class="onboarding-overlay-outer">
-        <?php include 'navbar.php'; ?>
-        <div class="onboarding-overlay-inner info">
-          <h1 class="returning__header">Client Information</h1>
-          <?php
-          if (isset($_SESSION['customer'])) {
-            echo "<div class='user-info'>";
-            echo "<div>";
-            echo "<h3 class='returning__text'>Name: " . $_SESSION['customer']['name'] . "</h3>";
-            echo "<h3 class='returning__text'>Email: " . $_SESSION['customer']['email'] . "</h3>";
-            echo "</div>";
-            echo "<div>";
-            echo "<h3 class='returning__text'>Username: " . $_SESSION['customer']['username'] . "</h3>";
-            echo "<h3 class='returning__text'>Phone Number: " . $_SESSION['customer']['phone_number'] . "</h3>";
-            echo "</div>";
-            echo "</div>";
-          } else {
-            echo "<div class='returning__header'>Administrator has not added client details</div>";
+<body>
+  <div class="onboarding-overlay">
+    <div class="onboarding-overlay-outer">
+      <?php include 'navbar.php'; ?>
+      <div class="onboarding-overlay-inner info">
+        <h1 class="returning__header">Client Information</h1>
+        <?php
+        if (isset($_SESSION['customer'])) {
+          echo "<div class='user-info'>";
+          echo "<div>";
+          echo "<h3 class='returning__text'>Name: " . $_SESSION['customer']['name'] . "</h3>";
+          echo "<h3 class='returning__text'>Email: " . $_SESSION['customer']['email'] . "</h3>";
+          echo "</div>";
+          echo "<div>";
+          echo "<h3 class='returning__text'>Username: " . $_SESSION['customer']['username'] . "</h3>";
+          echo "<h3 class='returning__text'>Phone Number: " . $_SESSION['customer']['phone_number'] . "</h3>";
+          echo "</div>";
+          echo "</div>";
+        } else {
+          echo "<div class='returning__header'>Administrator has not added client details</div>";
+        }
+        ?>
+      </div>
+      <div class="onboarding-overlay-inner table">
+        <h1 class="returning__header">Invoices</h1>
+        <?php
+        if (isset($_SESSION['invoices']) && count($_SESSION['invoices']) > 0) {
+          echo "<div class='action-bar'>";
+          echo "<div class='search-container'><input class='search-table' type='text' id='searchInput' onkeyup='searchTable()' placeholder='Search invoices..'></div>";
+          if ($_SESSION['user_type'] == "Admin") {
+            echo "<a href='add_invoice.php'><button class='add-button'>Add Invoice +</button></a>";
           }
-          ?>
-        </div>
-        <div class="onboarding-overlay-inner table">
-          <h1 class="returning__header">Invoices</h1>
-          <?php
-          if (isset($_SESSION['invoices']) && count($_SESSION['invoices']) > 0) {
-            echo "<div class='action-bar'>";
-            echo "<div class='search-container'><input class='search-table' type='text' id='searchInput' onkeyup='searchTable()' placeholder='Search invoices..'></div>";
-            if ($_SESSION['user_type'] == "Admin") {
-              echo "<a href='add_invoice.php'><button class='add-button'>Add Invoice +</button></a>";
-            }
-            echo "</div>";
-            echo "<table class='horse-table'>";
-            if ($_SESSION['user_type'] == "Admin") {
-              echo "<tr><th>Invoice Number</th><th>Price</th><th>Status</th><th>Action</th></tr>";
-            } else {
-              echo "<tr><th>Invoice Number</th><th>Price</th><th>Status</th></tr>";
-            }
-            // Output data of each row
-            foreach ($_SESSION['invoices'] as $invoice) {
-              echo "<tr>";
-              echo "<td>" . $invoice["number"] . "</td>";
-              echo "<td>" . $invoice["price"] . "</td>";
-              if ($invoice["status"] == 1) echo "<td>" . "Paid" . "</td>";
-              else echo "<td>" . "Unpaid" . "</td>";
-              $invoiceNumber = $invoice["number"];
-              $invoiceStatus = $invoice["status"];
-              if ($_SESSION['user_type'] == "Admin") {
-                echo "<td><form method='post' style='margin: 0; padding: 0;'><input type='hidden' name='invoiceNumber' value=$invoiceNumber><input type='hidden' name='invoiceStatus' value=$invoiceStatus><input class='table-button' type='submit' value='Change Status'></form></td>";
-              }
-
-              echo "</tr>";
-            }
-            echo "</table>";
+          echo "</div>";
+          echo "<table class='horse-table'>";
+          if ($_SESSION['user_type'] == "Admin") {
+            echo "<tr><th>Invoice Number</th><th>Price</th><th>Status</th><th>Action</th></tr>";
           } else {
-            if ($_SESSION['user_type'] == "Admin") {
-              echo "<div class='returning__header'>No invoices in database <a href='add_invoice.php'><button class='add-button'>Add Invoice +</button></a></div>";
-            } else {
-              echo "<div class='returning__header'>No invoices in database</div>";
-            }
+            echo "<tr><th>Invoice Number</th><th>Price</th><th>Status</th></tr>";
           }
-          ?>
-        </div>
-        <p class="overlay-copyright">&copy;2023 Omar, Aidan, Youssef</p>
+          // Output data of each row
+          foreach ($_SESSION['invoices'] as $invoice) {
+            echo "<tr>";
+            echo "<td>" . $invoice["number"] . "</td>";
+            echo "<td>$" . number_format($invoice["price"], 2) . "</td>";
+            if ($invoice["status"] == 1) echo "<td>" . "Paid" . "</td>";
+            else echo "<td>" . "Unpaid" . "</td>";
+            $invoiceNumber = $invoice["number"];
+            $invoiceStatus = $invoice["status"];
+            if ($_SESSION['user_type'] == "Admin") {
+              echo "<td><form method='post' style='margin: 0; padding: 0;'><input type='hidden' name='invoiceNumber' value=$invoiceNumber><input type='hidden' name='invoiceStatus' value=$invoiceStatus><input class='table-button' type='submit' value='Change Status'></form></td>";
+            }
+
+            echo "</tr>";
+          }
+          echo "</table>";
+        } else {
+          if ($_SESSION['user_type'] == "Admin") {
+            echo "<div class='returning__header'>No invoices in database <a href='add_invoice.php'><button class='add-button'>Add Invoice +</button></a></div>";
+          } else {
+            echo "<div class='returning__header'>No invoices in database</div>";
+          }
+        }
+        ?>
       </div>
     </div>
-  </body>
+  </div>
+</body>
 
 </html>

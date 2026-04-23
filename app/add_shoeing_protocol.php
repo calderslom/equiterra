@@ -1,10 +1,11 @@
 <?php
-// Connect to the database for data retrieval; use $conn for DB access
-require_once 'db_config.php';
 
 if (session_status() == PHP_SESSION_NONE) {
   session_start();
 }
+
+// Connect to the database for data retrieval; use $conn for DB access
+require_once 'db_config.php';
 
 // horse name is still storesd in $_SESSION['horse_name']
 
@@ -34,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html>
   <head>
     <link rel="stylesheet" href="style.css">
-  <head>
+  /
   <body>
     <div class="onboarding-overlay">
       <div class="onboarding-overlay-outer">

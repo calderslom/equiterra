@@ -74,45 +74,45 @@ $conn->close();     // Close connection to the database
 <head>
   <link rel="stylesheet" href="style.css">
 
-  <head>
+</head>
 
-  <body>
-    <div class="onboarding-overlay">
-      <div class="onboarding-overlay-outer">
-        <?php include 'navbar.php'; ?>
-        <img class="horses-image" src="images/horses.png" alt="Horses">
-        <div class="onboarding-overlay-inner table">
-          <?php
-          if (isset($_SESSION['horses']) && count($_SESSION['horses']) > 0) {
-            echo "<div class='action-bar'>";
-            echo "<div class='search-container'><input class='search-table' type='text' id='searchInput' onkeyup='searchTable()' placeholder='Search horses or owners..'></div>";
-            if ($_SESSION['user_type'] == "Admin") {
-              echo "<a href='add_horse.php'><button class='add-button'>Add Horse +</button></a>";
-            }
-            echo "</div>";
-            echo "<table class='horse-table'>";
-            echo "<tr><th>Name</th><th>Owner</th><th>Action</th></tr>";
-            // Output data of each row
-            foreach ($_SESSION['horses'] as $horse => $owner) {
-              echo "<tr>";
-              echo "<td>" . $horse . "</td>";
-              echo "<td>" . $owner . "</td>";
-              echo "<td><a href='horse.php?horse_name=" . urlencode($horse) . "'><button class='table-button'>View/Edit</button></a></td>";
-              echo "</tr>";
-            }
-            echo "</table>";
-          } else {
-            if ($_SESSION['user_type'] == "Admin") {
-              echo "<div class='returning__header'>No horses in database <a href='add_horse.php'><button class='add-button'>Add Horse +</button></a></div>";
-            } else {
-              echo "<div class='returning__header'>No horses in database</div>";
-            }
+<body>
+  <div class="onboarding-overlay">
+    <div class="onboarding-overlay-outer">
+      <?php include 'navbar.php'; ?>
+      <img class="horses-image" src="images/horses.png" alt="Horses">
+      <div class="onboarding-overlay-inner table">
+        <?php
+        if (isset($_SESSION['horses']) && count($_SESSION['horses']) > 0) {
+          echo "<div class='action-bar'>";
+          echo "<div class='search-container'><input class='search-table' type='text' id='searchInput' onkeyup='searchTable()' placeholder='Search horses or owners..'></div>";
+          if ($_SESSION['user_type'] == "Admin") {
+            echo "<a href='add_horse.php'><button class='add-button'>Add Horse +</button></a>";
           }
-          ?>
-        </div>
-        <p class="overlay-copyright">&copy;2023 Omar, Aidan, Youssef</p>
+          echo "</div>";
+          echo "<table class='horse-table'>";
+          echo "<tr><th>Name</th><th>Owner</th><th>Action</th></tr>";
+          // Output data of each row
+          foreach ($_SESSION['horses'] as $horse => $owner) {
+            echo "<tr>";
+            echo "<td>" . $horse . "</td>";
+            echo "<td>" . $owner . "</td>";
+            echo "<td><a href='horse.php?horse_name=" . urlencode($horse) . "'><button class='table-button'>View/Edit</button></a></td>";
+            echo "</tr>";
+          }
+          echo "</table>";
+        } else {
+          if ($_SESSION['user_type'] == "Admin") {
+            echo "<div class='returning__header'>No horses in database <a href='add_horse.php'><button class='add-button'>Add Horse +</button></a></div>";
+          } else {
+            echo "<div class='returning__header'>No horses in database</div>";
+          }
+        }
+        ?>
       </div>
+      <p class="overlay-copyright">&copy;2023 Omar, Aidan, Youssef</p>
     </div>
-  </body>
+  </div>
+</body>
 
 </html>
