@@ -2,9 +2,6 @@
   <a class="<?php echo basename($_SERVER['PHP_SELF']) == 'home.php' ? 'active' : ''; ?>" href="home.php">Home</a>
   <a class="<?php echo basename($_SERVER['PHP_SELF']) == 'horses.php' ? 'active' : ''; ?>" href="horses.php">Horses</a>
   <?php
-  if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-  }
   // Assuming you have the user type stored in a session variable
   if ($_SESSION['user_type'] == 'Admin') {
     // Display links for admin
