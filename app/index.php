@@ -12,13 +12,9 @@ if (session_status() != PHP_SESSION_NONE) {
 // Include functions
 require_once 'client_functions.php';
 require_once 'retrieval_functions.php';
+// Connect to the database for data retrieval; use $conn for DB access
+require_once 'db_config.php';
 
-
-// Need to connect to the database for data retrieval. The $conn object will be used to communicate with the SQL database
-$conn = new mysqli('sql.freedb.tech', 'freedb_Youssef', 'fp53R5UKVn*M@XW', 'freedb_Equiterra');
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
-}
 
 $_SESSION['analysis_table'] = array(array("horse" => "Mouse", "date" => "2020-01-01", "type" => "Equitage", "details" => "A paragraph is a series of sentences that are organized and coherent, and are all related to a single topic. Almost every piece of writing you do that is longer than a few sentences should be organized into paragraphs."), array("horse" => "Mouse", "date" => "2020-02-02", "type" => "Radiograph", "details" => "A paragraph is a series of sentences that are organized and coherent, and are all related to a single topic. Almost every piece of writing you do that is longer than a few sentences should be organized into paragraphs."), array("horse" => "Mouse", "date" => "2020-03-03", "type" => "Posture", "details" => "A paragraph is a series of sentences that are organized and coherent, and are all related to a single topic. Almost every piece of writing you do that is longer than a few sentences should be organized into paragraphs."));
 $_SESSION['analysis'] = array("horse" => "Mouse", "date" => "2020-01-01", "type" => "Checkup", "details" => "A paragraph is a series of sentences that are organized and coherent, and are all related to a single topic. Almost every piece of writing you do that is longer than a few sentences should be organized into paragraphs.");

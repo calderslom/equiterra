@@ -4,16 +4,13 @@ require_once 'utility.php';
 require_once 'client_functions.php';
 require_once 'horse_functions.php';
 require_once 'update_database.php';
+// Connect to the database for data retrieval; use $conn for DB access
+require_once 'db_config.php';
 
 if (session_status() == PHP_SESSION_NONE) {
   session_start();
 }
 
-// Need to connect to the database for data retrieval. The $conn object will be used to communicate with the SQL database
-$conn = new mysqli('sql.freedb.tech', 'freedb_Youssef', 'fp53R5UKVn*M@XW', 'freedb_Equiterra');
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
-}
 
 if (isset($_GET['horse_name'])) { // Session 'horse_name' now contains the name of the horse. This is the key for the Horse table
   $_SESSION['horse_name'] = urldecode($_GET['horse_name']);

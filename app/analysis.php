@@ -5,6 +5,8 @@ require_once 'retrieval_functions.php';
 require_once 'horse_functions.php';
 require_once 'update_database.php';
 require_once 'utility.php';
+// Connect to the database for data retrieval; use $conn for DB access
+require_once 'db_config.php';
 
 // Check if a session is already ongoing - start one if not.
 if (session_status() == PHP_SESSION_NONE) {
@@ -21,12 +23,6 @@ if (isset($_GET['analysis_date'])) {
 
 if (isset($_GET['analysis_type'])) { 
   $_SESSION['analysis_type'] = urldecode($_GET['analysis_type']);
-}
-
-// Need to connect to the database for data retrieval. The $conn object will be used to communicate with the SQL database
-$conn = new mysqli('sql.freedb.tech', 'freedb_Youssef', 'fp53R5UKVn*M@XW', 'freedb_Equiterra');
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
 }
 
 if (isset($_POST['save_conf_notes'])) {

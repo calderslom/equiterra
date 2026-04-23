@@ -3,7 +3,8 @@
 require_once 'retrieval_functions.php';
 require_once 'client_functions.php';
 require_once 'update_database.php';
-
+// Connect to the database for data retrieval; use $conn for DB access
+require_once 'db_config.php';
 
 if (session_status() == PHP_SESSION_NONE) {
   session_start();
@@ -15,12 +16,6 @@ if (isset($_GET['client_username'])) {  // This will be set if the admin is usin
 }
 else { // Client is logged in
   $_SESSION['Cusername'] = $_SESSION['username'];
-}
-
-// Need to connect to the database for data retrieval. The $conn object will be used to communicate with the SQL database
-$conn = new mysqli('sql.freedb.tech', 'freedb_Youssef', 'fp53R5UKVn*M@XW', 'freedb_Equiterra');
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
 }
 
 // Retrieving a tuple from the Client table based on the client username passed in via the URL

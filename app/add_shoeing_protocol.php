@@ -1,9 +1,6 @@
 <?php
-// Need to connect to the database for data retrieval. The $conn object will be used to communicate with the SQL database
-$conn = new mysqli('sql.freedb.tech', 'freedb_Youssef', 'fp53R5UKVn*M@XW', 'freedb_Equiterra');
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
-}
+// Connect to the database for data retrieval; use $conn for DB access
+require_once 'db_config.php';
 
 if (session_status() == PHP_SESSION_NONE) {
   session_start();

@@ -13,8 +13,8 @@
 
 $db_host = getenv('DB_HOST') ?: 'localhost';
 $db_name = getenv('DB_NAME') ?: 'equiterra';
-$db_user = getenv('DB_USER') ?: 'equiterra_user';
-$db_pass = getenv('DB_PASS') ?: 'equiterra_pass';
+$db_user = getenv('DB_USER') ?: 'equiterra_admin';
+$db_pass = getenv('DB_PASS') ?: 'equiterra_password';
 
 $conn = new mysqli($db_host, $db_user, $db_pass, $db_name);
 

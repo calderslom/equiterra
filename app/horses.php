@@ -3,15 +3,13 @@ if (session_status() == PHP_SESSION_NONE) {
   session_start();
 }
 unset($_SESSION['horses']); // Temporary fix for session variables not unsetting
+
 // Include functions
 require_once 'utility.php';
 require_once 'client_functions.php';
+// Connect to the database for data retrieval; use $conn for DB access
+require_once 'db_config.php';
 
-// Need to connect to the database for data retrieval. The $conn object will be used to communicate with the SQL database
-$conn = new mysqli('sql.freedb.tech', 'freedb_Youssef', 'fp53R5UKVn*M@XW', 'freedb_Equiterra');
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
-}
 // Ensuring that a user has been succesfully logged in and session variables were assigned
 if (isset($_SESSION['user_type']) && !empty($_SESSION['user_type'])) {
   // This condidition will pass when an Admin is logged in
