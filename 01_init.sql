@@ -13,7 +13,7 @@ USE equiterra;
 
 CREATE TABLE IF NOT EXISTS Farrier (
     Fusername VARCHAR(20) NOT NULL,
-    Cpassword VARCHAR(30) NOT NULL,
+    Fpassword VARCHAR(30) NOT NULL,
     Fname     VARCHAR(30),
     UNIQUE  (Fname),
     PRIMARY KEY (Fusername)
@@ -39,6 +39,7 @@ CREATE TABLE IF NOT EXISTS Client (
 
 -- Web_user: single unified login table for both Admins and Clients.
 -- User_type is either 'Admin' (e.g. a Farrier) or 'Client'.
+-- 'Admin' was chosen in lieu of Farrier, as some Farriers are Admins, but not all Admins are Farriers.
 CREATE TABLE IF NOT EXISTS Web_user (
     Username  VARCHAR(20)  NOT NULL,
     Password  VARCHAR(30)  NOT NULL,
@@ -66,18 +67,19 @@ CREATE TABLE IF NOT EXISTS Barn (
 CREATE TABLE IF NOT EXISTS Invoice (
     Number   INT          NOT NULL AUTO_INCREMENT,
     Status   TINYINT(1)   NOT NULL DEFAULT 0,
-    Price    SMALLINT,
     Fusername VARCHAR(20),
     Cusername VARCHAR(20),
     PRIMARY KEY (Number),
     FOREIGN KEY (Cusername) REFERENCES Client(Cusername) ON UPDATE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS Invoice_Services (
-    Inumber INT,
-    Service TINYTEXT,
-    Date    DATE NOT NULL DEFAULT (CURRENT_DATE),
-    PRIMARY KEY (Inumber, Date),
+CREATE TABLE IF NOT EXISTS Invoice_Item (
+    Item_id      INT      NOT NULL AUTO_INCREMENT,
+    Inumber      INT,
+    Idescription TINYTEXT,
+    Price        SMALLINT,
+    Date         DATE     NOT NULL DEFAULT (CURRENT_DATE),
+    PRIMARY KEY (Item_id),
     FOREIGN KEY (Inumber) REFERENCES Invoice(Number) ON UPDATE CASCADE
 );
 
@@ -449,27 +451,35 @@ END //
 
 -- Insert a new invoice record.
 CREATE PROCEDURE AddInvoice(
-    IN in_number    INT,
     IN in_status    TINYINT(1),
-    IN in_price     SMALLINT,
     IN in_fusername VARCHAR(20),
     IN in_cusername VARCHAR(20)
 )
 BEGIN
-    INSERT INTO Invoice (Number, Status, Price, Fusername, Cusername)
-    VALUES (in_number, in_status, in_price, in_fusername, in_cusername);
+    INSERT INTO Invoice (Status, Fusername, Cusername)
+    VALUES (in_status, in_fusername, in_cusername);
 END //
 
--- Insert a service line item for an existing invoice.
-CREATE PROCEDURE AddInvoiceService(
-    IN in_inumber INT,
-    IN in_service TINYTEXT,
-    IN in_date    DATE
+-- Aggregate all invoice items by Invoice number and sum their prices
+CREATE PROCEDURE GetInvoiceTotal(IN in_inumber INT)
+BEGIN
+    SELECT COALESCE(SUM(Price), 0) AS Total
+    FROM Invoice_Item
+    WHERE Inumber = in_inumber;
+END //
+
+-- Insert a single invoicable item for an existing invoice.
+CREATE PROCEDURE AddInvoiceItem(
+    IN in_inumber       INT,
+    IN in_description   TINYTEXT,
+    IN in_price         SMALLINT,
+    IN in_date          DATE
 )
 BEGIN
-    INSERT INTO Invoice_Services (Inumber, Service, Date)
-    VALUES (in_inumber, in_service, in_date);
+    INSERT INTO Invoice_Item (Inumber, Idescription, Price, Date)
+    VALUES (in_inumber, in_description, in_price, in_date);
 END //
+
 
 -- Toggle an invoice's paid/unpaid status.
 CREATE PROCEDURE ChangeStatus(
@@ -509,9 +519,7 @@ GROUP BY B.Bname;
 -- SEED DATA FOR INITIAL SETUP
 -- =============================================================================
 
--- Default admin/farrier account (change password after first login)
-INSERT IGNORE INTO Farrier (Fusername, Cpassword, Fname)
-VALUES ('admin', 'changeme', 'Admin User');
+-- Default admin account (change password after first login)
 
 INSERT IGNORE INTO Web_user (Username, Password, Name, Email, Phone_num, User_type)
-VALUES ('admin', 'changeme', 'Admin User', 'admin@equiterra.local', '(000) 000-0000', 'Admin');
+VALUES ('admin', 'open sesame!', 'Aidan Sloman', 'admin@helpdesk.ca', '(403) 500-l337', 'Admin');

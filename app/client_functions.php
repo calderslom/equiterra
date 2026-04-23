@@ -1,7 +1,4 @@
 <?php
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}
 
 // Include functions
 require_once 'utility.php';
@@ -100,10 +97,8 @@ function retrieve_client_names($conn)
 
 /**
  * Retrieves invoices for a client from the Invoice table.
- *
- * This function retrieves invoices for the client identified by the
- * username stored in the session. It prepares an SQL statement, executes
- * it, and creates an array containing the retrieved invoice information.
+ * Invoice total is calculated by summing the prices of all Invoice_Items
+ * associated with the invoice. COALESCE handles invoices with no items (returns 0).
  *
  * @param mysqli $conn - The MySQLi database connection.
  * @return array|null - An array containing invoice information, or null if no invoices are found.
@@ -113,8 +108,14 @@ function retrieve_invoices_client($conn)
     if (isset($_SESSION['customer']['username']) && !empty($_SESSION['customer']['username'])) {
         // Get the username from the session and sanitize it
         $username = $conn->real_escape_string($_SESSION['customer']['username']);
-        // Prepare SQL statement for Invoice retrieval by client name
-        $stmt_user = $conn->prepare("SELECT * FROM Invoice WHERE Cusername = ?");
+        // Retrieve invoices with total price calculated from Invoice_Item
+        $stmt_user = $conn->prepare("
+            SELECT I.Number, I.Status, COALESCE(SUM(II.Price), 0) AS Total
+            FROM Invoice I
+            LEFT JOIN Invoice_Item II ON I.Number = II.Inumber
+            WHERE I.Cusername = ?
+            GROUP BY I.Number, I.Status
+        ");
         $stmt_user->bind_param("s", $username);
         $stmt_user->execute();
         $invoice_result = $stmt_user->get_result();
@@ -125,7 +126,7 @@ function retrieve_invoices_client($conn)
             $invoices[] = [
                 "number" => $tuple["Number"],
                 "status" => $tuple["Status"],
-                "price" => $tuple["Price"]
+                "price"  => $tuple["Total"]
             ];
         }
         $_SESSION['invoices'] = $invoices;
