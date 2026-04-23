@@ -11,7 +11,8 @@ services:
       MYSQL_PASSWORD: equiterra_password
     volumes:
       # Init script automatically  on first startup
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+      - ./01_init.sql:/docker-entrypoint-initdb.d/01_init.sql:ro
+      - ./02_seed.sql:/docker-entrypoint-initdb.d/02_seed.sql:ro
       # Persistent database data (between container restarts)
       - db_data:/var/lib/mysql
     ports:

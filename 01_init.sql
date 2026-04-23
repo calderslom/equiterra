@@ -506,7 +506,7 @@ JOIN Horse H ON B.Bname = H.Bname
 GROUP BY B.Bname;
 
 -- =============================================================================
--- SEED DATA
+-- SEED DATA FOR INITIAL SETUP
 -- =============================================================================
 
 -- Default admin/farrier account (change password after first login)
