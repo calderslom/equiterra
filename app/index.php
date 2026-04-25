@@ -82,7 +82,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           <label class="signup"> Not a member? <a href="signup.php">Sign up</a> now!</label>
         </form>
       </div>
-      <p class="overlay-copyright">&copy;2023 Omar, Aidan, Youssef</p>
+      <p class="overlay-copyright">Equiterra &copy;2026</p>
     </div>
   </div>
 </body>

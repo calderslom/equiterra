@@ -110,7 +110,7 @@ $conn->close();     // Close connection to the database
         }
         ?>
       </div>
-      <p class="overlay-copyright">&copy;2023 Omar, Aidan, Youssef</p>
+      <p class="overlay-copyright">Equiterra &copy;2026</p>
     </div>
   </div>
 </body>

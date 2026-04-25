@@ -125,7 +125,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <label class="signup"> *If the horse owner (client) or barn does not already exist, you will need to add them first.</label>
           </form>
         </div>
-        <p class="overlay-copyright">&copy;2023 Omar, Aidan, Youssef</p>
+        <p class="overlay-copyright">Equiterra &copy;2026</p>
       </div>
     </div>
   </body>

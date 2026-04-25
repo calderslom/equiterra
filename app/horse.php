@@ -115,12 +115,12 @@ $conn->close();     // Close connection to the database
           echo "<h3 class='returning__text'>Breed: " . $_SESSION['horse']['breed'] . "</h3>";
           if ($_SESSION['user_type'] == "Admin") {
             if (isset($_POST['edit']) && $_POST['edit'] == 'conf_notes') {
-              echo "<form method='POST'><h3 class='returning__text'>Confirmation Notes:";
+              echo "<form method='POST'><h3 class='returning__text'>Conformation Notes:";
               echo "<input type='submit' name='save_conf_notes' value='Save' class='conf-save'>";
               echo "<div><textarea class='edit-input' type='conf_notes' name='conf_notes' style='height: 100px; width: 400px;'>" . $_SESSION['horse']['conf_notes'] . "</textarea></div>";
               echo "</h3></form>";
             } else {
-              echo "<h3 class='returning__text'>Confirmation Notes: ";
+              echo "<h3 class='returning__text'>Conformation Notes: ";
               echo "<button class='expand-arrow' onclick='expandNotes()'>▼</button>";
               echo "<form method='POST' style='display:inline;'><input type='hidden' name='edit' value='conf_notes'><input type='submit' value='Edit' class='conf-button'></form>";
               $first_line = explode("\n", nl2br($_SESSION['horse']['conf_notes']))[0];
@@ -213,7 +213,7 @@ $conn->close();     // Close connection to the database
         }
         ?>
       </div>
-      <p class="overlay-copyright">&copy;2023 Omar, Aidan, Youssef</p>
+      <p class="overlay-copyright">Equiterra &copy;2026</p>
     </div>
   </div>
 </body>
