@@ -302,6 +302,17 @@ END //
 -- SHOEING PROTOCOL PROCEDURES
 -- -----------------------------------------------------------------------------
 
+CREATE PROCEDURE AddImage(
+    IN in_hname      VARCHAR(30),
+    IN in_date       DATE,
+    IN in_context    VARCHAR(30),
+    IN in_image_path VARCHAR(255)
+)
+BEGIN
+    INSERT INTO Image (Hname, Date, Context, Image_path)
+    VALUES (in_hname, in_date, in_context, in_image_path);
+END //
+
 -- Insert a new shoeing protocol and mark all previous ones for that horse as past (Status=0).
 CREATE PROCEDURE AddShoeingProtocol(
     IN in_hname       VARCHAR(30),
