@@ -381,11 +381,12 @@ CREATE PROCEDURE AddAnalysis(
     IN in_filepath VARCHAR(255),
     IN in_date     DATE,
     IN in_type     VARCHAR(40),
-    IN in_hname    VARCHAR(30)
+    IN in_hname    VARCHAR(30),
+    IN in_details  TEXT
 )
 BEGIN
-    INSERT INTO Analysis (Filepath, Date, Type, Hname)
-    VALUES (in_filepath, in_date, in_type, in_hname);
+    INSERT INTO Analysis (Filepath, Date, Type, Hname, Details)
+    VALUES (in_filepath, in_date, in_type, in_hname, in_details);
 END //
 
 -- Return all analysis dates and types for a specific horse (for the list view).
