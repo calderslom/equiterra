@@ -157,12 +157,26 @@ ONBOARDING STYLES
 	width: 60%;
 }
 
+.unit {
+    font-size: 0.7em;
+    color: #000000;
+}
+
 .returning{max-width: 568px; padding: 40px;}
 	.returning__image{position: relative; left: -10px; width: 380px; display: block; margin: auto auto;}
 	.returning__header{display: grid; grid-template-columns: 1fr; justify-items: center; color: black;  font-size: 30px; font-family: 'source_code_probold'; text-align: center;}
 	.returning__text{color: black; font-size: 20px;}
 	.returning__btn{background: darkgreen; padding: 20px 30px; border-radius: 20px; border: none; margin-top: 30px; width: 100%; max-width: 320px; margin-left: auto; margin-right: auto; display: block; font-size: 15px; font-weight: 500;}
 	.returning__btn:hover{background: black; transition: all .3s;}
+
+
+.returning__text {
+    font-weight: normal;
+}
+
+.detail-label {
+    font-weight: bold;
+}
 
 .shoe{
 	margin-top: 70px;
@@ -467,6 +481,10 @@ select.form-control {
   align-items: center;
 }
 
+.action-bar.left {
+    justify-content: flex-start;
+}
+
 .search-container {
   display: flex;
   align-items: center;
@@ -548,4 +566,24 @@ textarea.form-control {
 
 .narrower {
 	width: 70%; /* Adjust this value to make the container less wide */
+}
+
+
+
+/** MEDIA QUERIES - Breakpoints **/
+
+@media screen and (max-width: 568px) {
+    .horse-header {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    .horse-header .photo-btn {
+        justify-content: center;
+        margin-top: 10px;
+    }
+}
+
+.photo-btn {
+    display: flex;
+    justify-content: flex-end;
 }
