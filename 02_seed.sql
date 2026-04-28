@@ -178,44 +178,44 @@ VALUES (6, 0, 'admin', 'mbellingham');
 -- =============================================================================
 
 -- Invoice 1 - Rachel, September visit (Copper)
-INSERT INTO Invoice_Item (Inumber, Idescription, Price, Date)
-VALUES (1, 'Full shoe set - Copper', 160, '2023-09-01');
-INSERT INTO Invoice_Item (Inumber, Idescription, Price, Date)
-VALUES (1, 'Wedge pad - right front', 25, '2023-09-01');
+INSERT INTO Invoice_Item (Inumber, Hname, Idescription, Price, Date)
+VALUES (1, 'Copper', 'Full shoe set', 160, '2023-09-01');
+INSERT INTO Invoice_Item (Inumber, Hname, Idescription, Price, Date)
+VALUES (1, 'Copper', 'Wedge pad - right front', 25, '2023-09-01');
 
 -- Invoice 2 - Rachel, November visit (Copper + Luna)
-INSERT INTO Invoice_Item (Inumber, Idescription, Price, Date)
-VALUES (2, 'Full shoe set - Copper', 160, '2023-11-15');
-INSERT INTO Invoice_Item (Inumber, Idescription, Price, Date)
-VALUES (2, 'Custom wedge shoe - right front', 45, '2023-11-15');
-INSERT INTO Invoice_Item (Inumber, Idescription, Price, Date)
-VALUES (2, 'Full shoe set - Luna', 160, '2023-11-15');
-INSERT INTO Invoice_Item (Inumber, Idescription, Price, Date)
-VALUES (2, 'Lateral extension - right rear', 35, '2023-11-15');
+INSERT INTO Invoice_Item (Inumber, Hname, Idescription, Price, Date)
+VALUES (2, 'Copper', 'Full shoe set', 160, '2023-11-15');
+INSERT INTO Invoice_Item (Inumber, Hname, Idescription, Price, Date)
+VALUES (2, 'Copper', 'Custom wedge shoe - right front', 45, '2023-11-15');
+INSERT INTO Invoice_Item (Inumber, Hname, Idescription, Price, Date)
+VALUES (2, 'Luna', 'Full shoe set', 160, '2023-11-15');
+INSERT INTO Invoice_Item (Inumber, Hname, Idescription, Price, Date)
+VALUES (2, 'Luna', 'Lateral extension - right rear', 35, '2023-11-15');
 
 -- Invoice 3 - James, October visit (Maverick) - unpaid
-INSERT INTO Invoice_Item (Inumber, Idescription, Price, Date)
-VALUES (3, 'Full shoe set - Maverick', 180, '2023-10-22');
-INSERT INTO Invoice_Item (Inumber, Idescription, Price, Date)
-VALUES (3, 'Trim and balance check', 40, '2023-10-22');
+INSERT INTO Invoice_Item (Inumber, Hname, Idescription, Price, Date)
+VALUES (3, 'Maverick', 'Full shoe set', 180, '2023-10-22');
+INSERT INTO Invoice_Item (Inumber, Hname, Idescription, Price, Date)
+VALUES (3, 'Maverick', 'Trim and balance check', 40, '2023-10-22');
 
 -- Invoice 4 - Sophie, September visit (Duke)
-INSERT INTO Invoice_Item (Inumber, Idescription, Price, Date)
-VALUES (4, 'Therapeutic egg bar shoe set - Duke', 220, '2023-09-15');
+INSERT INTO Invoice_Item (Inumber, Hname, Idescription, Price, Date)
+VALUES (4, 'Duke', 'Therapeutic egg bar shoe set', 220, '2023-09-15');
 
 -- Invoice 5 - Sophie, November visit (Duke + Stella) - unpaid
-INSERT INTO Invoice_Item (Inumber, Idescription, Price, Date)
-VALUES (5, 'Therapeutic egg bar shoe set with gel pads - Duke', 260, '2023-11-20');
-INSERT INTO Invoice_Item (Inumber, Idescription, Price, Date)
-VALUES (5, 'Custom angled shoe set - Stella fronts', 190, '2023-11-20');
-INSERT INTO Invoice_Item (Inumber, Idescription, Price, Date)
-VALUES (5, 'Standard shoe set - Stella rears', 120, '2023-11-20');
+INSERT INTO Invoice_Item (Inumber, Hname, Idescription, Price, Date)
+VALUES (5, 'Duke', 'Therapeutic egg bar shoe set with gel pads', 260, '2023-11-20');
+INSERT INTO Invoice_Item (Inumber, Hname, Idescription, Price, Date)
+VALUES (5, 'Stella', 'Custom angled shoe set - fronts', 190, '2023-11-20');
+INSERT INTO Invoice_Item (Inumber, Hname, Idescription, Price, Date)
+VALUES (5, 'Stella', 'Standard shoe set - rears', 120, '2023-11-20');
 
 -- Invoice 6 - Marcus, November visit (Atlas) - unpaid
-INSERT INTO Invoice_Item (Inumber, Idescription, Price, Date)
-VALUES (6, 'Full shoe set - Atlas', 180, '2023-11-01');
-INSERT INTO Invoice_Item (Inumber, Idescription, Price, Date)
-VALUES (6, 'Rim pads - both fronts', 50, '2023-11-01');
+INSERT INTO Invoice_Item (Inumber, Hname, Idescription, Price, Date)
+VALUES (6, 'Atlas', 'Full shoe set', 180, '2023-11-01');
+INSERT INTO Invoice_Item (Inumber, Hname, Idescription, Price, Date)
+VALUES (6, 'Atlas', 'Rim pads - both fronts', 50, '2023-11-01');
 
 -- =============================================================================
 -- Medical Records
