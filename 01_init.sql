@@ -6,11 +6,15 @@
 
 CREATE DATABASE IF NOT EXISTS equiterra;
 USE equiterra;
+-- use higher bit character encoding
+SET NAMES utf8mb4;
+SET CHARACTER SET utf8mb4;
 
 -- =============================================================================
 -- TABLES
 -- =============================================================================
 
+-- Farrier does not have phone# column as all farriers are web users
 CREATE TABLE IF NOT EXISTS Farrier (
     Fusername VARCHAR(20) NOT NULL,
     Fpassword VARCHAR(30) NOT NULL,
@@ -76,6 +80,7 @@ CREATE TABLE IF NOT EXISTS Invoice (
 CREATE TABLE IF NOT EXISTS Invoice_Item (
     Item_id      INT      NOT NULL AUTO_INCREMENT,
     Inumber      INT,
+    Hname        VARCHAR(30),
     Idescription TINYTEXT,
     Price        SMALLINT,
     Date         DATE     NOT NULL DEFAULT (CURRENT_DATE),
@@ -481,14 +486,15 @@ END //
 
 -- Insert a single invoicable item for an existing invoice.
 CREATE PROCEDURE AddInvoiceItem(
-    IN in_inumber       INT,
-    IN in_description   TINYTEXT,
-    IN in_price         SMALLINT,
-    IN in_date          DATE
+    IN in_inumber      INT,
+    IN in_hname        VARCHAR(30),
+    IN in_description  TINYTEXT,
+    IN in_price        SMALLINT,
+    IN in_date         DATE
 )
 BEGIN
-    INSERT INTO Invoice_Item (Inumber, Idescription, Price, Date)
-    VALUES (in_inumber, in_description, in_price, in_date);
+    INSERT INTO Invoice_Item (Inumber, Hname, Idescription, Price, Date)
+    VALUES (in_inumber, in_hname, in_description, in_price, in_date);
 END //
 
 
