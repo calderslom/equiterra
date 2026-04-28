@@ -124,7 +124,7 @@ CREATE TABLE IF NOT EXISTS Analysis (
     Type     VARCHAR(40),
     Details  TEXT,
     Hname    VARCHAR(30),
-    PRIMARY KEY (Filepath, Date),
+    PRIMARY KEY (Filepath),
     FOREIGN KEY (Hname) REFERENCES Horse(Hname) ON UPDATE CASCADE
 );
 
@@ -132,7 +132,7 @@ CREATE TABLE IF NOT EXISTS Medical_Record (
     Hname    VARCHAR(30),
     Date     DATE         NOT NULL,
     Status   TINYINT(1)   DEFAULT 1,
-    Filename VARCHAR(30),
+    Filename VARCHAR(255),     
     Ailment  TEXT,
     Pname    VARCHAR(30),
     PRIMARY KEY (Hname, Date),
@@ -144,8 +144,8 @@ CREATE TABLE IF NOT EXISTS Image (
     Hname      VARCHAR(30),
     Date       DATE         NOT NULL DEFAULT (CURRENT_DATE),
     Context    VARCHAR(30),
-    Image_path VARCHAR(255) NOT NULL,
-    PRIMARY KEY (Image_path, Hname),
+    Filepath VARCHAR(255) NOT NULL,
+    PRIMARY KEY (Filepath),
     FOREIGN KEY (Hname) REFERENCES Horse(Hname) ON UPDATE CASCADE
 );
 
@@ -421,6 +421,71 @@ BEGIN
     UPDATE Analysis
     SET Details = in_details
     WHERE Hname = in_hname AND Date = in_date AND Type = in_type;
+END //
+
+-- -----------------------------------------------------------------------------
+-- MEDICAL RECORD PROCEDURES
+-- -----------------------------------------------------------------------------
+
+-- Return all medical records for a specific horse (for the list view on horse page).
+CREATE PROCEDURE GetMedicalRecords(IN in_hname VARCHAR(30))
+BEGIN
+    SELECT M.Hname, M.Date, M.Status, M.Filename, M.Ailment, M.Pname
+    FROM Medical_Record M
+    WHERE M.Hname = in_hname
+    ORDER BY M.Date DESC;
+END //
+
+-- Return full details of a specific medical record including practitioner details.
+CREATE PROCEDURE GetMedicalRecordDetails(
+    IN in_hname VARCHAR(30),
+    IN in_date  DATE
+)
+BEGIN
+    SELECT M.Hname, M.Date, M.Status, M.Filename, M.Ailment, M.Pname,
+           P.Phone_num, P.Email, P.Type
+    FROM Medical_Record M
+    LEFT JOIN Practitioner P ON M.Pname = P.Pname
+    WHERE M.Hname = in_hname AND M.Date = in_date;
+END //
+
+-- Add a new medical record.
+CREATE PROCEDURE AddMedicalRecord(
+    IN in_hname    VARCHAR(30),
+    IN in_date     DATE,
+    IN in_status   TINYINT(1),
+    IN in_filename VARCHAR(80),
+    IN in_ailment  TEXT,
+    IN in_pname    VARCHAR(30)
+)
+BEGIN
+    INSERT INTO Medical_Record (Hname, Date, Status, Filename, Ailment, Pname)
+    VALUES (in_hname, in_date, in_status, in_filename, in_ailment, in_pname);
+END //
+
+-- Add a practitioner if they don't already exist (Option B — bare row, admin fills details later).
+CREATE PROCEDURE AddPractitionerIfNotExists(IN in_pname VARCHAR(30))
+BEGIN
+    INSERT IGNORE INTO Practitioner (Pname)
+    VALUES (in_pname);
+END //
+
+-- Return all practitioners for the dropdown (ordered alphabetically).
+CREATE PROCEDURE GetPractitioners()
+BEGIN
+    SELECT Pname, Phone_num, Email, Type
+    FROM Practitioner
+    ORDER BY Pname ASC;
+END //
+
+-- Delete a specific medical record (Admin only).
+CREATE PROCEDURE DeleteMedicalRecord(
+    IN in_hname VARCHAR(30),
+    IN in_date  DATE
+)
+BEGIN
+    DELETE FROM Medical_Record
+    WHERE Hname = in_hname AND Date = in_date;
 END //
 
 -- -----------------------------------------------------------------------------
