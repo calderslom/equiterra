@@ -17,6 +17,7 @@ $db_user = getenv('DB_USER') ?: 'equiterra_admin';
 $db_pass = getenv('DB_PASS') ?: 'equiterra_password';
 
 $conn = new mysqli($db_host, $db_user, $db_pass, $db_name);
+$conn->set_charset("utf8mb4");
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
