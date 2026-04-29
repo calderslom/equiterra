@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $date = $_POST["date"];
   $type = $_POST["type"];
   $details = $_POST["details"];
-  $filepath = "uploads/analysis/" . $horse . "_" . $type . "_" . $date . ".pdf";
+  $analysis_path = "uploads/analysis/" . $horse . "_" . $type . "_" . $date . ".pdf";
 
   $stmt_insert = $conn->prepare("CALL AddAnalysis(?,?,?,?,?)");
   $stmt_insert->bind_param("sssss", $filepath, $date, $type, $horse, $details);
@@ -48,8 +48,9 @@ $conn->close();
             <label for="type">Type</label>
             <select class="form-control rounded" id="type" name="type" value="<?php echo isset($_POST['type']) ? $_POST['type'] : '' ?>" required>
               <option value="">Select Type</option>
-              <option value="Equitage">Equitage</option>
+              <option value="Hoofbeat">Hoofbeat</option>
               <option value="Radiograph">Radiograph</option>
+              <option value="Equigate">Equigate</option>
               <option value="Posture">Posture</option>
             </select>
           </div>
