@@ -141,6 +141,46 @@ VALUES ('Goliath', 'M', 'Polo', 17, '2016-05-30', 'Warmblood',
 
 
 -- =============================================================================
+-- Horse Images
+-- =============================================================================
+
+INSERT IGNORE INTO Image (Hname, Date, Context, Image_path)
+VALUES ('Copper', '2023-09-01', 'Conformation photo', 'uploads/images/horses_by_name/Copper/Copper_seed_image.jpg');
+
+INSERT IGNORE INTO Image (Hname, Date, Context, Image_path)
+VALUES ('Luna', '2023-09-01', 'Conformation photo', 'uploads/images/horses_by_name/Luna/Luna_seed_image.jpg');
+
+INSERT IGNORE INTO Image (Hname, Date, Context, Image_path)
+VALUES ('Biscuit', '2023-09-01', 'Conformation photo', 'uploads/images/horses_by_name/Biscuit/Biscuit_seed_image.jpg');
+
+INSERT IGNORE INTO Image (Hname, Date, Context, Image_path)
+VALUES ('Maverick', '2023-09-01', 'Conformation photo', 'uploads/images/horses_by_name/Maverick/Maverick_seed_image.jpg');
+
+INSERT IGNORE INTO Image (Hname, Date, Context, Image_path)
+VALUES ('Rio', '2023-09-01', 'Conformation photo', 'uploads/images/horses_by_name/Rio/Rio_seed_image.jpg');
+
+INSERT IGNORE INTO Image (Hname, Date, Context, Image_path)
+VALUES ('Thunder', '2023-09-01', 'Conformation photo', 'uploads/images/horses_by_name/Thunder/Thunder_seed_image.jpg');
+
+INSERT IGNORE INTO Image (Hname, Date, Context, Image_path)
+VALUES ('Stella', '2023-09-01', 'Conformation photo', 'uploads/images/horses_by_name/Stella/Stella_seed_image.jpg');
+
+INSERT IGNORE INTO Image (Hname, Date, Context, Image_path)
+VALUES ('Duke', '2023-09-01', 'Conformation photo', 'uploads/images/horses_by_name/Duke/Duke_seed_image.jpg');
+
+INSERT IGNORE INTO Image (Hname, Date, Context, Image_path)
+VALUES ('Penny', '2023-09-01', 'Conformation photo', 'uploads/images/horses_by_name/Penny/Penny_seed_image.jpg');
+
+INSERT IGNORE INTO Image (Hname, Date, Context, Image_path)
+VALUES ('Atlas', '2023-09-01', 'Conformation photo', 'uploads/images/horses_by_name/Atlas/Atlas_seed_image.jpg');
+
+INSERT IGNORE INTO Image (Hname, Date, Context, Image_path)
+VALUES ('Zara', '2023-09-01', 'Conformation photo', 'uploads/images/horses_by_name/Zara/Zara_seed_image.jpg');
+
+INSERT IGNORE INTO Image (Hname, Date, Context, Image_path)
+VALUES ('Goliath', '2023-09-01', 'Conformation photo', 'uploads/images/horses_by_name/Goliath/Goliath_seed_image.jpg');
+
+-- =============================================================================
 -- Shoeing Protocols
 -- =============================================================================
 
@@ -411,112 +451,112 @@ VALUES ('Goliath', '2023-11-02', 0, 'uploads/medical_records/Goliath/Goliath_Dr.
 -- =============================================================================
 
 INSERT IGNORE INTO Analysis (Analysis_path, Date, Type, Details, Hname)
-VALUES ('uploads/analysis/Biscuit_xray_2023-10.pdf', '2023-10-18', 'Radiograph',
+VALUES ('uploads/analysis/Biscuit_xray_2023-10.png', '2023-10-18', 'Radiograph',
         'Mild arthritic changes confirmed in right front coffin joint. Consistent with clinical presentation. Egg bar shoe recommended to offload pressure.',
         'Biscuit');
 
 INSERT IGNORE INTO Analysis (Analysis_path, Date, Type, Details, Hname)
-VALUES ('uploads/analysis/Rio_gait_2023-11.pdf', '2023-11-08', 'Gait Analysis',
+VALUES ('uploads/analysis/Rio_gait_2023-11.png', '2023-11-08', 'Gait Analysis',
         'Slight overreaching detected on left rear at trot. No interference marks yet. Rolled toe applied as preventative measure.',
         'Rio');
 
 INSERT IGNORE INTO Analysis (Analysis_path, Date, Type, Details, Hname)
-VALUES ('uploads/analysis/Zara_posture_2023-11.pdf', '2023-11-12', 'Posture',
+VALUES ('uploads/analysis/Zara_posture_2023-11.png', '2023-11-12', 'Posture',
         'Good overall posture. Thin hoof walls noted on both fronts — copper sulphate treatment initiated. Re-evaluate wall quality at next visit.',
         'Zara');
 
 -- Copper (Rachel)
 INSERT IGNORE INTO Analysis (Analysis_path, Date, Type, Details, Hname)
-VALUES ('uploads/analysis/Copper_gait_2023-05.pdf', '2023-05-20', 'Gait Analysis',
+VALUES ('uploads/analysis/Copper_gait_2023-05.png', '2023-05-20', 'Gait Analysis',
         'Subtle compensation pattern detected in left front at trot. Consistent with early rotation in coffin bone confirmed by subsequent radiograph. Wedge pad recommended.',
         'Copper');
 
 INSERT IGNORE INTO Analysis (Analysis_path, Date, Type, Details, Hname)
-VALUES ('uploads/analysis/Copper_posture_2023-07.pdf', '2023-07-14', 'Posture',
+VALUES ('uploads/analysis/Copper_posture_2023-07.png', '2023-07-14', 'Posture',
         'Slight asymmetry in shoulder loading consistent with left front discomfort. Horse shifting weight to compensate. Wedge pad applied this visit — reassess at next appointment.',
         'Copper');
 
 INSERT IGNORE INTO Analysis (Analysis_path, Date, Type, Details, Hname)
-VALUES ('uploads/analysis/Copper_xray_2023-11.pdf', '2023-11-15', 'Radiograph',
+VALUES ('uploads/analysis/Copper_xray_2023-11.png', '2023-11-15', 'Radiograph',
         'Follow-up radiograph confirms rotation is stabilizing. Custom wedge shoe maintaining correct alignment. Continue current protocol and reassess in 3 months.',
         'Copper');
 
 -- Luna (Rachel)
 INSERT IGNORE INTO Analysis (Analysis_path, Date, Type, Details, Hname)
-VALUES ('uploads/analysis/Luna_posture_2023-08.pdf', '2023-08-05', 'Posture',
+VALUES ('uploads/analysis/Luna_posture_2023-08.png', '2023-08-05', 'Posture',
         'Minor asymmetry in hindquarter loading — right rear bearing slightly less weight. No lameness detected. Lateral extension recommended at next shoeing appointment.',
         'Luna');
 
 INSERT IGNORE INTO Analysis (Analysis_path, Date, Type, Details, Hname)
-VALUES ('uploads/analysis/Luna_gait_2023-10.pdf', '2023-10-10', 'Gait Analysis',
+VALUES ('uploads/analysis/Luna_gait_2023-10.png', '2023-10-10', 'Gait Analysis',
         'Gait analysis post lateral extension application. Improvement in right rear loading symmetry noted at all gaits. Owner reports improved movement quality under saddle.',
         'Luna');
 
 -- Maverick (James)
 INSERT IGNORE INTO Analysis (Analysis_path, Date, Type, Details, Hname)
-VALUES ('uploads/analysis/Maverick_gait_2023-04.pdf', '2023-04-28', 'Gait Analysis',
+VALUES ('uploads/analysis/Maverick_gait_2023-04.png', '2023-04-28', 'Gait Analysis',
         'Slight shortening of stride on left front following recent competition. Consistent with mild fetlock inflammation reported by owner. Rest and anti-inflammatory prescribed by Dr. Mitchell.',
         'Maverick');
 
 INSERT IGNORE INTO Analysis (Analysis_path, Date, Type, Details, Hname)
-VALUES ('uploads/analysis/Maverick_gait_2023-07.pdf', '2023-07-03', 'Gait Analysis',
+VALUES ('uploads/analysis/Maverick_gait_2023-07.png', '2023-07-03', 'Gait Analysis',
         'Follow-up gait analysis post rest period. Stride length symmetrical at walk and trot. Cleared for return to full work and competition schedule.',
         'Maverick');
 
 INSERT IGNORE INTO Analysis (Analysis_path, Date, Type, Details, Hname)
-VALUES ('uploads/analysis/Maverick_posture_2023-10.pdf', '2023-10-22', 'Posture',
+VALUES ('uploads/analysis/Maverick_posture_2023-10.png', '2023-10-22', 'Posture',
         'Good overall posture and muscular symmetry. No concerns. Horse in peak condition ahead of winter season.',
         'Maverick');
 
 -- Stella (Sophie)
 INSERT IGNORE INTO Analysis (Analysis_path, Date, Type, Details, Hname)
-VALUES ('uploads/analysis/Stella_gait_2023-08.pdf', '2023-08-12', 'Gait Analysis',
+VALUES ('uploads/analysis/Stella_gait_2023-08.png', '2023-08-12', 'Gait Analysis',
         'Gait analysis requested by owner ahead of competition season. Upright pasterns causing shortened anterior phase of stride on fronts. Custom angle shoe recommended.',
         'Stella');
 
 INSERT IGNORE INTO Analysis (Analysis_path, Date, Type, Details, Hname)
-VALUES ('uploads/analysis/Stella_equigate_2023-10.pdf', '2023-10-05', 'Equigate',
+VALUES ('uploads/analysis/Stella_equigate_2023-10.png', '2023-10-05', 'Equigate',
         'Equigate analysis post custom angle shoe application. Marked improvement in anterior stride length on both fronts. Owner reports improved barrel times. Continue current protocol.',
         'Stella');
 
 INSERT IGNORE INTO Analysis (Analysis_path, Date, Type, Details, Hname)
-VALUES ('uploads/analysis/Stella_posture_2023-10.pdf', '2023-10-05', 'Posture',
+VALUES ('uploads/analysis/Stella_posture_2023-10.png', '2023-10-05', 'Posture',
         'Posture assessment alongside Equigate analysis. Upright conformation managed well by custom shoeing angle. No secondary compensation patterns detected.',
         'Stella');
 
 -- Duke (Sophie)
 INSERT IGNORE INTO Analysis (Analysis_path, Date, Type, Details, Hname)
-VALUES ('uploads/analysis/Duke_xray_2023-01.pdf', '2023-01-12', 'Radiograph',
+VALUES ('uploads/analysis/Duke_xray_2023-01.png', '2023-01-12', 'Radiograph',
         'Initial radiograph requested following owner report of gradual stiffness onset. Early degenerative joint changes confirmed in both rear fetlocks. Therapeutic shoeing protocol initiated.',
         'Duke');
 
 INSERT IGNORE INTO Analysis (Analysis_path, Date, Type, Details, Hname)
-VALUES ('uploads/analysis/Duke_gait_2023-05.pdf', '2023-05-30', 'Gait Analysis',
+VALUES ('uploads/analysis/Duke_gait_2023-05.png', '2023-05-30', 'Gait Analysis',
         'Gait analysis following transition to egg bar shoes on fronts. Moderate improvement in movement fluidity. Stiffness still evident in rears — egg bar shoes extended to all four at this visit.',
         'Duke');
 
 INSERT IGNORE INTO Analysis (Analysis_path, Date, Type, Details, Hname)
-VALUES ('uploads/analysis/Duke_gait_2023-11.pdf', '2023-11-20', 'Gait Analysis',
+VALUES ('uploads/analysis/Duke_gait_2023-11.png', '2023-11-20', 'Gait Analysis',
         'Significant improvement in overall gait quality since gel pad upgrade. Owner reports horse is noticeably more comfortable and willing. Continue therapeutic protocol indefinitely.',
         'Duke');
 
 INSERT IGNORE INTO Analysis (Analysis_path, Date, Type, Details, Hname)
-VALUES ('uploads/analysis/Duke_xray_2023-07.pdf', '2023-07-18', 'Radiograph',
+VALUES ('uploads/analysis/Duke_xray_2023-07.png', '2023-07-18', 'Radiograph',
         'Follow-up radiograph confirms degenerative changes are stable — no further progression since January. Therapeutic shoeing appears to be managing the condition effectively.',
         'Duke');
 
 -- Atlas (Marcus)
 INSERT IGNORE INTO Analysis (Analysis_path, Date, Type, Details, Hname)
-VALUES ('uploads/analysis/Atlas_posture_2023-08.pdf', '2023-08-20', 'Posture',
+VALUES ('uploads/analysis/Atlas_posture_2023-08.png', '2023-08-20', 'Posture',
         'Posture assessment ahead of polo season. Good overall balance and muscular development. Thin soles noted on fronts — owner advised to avoid hard or rocky ground where possible.',
         'Atlas');
 
 INSERT IGNORE INTO Analysis (Analysis_path, Date, Type, Details, Hname)
-VALUES ('uploads/analysis/Atlas_equigate_2023-11.pdf', '2023-11-01', 'Equigate',
+VALUES ('uploads/analysis/Atlas_equigate_2023-11.png', '2023-11-01', 'Equigate',
         'Equigate analysis post rim pad application. No negative impact on stride length or speed. Pads providing adequate sole protection on hard ground surfaces.',
         'Atlas');
 
 INSERT IGNORE INTO Analysis (Analysis_path, Date, Type, Details, Hname)
-VALUES ('uploads/analysis/Atlas_gait_2023-09.pdf', '2023-09-14', 'Gait Analysis',
+VALUES ('uploads/analysis/Atlas_gait_2023-09.png', '2023-09-14', 'Gait Analysis',
         'Pre-season gait analysis. Fluid movement at all gaits. No asymmetry detected. Thin soles remain the only concern — monitor closely as ground hardens going into autumn.',
         'Atlas');
