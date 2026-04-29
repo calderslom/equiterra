@@ -62,9 +62,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 
 <html>
+
 <head>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div class="onboarding-overlay">
         <div class="onboarding-overlay-outer">
@@ -74,7 +76,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <h1 class="returning__header">Add Medical Record</h1>
                 <form class="signin" method="post" enctype="multipart/form-data">
                     <div class="form-group">
-                        <label for="date">Date</label>
+                        <label for="date">Date of Diagnosis</label>
                         <input type="date" class="form-control" id="date" name="date"
                             value="<?php echo isset($_POST['date']) ? $_POST['date'] : ''; ?>" required />
                     </div>
@@ -101,11 +103,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             ?>
                             <option value="other">Other (type below)</option>
                         </select>
+                        <input type="text" class="form-control" id="pname_other" name="pname_other"
+                            placeholder="Enter unlisted practitioner name" style="display: none; margin-top: 8px;"
+                            value="<?php echo isset($_POST['pname_other']) ? $_POST['pname_other'] : ''; ?>" />
                     </div>
                     <div class="form-group" id="pname_other_group" style="display: none;">
                         <label for="pname_other">Practitioner Name</label>
                         <input type="text" class="form-control" id="pname_other" name="pname_other"
-                            placeholder="Enter practitioner name"
+                            placeholder="Enter unlisted practitioner name"
                             value="<?php echo isset($_POST['pname_other']) ? $_POST['pname_other'] : ''; ?>" />
                     </div>
                     <div class="form-group">
@@ -128,17 +133,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </div>
 </body>
+
 </html>
 
+<!-- Dropdown option to enter unlisted Practitioner   -->
 <script>
     function toggleOtherInput(value) {
-        var otherGroup = document.getElementById('pname_other_group');
         var otherInput = document.getElementById('pname_other');
         if (value === 'other') {
-            otherGroup.style.display = 'block';
+            otherInput.style.display = 'block';
             otherInput.required = true;
         } else {
-            otherGroup.style.display = 'none';
+            otherInput.style.display = 'none';
             otherInput.required = false;
         }
     }

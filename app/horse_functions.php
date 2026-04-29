@@ -100,8 +100,9 @@ function retrieve_analysis_dates_types($conn)
         // Check if any invoices were retrieved
         while ($tuple = $analysis_result->fetch_assoc()) {
             $analysis[] = [
-                "date" => $tuple["Analysis_Date"],
-                "type" => $tuple["Type"]
+                "analysis_path" => $tuple["Analysis_path"],
+                "date"          => $tuple["Analysis_Date"],
+                "type"          => $tuple["Type"]
             ];
         }
         $_SESSION['analysis_table'] = $analysis;

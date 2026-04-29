@@ -86,10 +86,25 @@ VALUES ('Luna', 'F', 'Dressage', 16, '2018-07-03', 'Hanoverian',
         'Well balanced. Minor asymmetry in right rear — no current concerns.',
         'Sunrise Stables', 'rdunmore', 1);
 
--- James Whitfield's horse (Pinewood Equestrian)
+INSERT IGNORE INTO Horse (Hname, Gender, Discipline, Height, Birthdate, Breed, Conf_notes, Bname, Cusername, Status)
+VALUES ('Biscuit', 'M', 'Trail Riding', 14, '2012-03-18', 'Quarter Horse',
+        'Older gelding, sound and reliable. Slight arthritis in right front. Monitor in cold weather.',
+        'Sunrise Stables', 'rdunmore', 1);
+        
+-- James Whitfield's horses (Pinewood Equestrian)
 INSERT IGNORE INTO Horse (Hname, Gender, Discipline, Height, Birthdate, Breed, Conf_notes, Bname, Cusername, Status)
 VALUES ('Maverick', 'M', 'Jumping', 17, '2016-02-20', 'Warmblood',
         'Excellent conformation. Watch left front fetlock after heavy jumping sessions.',
+        'Pinewood Equestrian', 'jwhitfield', 1);
+
+INSERT IGNORE INTO Horse (Hname, Gender, Discipline, Height, Birthdate, Breed, Conf_notes, Bname, Cusername, Status)
+VALUES ('Rio', 'F', 'Dressage', 16, '2020-01-14', 'Lusitano',
+        'Young mare, still developing. Good overall balance. Watch for overreaching on left rear.',
+        'Pinewood Equestrian', 'jwhitfield', 1);
+
+INSERT IGNORE INTO Horse (Hname, Gender, Discipline, Height, Birthdate, Breed, Conf_notes, Bname, Cusername, Status)
+VALUES ('Thunder', 'M', 'Jumping', 17, '2015-08-22', 'Irish Sport Horse',
+        'Large framed horse. Requires wide web shoes on all four. Strong and forward going.',
         'Pinewood Equestrian', 'jwhitfield', 1);
 
 -- Sophie Larsen's horses (Rocky View Ranch)
@@ -103,11 +118,27 @@ VALUES ('Duke', 'M', 'Trail Riding', 14, '2010-11-30', 'Morgan',
         'Senior horse. Arthritic changes in both rear hooves. Therapeutic shoeing required.',
         'Rocky View Ranch', 'slarsen', 1);
 
--- Marcus Bellingham's horse (Sunrise Stables)
+INSERT IGNORE INTO Horse (Hname, Gender, Discipline, Height, Birthdate, Breed, Conf_notes, Bname, Cusername, Status)
+VALUES ('Penny', 'F', 'Barrel Racing', 14, '2019-07-12', 'Paint',
+        'Compact and athletic. Good conformation overall. Tends to wear toes on fronts — check breakover angle.',
+        'Rocky View Ranch', 'slarsen', 1);
+
+-- Marcus Bellingham's horses (Sunrise Stables)
 INSERT IGNORE INTO Horse (Hname, Gender, Discipline, Height, Birthdate, Breed, Conf_notes, Bname, Cusername, Status)
 VALUES ('Atlas', 'M', 'Polo', 15, '2019-06-08', 'Thoroughbred',
         'Good overall balance. Thin soles — use pads when transitioning to hard ground.',
         'Sunrise Stables', 'mbellingham', 1);
+
+INSERT IGNORE INTO Horse (Hname, Gender, Discipline, Height, Birthdate, Breed, Conf_notes, Bname, Cusername, Status)
+VALUES ('Zara', 'F', 'Polo', 15, '2018-11-05', 'Thoroughbred',
+        'Well balanced mare. Thin walls on both fronts — use copper sulphate treatment between visits.',
+        'Rocky View Ranch', 'mbellingham', 1);
+
+INSERT IGNORE INTO Horse (Hname, Gender, Discipline, Height, Birthdate, Breed, Conf_notes, Bname, Cusername, Status)
+VALUES ('Goliath', 'M', 'Polo', 17, '2016-05-30', 'Warmblood',
+        'Very large horse, requires draft-sized shoes. Calm temperament, easy to work with.',
+        'Sunrise Stables', 'mbellingham', 1);
+
 
 -- =============================================================================
 -- Shoeing Protocols
@@ -150,6 +181,83 @@ VALUES ('Stella', '2023-10-05', 'Custom angled shoe 55 degrees', 'Custom angled 
 INSERT IGNORE INTO Shoeing_Protocol (Hname, Date, Left_Front, Right_Front, Left_Rear, Right_Rear, Status, Notes)
 VALUES ('Atlas', '2023-11-01', 'Steel shoe with rim pad', 'Steel shoe with rim pad', 'Regular steel shoe', 'Regular steel shoe',
         1, 'Rim pads on fronts to protect thin soles. Reassess after transition to grass.');
+
+-- Biscuit (Rachel)
+INSERT IGNORE INTO Shoeing_Protocol (Hname, Date, Left_Front, Right_Front, Left_Rear, Right_Rear, Status, Notes)
+VALUES ('Biscuit', '2023-10-18', 'Egg bar shoe', 'Egg bar shoe with gel pad', 'Regular steel shoe', 'Regular steel shoe',
+        1, 'Egg bar on fronts to support mild arthritis. Gel pad on right front for additional comfort.');
+
+-- Rio (James)
+INSERT IGNORE INTO Shoeing_Protocol (Hname, Date, Left_Front, Right_Front, Left_Rear, Right_Rear, Status, Notes)
+VALUES ('Rio', '2023-11-08', 'Regular steel shoe', 'Regular steel shoe', 'Regular steel shoe with rolled toe', 'Regular steel shoe',
+        1, 'Rolled toe on left rear to address overreaching. Reassess in 6 weeks.');
+
+-- Thunder (James)
+INSERT IGNORE INTO Shoeing_Protocol (Hname, Date, Left_Front, Right_Front, Left_Rear, Right_Rear, Status, Notes)
+VALUES ('Thunder', '2023-10-30', 'Wide web steel shoe', 'Wide web steel shoe', 'Wide web steel shoe', 'Wide web steel shoe',
+        1, 'Wide web shoes all round to suit large frame. Standard set otherwise.');
+
+-- Zara (Marcus)
+INSERT IGNORE INTO Shoeing_Protocol (Hname, Date, Left_Front, Right_Front, Left_Rear, Right_Rear, Status, Notes)
+VALUES ('Zara', '2023-11-12', 'Steel shoe with copper sulphate pad', 'Steel shoe with copper sulphate pad', 'Regular steel shoe', 'Regular steel shoe',
+        1, 'Copper sulphate pads on fronts to address thin walls. Monitor wall quality at next visit.');
+
+-- Goliath (Marcus)
+INSERT IGNORE INTO Shoeing_Protocol (Hname, Date, Left_Front, Right_Front, Left_Rear, Right_Rear, Status, Notes)
+VALUES ('Goliath', '2023-11-02', 'Draft steel shoe', 'Draft steel shoe', 'Draft steel shoe', 'Draft steel shoe',
+        1, 'Full draft shoe set. No issues. Large but cooperative — easy visit.');
+
+-- Penny (Sophie)
+INSERT IGNORE INTO Shoeing_Protocol (Hname, Date, Left_Front, Right_Front, Left_Rear, Right_Rear, Status, Notes)
+VALUES ('Penny', '2023-10-25', 'Steel shoe with rolled toe', 'Steel shoe with rolled toe', 'Regular steel shoe', 'Regular steel shoe',
+        1, 'Rolled toe on both fronts to correct breakover angle and reduce toe wear.');
+
+-- Copper (Rachel) - archived protocols before current
+INSERT IGNORE INTO Shoeing_Protocol (Hname, Date, Left_Front, Right_Front, Left_Rear, Right_Rear, Status, Notes)
+VALUES ('Copper', '2023-03-10', 'Regular steel shoe', 'Regular steel shoe', 'Regular steel shoe', 'Regular steel shoe',
+        0, 'Standard set. No issues noted at this visit.');
+
+INSERT IGNORE INTO Shoeing_Protocol (Hname, Date, Left_Front, Right_Front, Left_Rear, Right_Rear, Status, Notes)
+VALUES ('Copper', '2023-05-20', 'Regular steel shoe', 'Regular steel shoe', 'Regular steel shoe', 'Regular steel shoe',
+        0, 'Beginning to notice slight rotation in left front coffin bone. Will monitor closely.');
+
+INSERT IGNORE INTO Shoeing_Protocol (Hname, Date, Left_Front, Right_Front, Left_Rear, Right_Rear, Status, Notes)
+VALUES ('Copper', '2023-07-14', 'Regular steel shoe', 'Regular steel shoe with wedge pad', 'Regular steel shoe', 'Regular steel shoe',
+        0, 'Added wedge pad to right front to begin addressing rotation. Owner notified.');
+
+-- Maverick (James) - archived protocols before current
+INSERT IGNORE INTO Shoeing_Protocol (Hname, Date, Left_Front, Right_Front, Left_Rear, Right_Rear, Status, Notes)
+VALUES ('Maverick', '2023-02-15', 'Regular steel shoe', 'Regular steel shoe', 'Regular steel shoe', 'Regular steel shoe',
+        0, 'First visit with this horse. Good conformation, no concerns.');
+
+INSERT IGNORE INTO Shoeing_Protocol (Hname, Date, Left_Front, Right_Front, Left_Rear, Right_Rear, Status, Notes)
+VALUES ('Maverick', '2023-04-28', 'Regular steel shoe', 'Regular steel shoe', 'Regular steel shoe', 'Regular steel shoe',
+        0, 'Standard set. Left front fetlock slightly warm post-competition. Owner advised to rest.');
+
+INSERT IGNORE INTO Shoeing_Protocol (Hname, Date, Left_Front, Right_Front, Left_Rear, Right_Rear, Status, Notes)
+VALUES ('Maverick', '2023-07-03', 'Regular steel shoe', 'Regular steel shoe', 'Regular steel shoe', 'Regular steel shoe',
+        0, 'Fetlock inflammation resolved. Back to full work. No shoeing changes required.');
+
+INSERT IGNORE INTO Shoeing_Protocol (Hname, Date, Left_Front, Right_Front, Left_Rear, Right_Rear, Status, Notes)
+VALUES ('Maverick', '2023-08-19', 'Regular steel shoe', 'Regular steel shoe', 'Regular steel shoe', 'Regular steel shoe',
+        0, 'Standard set ahead of autumn competition season. Horse in excellent condition.');
+
+-- Duke (Sophie) - archived protocols before current
+INSERT IGNORE INTO Shoeing_Protocol (Hname, Date, Left_Front, Right_Front, Left_Rear, Right_Rear, Status, Notes)
+VALUES ('Duke', '2023-01-12', 'Regular steel shoe', 'Regular steel shoe', 'Regular steel shoe', 'Regular steel shoe',
+        0, 'First visit with Duke. Some stiffness in rear end noted. Owner reports gradual onset over past year.');
+
+INSERT IGNORE INTO Shoeing_Protocol (Hname, Date, Left_Front, Right_Front, Left_Rear, Right_Rear, Status, Notes)
+VALUES ('Duke', '2023-03-22', 'Regular steel shoe with pad', 'Regular steel shoe with pad', 'Regular steel shoe', 'Regular steel shoe',
+        0, 'Added pads to fronts following vet recommendation. Mild improvement in movement reported by owner.');
+
+INSERT IGNORE INTO Shoeing_Protocol (Hname, Date, Left_Front, Right_Front, Left_Rear, Right_Rear, Status, Notes)
+VALUES ('Duke', '2023-05-30', 'Egg bar shoe', 'Egg bar shoe', 'Regular steel shoe', 'Regular steel shoe',
+        0, 'Transitioned fronts to egg bar shoes following arthritis confirmation from Dr. Holloway. Rears still standard.');
+
+INSERT IGNORE INTO Shoeing_Protocol (Hname, Date, Left_Front, Right_Front, Left_Rear, Right_Rear, Status, Notes)
+VALUES ('Duke', '2023-07-18', 'Egg bar shoe', 'Egg bar shoe', 'Egg bar shoe', 'Egg bar shoe',
+        0, 'Extended egg bar shoes to all four hooves. Owner reports noticeably improved comfort and willingness to move.');
 
 -- =============================================================================
 -- Invoices
@@ -221,14 +329,130 @@ VALUES (6, 'Atlas', 'Rim pads - both fronts', 50, '2023-11-01');
 -- Medical Records
 -- =============================================================================
 
-INSERT IGNORE INTO Medical_Record (Hname, Date, Status, Filename, Ailment, Pname)
+INSERT IGNORE INTO Medical_Record (Hname, Date, Status, Filepath, Ailment, Pname)
 VALUES ('Copper', '2023-08-10', 0, 'copper_xray_aug23.pdf', 'Mild rotation in left front coffin bone. Monitoring recommended.', 'Dr. Sarah Mitchell');
 
-INSERT IGNORE INTO Medical_Record (Hname, Date, Status, Filename, Ailment, Pname)
+INSERT IGNORE INTO Medical_Record (Hname, Date, Status, Filepath, Ailment, Pname)
 VALUES ('Duke', '2023-07-20', 1, 'duke_arthritis_jul23.pdf', 'Degenerative joint disease in both rear fetlocks. Therapeutic shoeing and joint supplement recommended.', 'Dr. James Holloway');
 
-INSERT IGNORE INTO Medical_Record (Hname, Date, Status, Filename, Ailment, Pname)
+INSERT IGNORE INTO Medical_Record (Hname, Date, Status, Filepath, Ailment, Pname)
 VALUES ('Maverick', '2023-09-05', 1, 'maverick_fetlock_sep23.pdf', 'Mild inflammation in left front fetlock post-competition. Rest and anti-inflammatory prescribed.', 'Dr. Sarah Mitchell');
 
-INSERT IGNORE INTO Medical_Record (Hname, Date, Status, Filename, Ailment, Pname)
+INSERT IGNORE INTO Medical_Record (Hname, Date, Status, Filepath, Ailment, Pname)
 VALUES ('Atlas', '2023-10-15', 1, 'atlas_soles_oct23.pdf', 'Thin sole confirmation. Rim pads recommended to prevent bruising on hard ground.', 'Dr. Linda Park');
+
+
+-- =============================================================================
+-- Analysis Records
+-- =============================================================================
+
+INSERT IGNORE INTO Analysis (Analysis_path, Date, Type, Details, Hname)
+VALUES ('uploads/analysis/Biscuit_xray_2023-10.pdf', '2023-10-18', 'Radiograph',
+        'Mild arthritic changes confirmed in right front coffin joint. Consistent with clinical presentation. Egg bar shoe recommended to offload pressure.',
+        'Biscuit');
+
+INSERT IGNORE INTO Analysis (Analysis_path, Date, Type, Details, Hname)
+VALUES ('uploads/analysis/Rio_gait_2023-11.pdf', '2023-11-08', 'Gait Analysis',
+        'Slight overreaching detected on left rear at trot. No interference marks yet. Rolled toe applied as preventative measure.',
+        'Rio');
+
+INSERT IGNORE INTO Analysis (Analysis_path, Date, Type, Details, Hname)
+VALUES ('uploads/analysis/Zara_posture_2023-11.pdf', '2023-11-12', 'Posture',
+        'Good overall posture. Thin hoof walls noted on both fronts — copper sulphate treatment initiated. Re-evaluate wall quality at next visit.',
+        'Zara');
+
+-- Copper (Rachel)
+INSERT IGNORE INTO Analysis (Analysis_path, Date, Type, Details, Hname)
+VALUES ('uploads/analysis/Copper_gait_2023-05.pdf', '2023-05-20', 'Gait Analysis',
+        'Subtle compensation pattern detected in left front at trot. Consistent with early rotation in coffin bone confirmed by subsequent radiograph. Wedge pad recommended.',
+        'Copper');
+
+INSERT IGNORE INTO Analysis (Analysis_path, Date, Type, Details, Hname)
+VALUES ('uploads/analysis/Copper_posture_2023-07.pdf', '2023-07-14', 'Posture',
+        'Slight asymmetry in shoulder loading consistent with left front discomfort. Horse shifting weight to compensate. Wedge pad applied this visit — reassess at next appointment.',
+        'Copper');
+
+INSERT IGNORE INTO Analysis (Analysis_path, Date, Type, Details, Hname)
+VALUES ('uploads/analysis/Copper_xray_2023-11.pdf', '2023-11-15', 'Radiograph',
+        'Follow-up radiograph confirms rotation is stabilizing. Custom wedge shoe maintaining correct alignment. Continue current protocol and reassess in 3 months.',
+        'Copper');
+
+-- Luna (Rachel)
+INSERT IGNORE INTO Analysis (Analysis_path, Date, Type, Details, Hname)
+VALUES ('uploads/analysis/Luna_posture_2023-08.pdf', '2023-08-05', 'Posture',
+        'Minor asymmetry in hindquarter loading — right rear bearing slightly less weight. No lameness detected. Lateral extension recommended at next shoeing appointment.',
+        'Luna');
+
+INSERT IGNORE INTO Analysis (Analysis_path, Date, Type, Details, Hname)
+VALUES ('uploads/analysis/Luna_gait_2023-10.pdf', '2023-10-10', 'Gait Analysis',
+        'Gait analysis post lateral extension application. Improvement in right rear loading symmetry noted at all gaits. Owner reports improved movement quality under saddle.',
+        'Luna');
+
+-- Maverick (James)
+INSERT IGNORE INTO Analysis (Analysis_path, Date, Type, Details, Hname)
+VALUES ('uploads/analysis/Maverick_gait_2023-04.pdf', '2023-04-28', 'Gait Analysis',
+        'Slight shortening of stride on left front following recent competition. Consistent with mild fetlock inflammation reported by owner. Rest and anti-inflammatory prescribed by Dr. Mitchell.',
+        'Maverick');
+
+INSERT IGNORE INTO Analysis (Analysis_path, Date, Type, Details, Hname)
+VALUES ('uploads/analysis/Maverick_gait_2023-07.pdf', '2023-07-03', 'Gait Analysis',
+        'Follow-up gait analysis post rest period. Stride length symmetrical at walk and trot. Cleared for return to full work and competition schedule.',
+        'Maverick');
+
+INSERT IGNORE INTO Analysis (Analysis_path, Date, Type, Details, Hname)
+VALUES ('uploads/analysis/Maverick_posture_2023-10.pdf', '2023-10-22', 'Posture',
+        'Good overall posture and muscular symmetry. No concerns. Horse in peak condition ahead of winter season.',
+        'Maverick');
+
+-- Stella (Sophie)
+INSERT IGNORE INTO Analysis (Analysis_path, Date, Type, Details, Hname)
+VALUES ('uploads/analysis/Stella_gait_2023-08.pdf', '2023-08-12', 'Gait Analysis',
+        'Gait analysis requested by owner ahead of competition season. Upright pasterns causing shortened anterior phase of stride on fronts. Custom angle shoe recommended.',
+        'Stella');
+
+INSERT IGNORE INTO Analysis (Analysis_path, Date, Type, Details, Hname)
+VALUES ('uploads/analysis/Stella_equigate_2023-10.pdf', '2023-10-05', 'Equigate',
+        'Equigate analysis post custom angle shoe application. Marked improvement in anterior stride length on both fronts. Owner reports improved barrel times. Continue current protocol.',
+        'Stella');
+
+INSERT IGNORE INTO Analysis (Analysis_path, Date, Type, Details, Hname)
+VALUES ('uploads/analysis/Stella_posture_2023-10.pdf', '2023-10-05', 'Posture',
+        'Posture assessment alongside Equigate analysis. Upright conformation managed well by custom shoeing angle. No secondary compensation patterns detected.',
+        'Stella');
+
+-- Duke (Sophie)
+INSERT IGNORE INTO Analysis (Analysis_path, Date, Type, Details, Hname)
+VALUES ('uploads/analysis/Duke_xray_2023-01.pdf', '2023-01-12', 'Radiograph',
+        'Initial radiograph requested following owner report of gradual stiffness onset. Early degenerative joint changes confirmed in both rear fetlocks. Therapeutic shoeing protocol initiated.',
+        'Duke');
+
+INSERT IGNORE INTO Analysis (Analysis_path, Date, Type, Details, Hname)
+VALUES ('uploads/analysis/Duke_gait_2023-05.pdf', '2023-05-30', 'Gait Analysis',
+        'Gait analysis following transition to egg bar shoes on fronts. Moderate improvement in movement fluidity. Stiffness still evident in rears — egg bar shoes extended to all four at this visit.',
+        'Duke');
+
+INSERT IGNORE INTO Analysis (Analysis_path, Date, Type, Details, Hname)
+VALUES ('uploads/analysis/Duke_gait_2023-11.pdf', '2023-11-20', 'Gait Analysis',
+        'Significant improvement in overall gait quality since gel pad upgrade. Owner reports horse is noticeably more comfortable and willing. Continue therapeutic protocol indefinitely.',
+        'Duke');
+
+INSERT IGNORE INTO Analysis (Analysis_path, Date, Type, Details, Hname)
+VALUES ('uploads/analysis/Duke_xray_2023-07.pdf', '2023-07-18', 'Radiograph',
+        'Follow-up radiograph confirms degenerative changes are stable — no further progression since January. Therapeutic shoeing appears to be managing the condition effectively.',
+        'Duke');
+
+-- Atlas (Marcus)
+INSERT IGNORE INTO Analysis (Analysis_path, Date, Type, Details, Hname)
+VALUES ('uploads/analysis/Atlas_posture_2023-08.pdf', '2023-08-20', 'Posture',
+        'Posture assessment ahead of polo season. Good overall balance and muscular development. Thin soles noted on fronts — owner advised to avoid hard or rocky ground where possible.',
+        'Atlas');
+
+INSERT IGNORE INTO Analysis (Analysis_path, Date, Type, Details, Hname)
+VALUES ('uploads/analysis/Atlas_equigate_2023-11.pdf', '2023-11-01', 'Equigate',
+        'Equigate analysis post rim pad application. No negative impact on stride length or speed. Pads providing adequate sole protection on hard ground surfaces.',
+        'Atlas');
+
+INSERT IGNORE INTO Analysis (Analysis_path, Date, Type, Details, Hname)
+VALUES ('uploads/analysis/Atlas_gait_2023-09.pdf', '2023-09-14', 'Gait Analysis',
+        'Pre-season gait analysis. Fluid movement at all gaits. No asymmetry detected. Thin soles remain the only concern — monitor closely as ground hardens going into autumn.',
+        'Atlas');

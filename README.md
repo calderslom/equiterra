@@ -54,7 +54,7 @@ data automatically on first run.
 ![Admin dashboard — shows the home page with navigation links to Horses, Barns, Clients, and Account](docs/screenshots/admin_dashboard.png)
 
 ### Horse List
-![Horse list — shows a searchable table of all horses with their owner names](docs/screenshots/horses.png)
+![Horse list (admin) — shows a searchable table of all horses with their owner names](docs/screenshots/admin_horses.png)
 
 ### Horse Detail
 ![Horse detail page — shows full horse record including breed, discipline, height, conformation notes, and links to shoeing protocols, images, and analysis](docs/screenshots/horse_detail.png)

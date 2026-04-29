@@ -77,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_path'])) {
     }
 
     // Delete the record from the database
-    $stmt_delete = $conn->prepare("DELETE FROM Image WHERE Image_path = ? AND Hname = ?");
+    $stmt_delete = $conn->prepare("DELETE FROM Image WHERE image_path = ? AND Hname = ?");
     $stmt_delete->bind_param("ss", $path_to_delete, $horse_name);
     $stmt_delete->execute();
 }
@@ -87,9 +87,11 @@ $conn->close();
 ?>
 
 <html>
+
 <head>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div class="onboarding-overlay">
         <div class="onboarding-overlay-outer">
@@ -101,15 +103,17 @@ $conn->close();
                 <h1 class='returning__header'>Images for <?php echo htmlspecialchars($horse_name); ?></h1>
 
                 <?php if ($_SESSION['user_type'] === 'Admin'): ?>
-                <div style='text-align: right; margin-bottom: 10px;'>
-                    <form method='POST' enctype='multipart/form-data' style='display: inline-block;'>
-                        <input type='text' name='context' placeholder='Context (e.g. Left front hoof)'
-                            style='height: 32px; border-radius: 5px; border: 1px solid #ccc; padding: 0 8px; margin-right: 6px;'>
-                        <input type='file' name='horse_image[]' accept='image/*' multiple required
-                            style='margin-right: 6px;'>
-                        <input type='submit' class='add-button' value='Upload Image(s)'>
-                    </form>
-                </div>
+                    <div class='action-bar' style='margin-bottom: 10px;'>
+                        <form method='POST' enctype='multipart/form-data' style='display: flex; width: 100%; align-items: center;'>
+                            <input type='text' name='context' placeholder='Context (e.g. Left front hoof)'
+                                style='height: 32px; border-radius: 5px; border: 1px solid #ccc; padding: 0 8px;'>
+                            <div style='margin-left: auto;'>
+                                <input type='file' name='horse_image[]' accept='image/*' multiple required
+                                    style='margin-right: 6px;'>
+                                <input type='submit' class='add-button' value='Upload Image(s)'>
+                            </div>
+                        </form>
+                    </div>
                 <?php endif; ?>
 
                 <?php if (isset($error)): ?>
@@ -144,4 +148,5 @@ $conn->close();
         </div>
     </div>
 </body>
+
 </html>

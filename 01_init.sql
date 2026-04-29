@@ -390,10 +390,10 @@ BEGIN
     VALUES (in_analysis_path, in_date, in_type, in_hname, in_details);
 END //
 
--- Return all analysis dates and types for a specific horse (for the list view).
+-- Return all analysis records for a specific horse (path, date, and type) for the list view.
 CREATE PROCEDURE GetHorseAnalysis(IN in_hname VARCHAR(30))
 BEGIN
-    SELECT Date AS Analysis_Date, Type
+    SELECT Analysis_path, Date AS Analysis_Date, Type
     FROM Analysis
     WHERE Hname = in_hname
     ORDER BY Date DESC;
