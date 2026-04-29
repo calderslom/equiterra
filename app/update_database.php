@@ -253,3 +253,4 @@ function delete_shoeing_protocol($conn, $hname, $date)
     $stmt->bind_param("ss", $hname, $date);
     $stmt->execute();
 }
+

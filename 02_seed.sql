@@ -329,18 +329,82 @@ VALUES (6, 'Atlas', 'Rim pads - both fronts', 50, '2023-11-01');
 -- Medical Records
 -- =============================================================================
 
+-- Copper (Rachel) - rotation in left front
 INSERT IGNORE INTO Medical_Record (Hname, Date, Status, Filepath, Ailment, Pname)
-VALUES ('Copper', '2023-08-10', 0, 'copper_xray_aug23.pdf', 'Mild rotation in left front coffin bone. Monitoring recommended.', 'Dr. Sarah Mitchell');
+VALUES ('Copper', '2023-08-10', 0, 'uploads/medical_records/Copper/Copper_Dr. Sarah Mitchell_2023-08-10.pdf',
+        'Mild rotation in left front coffin bone confirmed via radiograph. Wedge shoe recommended. Monitor at each visit.',
+        'Dr. Sarah Mitchell');
+
+-- Luna (Rachel) - asymmetry
+INSERT IGNORE INTO Medical_Record (Hname, Date, Status, Filepath, Ailment, Pname)
+VALUES ('Luna', '2023-09-20', 1, 'uploads/medical_records/Luna/Luna_Dr. Linda Park_2023-09-20.pdf',
+        'Mild asymmetry in right rear. Chiropractic adjustment performed. Lateral extension recommended at next shoeing.',
+        'Dr. Linda Park');
+
+-- Biscuit (Rachel) - arthritis
+INSERT IGNORE INTO Medical_Record (Hname, Date, Status, Filepath, Ailment, Pname)
+VALUES ('Biscuit', '2023-07-15', 1, 'uploads/medical_records/Biscuit/Biscuit_Dr. James Holloway_2023-07-15.pdf',
+        'Mild arthritic changes in right front fetlock joint. Anti-inflammatory prescribed. Egg bar shoe recommended.',
+        'Dr. James Holloway');
+
+-- Maverick (James) - fetlock inflammation
+INSERT IGNORE INTO Medical_Record (Hname, Date, Status, Filepath, Ailment, Pname)
+VALUES ('Maverick', '2023-09-05', 0, 'uploads/medical_records/Maverick/Maverick_Dr. Sarah Mitchell_2023-09-05.pdf',
+        'Mild inflammation in left front fetlock post-competition. Rest and anti-inflammatory prescribed. Resolved.',
+        'Dr. Sarah Mitchell');
+
+-- Rio (James) - overreaching
+INSERT IGNORE INTO Medical_Record (Hname, Date, Status, Filepath, Ailment, Pname)
+VALUES ('Rio', '2023-11-08', 1, 'uploads/medical_records/Rio/Rio_Dr. Linda Park_2023-11-08.pdf',
+        'Slight overreaching detected on left rear at trot. No interference marks yet. Rolled toe applied as preventative measure.',
+        'Dr. Linda Park');
+
+-- Thunder (James) - general checkup
+INSERT IGNORE INTO Medical_Record (Hname, Date, Status, Filepath, Ailment, Pname)
+VALUES ('Thunder', '2023-10-30', 0, 'uploads/medical_records/Thunder/Thunder_Dr. James Holloway_2023-10-30.pdf',
+        'Annual wellness check. No significant concerns. Wide web shoes confirmed appropriate for frame size.',
+        'Dr. James Holloway');
+
+-- Stella (Sophie) - upright pasterns
+INSERT IGNORE INTO Medical_Record (Hname, Date, Status, Filepath, Ailment, Pname)
+VALUES ('Stella', '2023-08-12', 0, 'uploads/medical_records/Stella/Stella_Dr. Sarah Mitchell_2023-08-12.pdf',
+        'Upright pastern conformation confirmed. Custom angle shoe recommended to improve breakover and reduce toe wear.',
+        'Dr. Sarah Mitchell');
+
+-- Duke (Sophie) - degenerative joint disease
+INSERT IGNORE INTO Medical_Record (Hname, Date, Status, Filepath, Ailment, Pname)
+VALUES ('Duke', '2023-07-20', 1, 'uploads/medical_records/Duke/Duke_Dr. James Holloway_2023-07-20.pdf',
+        'Degenerative joint disease confirmed in both rear fetlocks. Therapeutic shoeing and joint supplement recommended.',
+        'Dr. James Holloway');
 
 INSERT IGNORE INTO Medical_Record (Hname, Date, Status, Filepath, Ailment, Pname)
-VALUES ('Duke', '2023-07-20', 1, 'duke_arthritis_jul23.pdf', 'Degenerative joint disease in both rear fetlocks. Therapeutic shoeing and joint supplement recommended.', 'Dr. James Holloway');
+VALUES ('Duke', '2023-11-20', 1, 'uploads/medical_records/Duke/Duke_Dr. James Holloway_2023-11-20.pdf',
+        'Follow-up assessment. Condition stable. Gel pad upgrade approved. Continue therapeutic protocol indefinitely.',
+        'Dr. James Holloway');
 
+-- Penny (Sophie) - breakover angle
 INSERT IGNORE INTO Medical_Record (Hname, Date, Status, Filepath, Ailment, Pname)
-VALUES ('Maverick', '2023-09-05', 1, 'maverick_fetlock_sep23.pdf', 'Mild inflammation in left front fetlock post-competition. Rest and anti-inflammatory prescribed.', 'Dr. Sarah Mitchell');
+VALUES ('Penny', '2023-10-25', 0, 'uploads/medical_records/Penny/Penny_Dr. Sarah Mitchell_2023-10-25.pdf',
+        'Excessive toe wear on fronts confirmed. Breakover angle assessment performed. Rolled toe shoes applied.',
+        'Dr. Sarah Mitchell');
 
+-- Atlas (Marcus) - thin soles
 INSERT IGNORE INTO Medical_Record (Hname, Date, Status, Filepath, Ailment, Pname)
-VALUES ('Atlas', '2023-10-15', 1, 'atlas_soles_oct23.pdf', 'Thin sole confirmation. Rim pads recommended to prevent bruising on hard ground.', 'Dr. Linda Park');
+VALUES ('Atlas', '2023-10-15', 0, 'uploads/medical_records/Atlas/Atlas_Dr. Linda Park_2023-10-15.pdf',
+        'Thin sole confirmation. Rim pads recommended to prevent bruising on hard ground.',
+        'Dr. Linda Park');
 
+-- Zara (Marcus) - thin walls
+INSERT IGNORE INTO Medical_Record (Hname, Date, Status, Filepath, Ailment, Pname)
+VALUES ('Zara', '2023-11-12', 1, 'uploads/medical_records/Zara/Zara_Dr. Sarah Mitchell_2023-11-12.pdf',
+        'Thin hoof walls on both fronts. Copper sulphate treatment initiated. Biotin supplement recommended.',
+        'Dr. Sarah Mitchell');
+
+-- Goliath (Marcus) - general checkup
+INSERT IGNORE INTO Medical_Record (Hname, Date, Status, Filepath, Ailment, Pname)
+VALUES ('Goliath', '2023-11-02', 0, 'uploads/medical_records/Goliath/Goliath_Dr. James Holloway_2023-11-02.pdf',
+        'Annual wellness check for large-framed horse. No concerns. Draft shoe sizing confirmed appropriate.',
+        'Dr. James Holloway');
 
 -- =============================================================================
 -- Analysis Records
