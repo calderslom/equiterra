@@ -74,6 +74,7 @@ function retrieve_analysis_details($conn)
         if ($tuple = $analysis_result->fetch_assoc()) {
             // Store the analysis details in the session under 'analysis' key.
             $_SESSION['analysis']['details'] = $tuple['Details'];
+            $_SESSION['analysis']['analysis_path'] = $tuple['Analysis_path'];
         }
     }
 }

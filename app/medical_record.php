@@ -20,9 +20,11 @@ $conn->close();
 ?>
 
 <html>
+
 <head>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div class="onboarding-overlay">
         <div class="onboarding-overlay-outer">
@@ -55,13 +57,19 @@ $conn->close();
                     <?php endif; ?>
 
                     <!-- File download link if a file is attached -->
-                    <?php if (!empty($record['filepath'])): ?>
+                    <?php if (!empty($record['filepath']) && file_exists($record['filepath'])): ?>
                         <br>
                         <h3 class='returning__text'>
                             <span class='detail-label'>Attached File:</span>
                             <a href='<?php echo htmlspecialchars($record['filepath']); ?>' target='_blank'>
                                 <button class='table-button'>Download</button>
                             </a>
+                        </h3>
+                    <?php elseif (!empty($record['filepath'])): ?>
+                        <br>
+                        <h3 class='returning__text'>
+                            <span class='detail-label'>Attached File:</span>
+                            <span style='color: #ae0404; font-size: 0.9em;'>no file for this record exists.</span>
                         </h3>
                     <?php endif; ?>
 
@@ -73,4 +81,5 @@ $conn->close();
         </div>
     </div>
 </body>
+
 </html>

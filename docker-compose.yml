@@ -30,9 +30,6 @@ services:
     restart: unless-stopped
     ports:
       - "8080:80"     # Visit http://localhost:8080 in browser
-    volumes:
-      # Mount source so edits to PHP files are realized without rebuilding Docker image
-      - ./app:/var/www/html/
     depends_on:
       db:
         condition: service_healthy
