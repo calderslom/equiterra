@@ -146,3 +146,27 @@ function retrieve_user($conn)
         } else return false;
     } else return false;
 }
+
+
+/**
+ * Retrieves all practitioners and stores them in the session for dropdown population.
+ *
+ * @param mysqli $conn - The MySQLi database connection object.
+ */
+function retrieve_practitioners($conn)
+{
+    $stmt = $conn->prepare("CALL GetPractitioners()");
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    $practitioners = [];
+    while ($row = $result->fetch_assoc()) {
+        $practitioners[] = [
+            'pname'     => $row['Pname'],
+            'phone_num' => $row['Phone_num'],
+            'email'     => $row['Email'],
+            'type'      => $row['Type']
+        ];
+    }
+    $_SESSION['practitioners'] = $practitioners;
+}

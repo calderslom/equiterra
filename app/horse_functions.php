@@ -211,3 +211,64 @@ function retrieve_horse_details($conn)
         }
     }
 }
+
+
+/**
+ * Retrieves all medical records for a specific horse and stores them in the session.
+ *
+ * @param mysqli $conn - The MySQLi database connection object.
+ */
+function retrieve_medical_records($conn)
+{
+    if (isset($_SESSION['horse_name']) && !empty($_SESSION['horse_name'])) {
+        $horse_name = $conn->real_escape_string($_SESSION['horse_name']);
+        $stmt = $conn->prepare("CALL GetMedicalRecords(?)");
+        $stmt->bind_param("s", $horse_name);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        $medical_records = [];
+        while ($row = $result->fetch_assoc()) {
+            $medical_records[] = [
+                'hname'    => $row['Hname'],
+                'date'     => $row['Date'],
+                'status'   => $row['Status'],
+                'filepath' => $row['Filepath'],
+                'ailment'  => $row['Ailment'],
+                'pname'    => $row['Pname']
+            ];
+        }
+        $_SESSION['medical_records'] = $medical_records;
+    }
+}
+
+/**
+ * Retrieves full details of a specific medical record including practitioner info.
+ *
+ * @param mysqli $conn - The MySQLi database connection object.
+ */
+function retrieve_medical_record_details($conn)
+{
+    if (isset($_SESSION['medical_record_horse']) && isset($_SESSION['medical_record_date'])) {
+        $hname = $conn->real_escape_string($_SESSION['medical_record_horse']);
+        $date  = $conn->real_escape_string($_SESSION['medical_record_date']);
+        $stmt  = $conn->prepare("CALL GetMedicalRecordDetails(?, ?)");
+        $stmt->bind_param("ss", $hname, $date);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($row = $result->fetch_assoc()) {
+            $_SESSION['medical_record'] = [
+                'hname'         => $row['Hname'],
+                'date'          => $row['Date'],
+                'status'        => $row['Status'],
+                'filepath'      => $row['Filepath'],
+                'ailment'       => $row['Ailment'],
+                'pname'         => $row['Pname'],
+                'practitioner_phone' => $row['Phone_num'],
+                'practitioner_email' => $row['Email'],
+                'practitioner_type'  => $row['Type']
+            ];
+        }
+    }
+}
