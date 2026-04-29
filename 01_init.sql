@@ -68,6 +68,22 @@ CREATE TABLE IF NOT EXISTS Barn (
     PRIMARY KEY (Bname)
 );
 
+CREATE TABLE IF NOT EXISTS Horse (
+    Hname      VARCHAR(30) NOT NULL,
+    Gender     VARCHAR(1),
+    Discipline VARCHAR(20),
+    Height     SMALLINT,
+    Birthdate  DATE,
+    Breed      VARCHAR(20),
+    Conf_notes TEXT,
+    Bname      VARCHAR(30),
+    Cusername  VARCHAR(20),
+    Status     TINYINT(1) DEFAULT 1,
+    PRIMARY KEY (Hname),
+    FOREIGN KEY (Bname)     REFERENCES Barn(Bname),
+    FOREIGN KEY (Cusername) REFERENCES Client(Cusername) ON UPDATE CASCADE
+);
+
 CREATE TABLE IF NOT EXISTS Invoice (
     Number   INT          NOT NULL AUTO_INCREMENT,
     Status   TINYINT(1)   NOT NULL DEFAULT 0,
@@ -85,23 +101,8 @@ CREATE TABLE IF NOT EXISTS Invoice_Item (
     Price        SMALLINT,
     Date         DATE     NOT NULL DEFAULT (CURRENT_DATE),
     PRIMARY KEY (Item_id),
-    FOREIGN KEY (Inumber) REFERENCES Invoice(Number) ON UPDATE CASCADE
-);
-
-CREATE TABLE IF NOT EXISTS Horse (
-    Hname      VARCHAR(30) NOT NULL,
-    Gender     VARCHAR(1),
-    Discipline VARCHAR(20),
-    Height     SMALLINT,
-    Birthdate  DATE,
-    Breed      VARCHAR(20),
-    Conf_notes TEXT,
-    Bname      VARCHAR(30),
-    Cusername  VARCHAR(20),
-    Status     TINYINT(1) DEFAULT 1,
-    PRIMARY KEY (Hname),
-    FOREIGN KEY (Bname)     REFERENCES Barn(Bname),
-    FOREIGN KEY (Cusername) REFERENCES Client(Cusername) ON UPDATE CASCADE
+    FOREIGN KEY (Inumber) REFERENCES Invoice(Number) ON UPDATE CASCADE,
+    FOREIGN KEY (Hname)   REFERENCES Horse(Hname)   ON UPDATE CASCADE
 );
 
 -- Status default value set to 1 (active). A new protocol is assumed to be active.
@@ -119,12 +120,12 @@ CREATE TABLE IF NOT EXISTS Shoeing_Protocol (
 );
 
 CREATE TABLE IF NOT EXISTS Analysis (
-    Filepath VARCHAR(255) NOT NULL,
-    Date     DATE         NOT NULL DEFAULT (CURRENT_DATE),
-    Type     VARCHAR(40),
-    Details  TEXT,
-    Hname    VARCHAR(30),
-    PRIMARY KEY (Filepath),
+    Analysis_path   VARCHAR(255) NOT NULL,
+    Date            DATE         NOT NULL DEFAULT (CURRENT_DATE),
+    Type            VARCHAR(40),
+    Details         TEXT,
+    Hname           VARCHAR(30),
+    PRIMARY KEY (Analysis_path),
     FOREIGN KEY (Hname) REFERENCES Horse(Hname) ON UPDATE CASCADE
 );
 
@@ -132,7 +133,7 @@ CREATE TABLE IF NOT EXISTS Medical_Record (
     Hname    VARCHAR(30),
     Date     DATE         NOT NULL,
     Status   TINYINT(1)   DEFAULT 1,
-    Filename VARCHAR(255),     
+    Filepath VARCHAR(255),     
     Ailment  TEXT,
     Pname    VARCHAR(30),
     PRIMARY KEY (Hname, Date),
@@ -144,8 +145,8 @@ CREATE TABLE IF NOT EXISTS Image (
     Hname      VARCHAR(30),
     Date       DATE         NOT NULL DEFAULT (CURRENT_DATE),
     Context    VARCHAR(30),
-    Filepath VARCHAR(255) NOT NULL,
-    PRIMARY KEY (Filepath),
+    Image_path VARCHAR(255) NOT NULL,
+    PRIMARY KEY (Image_path),
     FOREIGN KEY (Hname) REFERENCES Horse(Hname) ON UPDATE CASCADE
 );
 
@@ -378,15 +379,15 @@ END //
 
 -- Insert a new analysis record for a horse.
 CREATE PROCEDURE AddAnalysis(
-    IN in_filepath VARCHAR(255),
+    IN in_analysis_path VARCHAR(255),
     IN in_date     DATE,
     IN in_type     VARCHAR(40),
     IN in_hname    VARCHAR(30),
     IN in_details  TEXT
 )
 BEGIN
-    INSERT INTO Analysis (Filepath, Date, Type, Hname, Details)
-    VALUES (in_filepath, in_date, in_type, in_hname, in_details);
+    INSERT INTO Analysis (Analysis_path, Date, Type, Hname, Details)
+    VALUES (in_analysis_path, in_date, in_type, in_hname, in_details);
 END //
 
 -- Return all analysis dates and types for a specific horse (for the list view).
@@ -405,7 +406,7 @@ CREATE PROCEDURE GetHorseAnalysisDetails(
     IN in_type  VARCHAR(40)
 )
 BEGIN
-    SELECT Filepath, Date, Type, Details
+    SELECT Analysis_path, Date, Type, Details
     FROM Analysis
     WHERE Hname = in_hname AND Date = in_date AND Type = in_type;
 END //
@@ -430,7 +431,7 @@ END //
 -- Return all medical records for a specific horse (for the list view on horse page).
 CREATE PROCEDURE GetMedicalRecords(IN in_hname VARCHAR(30))
 BEGIN
-    SELECT M.Hname, M.Date, M.Status, M.Filename, M.Ailment, M.Pname
+    SELECT M.Hname, M.Date, M.Status, M.Filepath, M.Ailment, M.Pname
     FROM Medical_Record M
     WHERE M.Hname = in_hname
     ORDER BY M.Date DESC;
@@ -442,7 +443,7 @@ CREATE PROCEDURE GetMedicalRecordDetails(
     IN in_date  DATE
 )
 BEGIN
-    SELECT M.Hname, M.Date, M.Status, M.Filename, M.Ailment, M.Pname,
+    SELECT M.Hname, M.Date, M.Status, M.Filepath, M.Ailment, M.Pname,
            P.Phone_num, P.Email, P.Type
     FROM Medical_Record M
     LEFT JOIN Practitioner P ON M.Pname = P.Pname
@@ -454,13 +455,13 @@ CREATE PROCEDURE AddMedicalRecord(
     IN in_hname    VARCHAR(30),
     IN in_date     DATE,
     IN in_status   TINYINT(1),
-    IN in_filename VARCHAR(80),
+    IN in_filepath VARCHAR(255),   
     IN in_ailment  TEXT,
     IN in_pname    VARCHAR(30)
 )
 BEGIN
-    INSERT INTO Medical_Record (Hname, Date, Status, Filename, Ailment, Pname)
-    VALUES (in_hname, in_date, in_status, in_filename, in_ailment, in_pname);
+    INSERT INTO Medical_Record (Hname, Date, Status, Filepath, Ailment, Pname)
+    VALUES (in_hname, in_date, in_status, in_filepath, in_ailment, in_pname);
 END //
 
 -- Add a practitioner if they don't already exist (Option B — bare row, admin fills details later).
