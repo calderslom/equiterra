@@ -189,3 +189,32 @@ function update_password($conn)
         debug_to_console("Cannot update password.");
     }
 }
+
+
+/**
+ * Deletes a specific medical record from the database (Admin only).
+ * Also deletes the associated file from disk if it exists.
+ *
+ * @param mysqli $conn - The MySQLi database connection object.
+ * @param string $hname - The horse name associated with the record.
+ * @param string $date  - The date of the record to delete.
+ */
+function delete_medical_record($conn, $hname, $date)
+{
+    // Retrieve the filepath before deleting so we can remove the file from disk
+    $stmt = $conn->prepare("SELECT Filepath FROM Medical_Record WHERE Hname = ? AND Date = ?");
+    $stmt->bind_param("ss", $hname, $date);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($row = $result->fetch_assoc()) {
+        if (!empty($row['Filepath']) && file_exists($row['Filepath'])) {
+            unlink($row['Filepath']);
+        }
+    }
+
+    // Delete the record from the database
+    $stmt_delete = $conn->prepare("CALL DeleteMedicalRecord(?, ?)");
+    $stmt_delete->bind_param("ss", $hname, $date);
+    $stmt_delete->execute();
+}
