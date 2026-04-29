@@ -218,3 +218,38 @@ function delete_medical_record($conn, $hname, $date)
     $stmt_delete->bind_param("ss", $hname, $date);
     $stmt_delete->execute();
 }
+
+/**
+ * Deletes a specific analysis record from the database (Admin only).
+ * Also deletes the associated file from disk if it exists.
+ *
+ * @param mysqli $conn  - The MySQLi database connection object.
+ * @param string $path  - The analysis path (primary key) of the record to delete.
+ */
+function delete_analysis($conn, $path)
+{
+    // Delete the file from disk if it exists
+    if (!empty($path) && file_exists($path)) {
+        unlink($path);
+    }
+
+    // Delete the record from the database
+    $stmt = $conn->prepare("DELETE FROM Analysis WHERE Analysis_path = ?");
+    $stmt->bind_param("s", $path);
+    $stmt->execute();
+}
+
+/**
+ * Deletes a specific shoeing protocol from the database (Admin only).
+ * Shoeing protocols have no associated file so only the DB record is removed.
+ *
+ * @param mysqli $conn  - The MySQLi database connection object.
+ * @param string $hname - The horse name associated with the protocol.
+ * @param string $date  - The date of the protocol to delete.
+ */
+function delete_shoeing_protocol($conn, $hname, $date)
+{
+    $stmt = $conn->prepare("DELETE FROM Shoeing_Protocol WHERE Hname = ? AND Date = ?");
+    $stmt->bind_param("ss", $hname, $date);
+    $stmt->execute();
+}
