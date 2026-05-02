@@ -13,10 +13,10 @@ echo "======================================"
 # Run the seed file script if it exists
 if [ -f /seed_data/seed_files.sh ]; then
     echo ""
-    echo "Populating demo files..."
+    echo "Populating demonstration files..."
     bash /seed_data/seed_files.sh
 else
-    echo "No seed file script found, skipping."
+    echo "No seed file script found: analysis, image, and shoeing protocol files have not been inserted."
 fi
  
 echo ""

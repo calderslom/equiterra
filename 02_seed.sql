@@ -9,10 +9,10 @@ USE equiterra;
 -- =============================================================================
 
 INSERT IGNORE INTO Farrier (Fusername, Fpassword, Fname)
-VALUES ('admin', 'open sesame!', 'Aidan Sloman');
+VALUES ('admin', 'open sesame', 'Aidan Sloman');
 
 INSERT IGNORE INTO Web_user (Username, Password, Name, Email, Phone_num, User_type)
-VALUES ('admin', 'open sesame!', 'Aidan Sloman', 'aidan@equiterra.ca', '(403) 555-0101', 'Admin');
+VALUES ('admin', 'open sesame', 'Aidan Sloman', 'aidan@equiterra.ca', '(403) 555-0101', 'Admin');
 
 -- =============================================================================
 -- Practitioners (Vets / Other)
