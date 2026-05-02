@@ -86,12 +86,12 @@ $conn->close();     // Close connection to the database
         if (isset($_SESSION['customer'])) {
           echo "<div class='user-info'>";
           echo "<div>";
-          echo "<h3 class='returning__text'>Name: " . $_SESSION['customer']['name'] . "</h3>";
-          echo "<h3 class='returning__text'>Email: " . $_SESSION['customer']['email'] . "</h3>";
+          echo "<h3 class='returning__text'><span class='detail-label'>Name: </span>" . $_SESSION['customer']['name'] . "</h3>";
+          echo "<h3 class='returning__text'><span class='detail-label'>Email: </span>" . $_SESSION['customer']['email'] . "</h3>";
           echo "</div>";
           echo "<div>";
-          echo "<h3 class='returning__text'>Username: " . $_SESSION['customer']['username'] . "</h3>";
-          echo "<h3 class='returning__text'>Phone Number: " . $_SESSION['customer']['phone_number'] . "</h3>";
+          echo "<h3 class='returning__text'><span class='detail-label'>Username: </span>" . $_SESSION['customer']['username'] . "</h3>";
+          echo "<h3 class='returning__text'><span class='detail-label'>Phone Number: </span>" . $_SESSION['customer']['phone_number'] . "</h3>";
           echo "</div>";
           echo "</div>";
         } else {

@@ -68,12 +68,12 @@ $conn->close();     // Close connection to the database
         <br>
         <?php
         if (isset($_SESSION['protocol_horse']) && isset($_SESSION['protocol_date'])) {
-          echo "<h3 class='returning__text'>Horse: " . $_SESSION['shoeing_protocol']['horse_name'] . "</h3>";
-          echo "<h3 class='returning__text'>Date: " . $_SESSION['shoeing_protocol']['date']  . "</h3>";
-          echo "<h3 class='returning__text'>Left Front: " . $_SESSION['shoeing_protocol']['left_front']  . "</h3>";
-          echo "<h3 class='returning__text'>Left Hind: " . $_SESSION['shoeing_protocol']['left_hind']  . "</h3>";
-          echo "<h3 class='returning__text'>Right Front: " . $_SESSION['shoeing_protocol']['right_front']  . "</h3>";
-          echo "<h3 class='returning__text'>Right Hind: " . $_SESSION['shoeing_protocol']['right_hind']  . "</h3>";
+          echo "<h3 class='returning__text'><span class='detail-label'>Horse: </span>" . $_SESSION['shoeing_protocol']['horse_name'] . "</h3>";
+          echo "<h3 class='returning__text'><span class='detail-label'>Date: </span>" . $_SESSION['shoeing_protocol']['date'] . "</h3>";
+          echo "<h3 class='returning__text'><span class='detail-label'>Left Front: </span>" . $_SESSION['shoeing_protocol']['left_front'] . "</h3>";
+          echo "<h3 class='returning__text'><span class='detail-label'>Left Hind: </span>" . $_SESSION['shoeing_protocol']['left_hind'] . "</h3>";
+          echo "<h3 class='returning__text'><span class='detail-label'>Right Front: </span>" . $_SESSION['shoeing_protocol']['right_front'] . "</h3>";
+          echo "<h3 class='returning__text'><span class='detail-label'>Right Hind: </span>" . $_SESSION['shoeing_protocol']['right_hind'] . "</h3>";
 
           if ($_SESSION['user_type'] == "Admin") {
             if (isset($_POST['edit']) && $_POST['edit'] == 'status') {
@@ -84,23 +84,33 @@ $conn->close();     // Close connection to the database
                   </select><input type='submit' name='save_status' value='Save' class='save-button'></h3></form>";
             } else {
               if ($_SESSION['shoeing_protocol']["status"] == 1) {
-                echo "<h3 class='returning__text'>Status: " . "Current" . "<form method='POST' style='display:inline;'><input type='hidden' name='edit' value='status'><input type='submit' value='Edit' class='red-button'></form></h3>";
+                echo "<h3 class='returning__text'><span class='detail-label'>Status: </span>" . "Current" . "<form method='POST' style='display:inline;'><input type='hidden' name='edit' value='status'><input type='submit' value='Edit' class='red-button'></form></h3>";
               } else { // Past protocol
-                echo "<h3 class='returning__text'>Status: " . "Past" . "<form method='POST' style='display:inline;'><input type='hidden' name='edit' value='status'><input type='submit' value='Edit' class='red-button'></form></h3>";
+                echo "<h3 class='returning__text'><span class='detail-label'>Status: </span>" . "Past" . "<form method='POST' style='display:inline;'><input type='hidden' name='edit' value='status'><input type='submit' value='Edit' class='red-button'></form></h3>";
               }
             }
           } else {
             if ($_SESSION['shoeing_protocol']["status"] == 1) {
-              echo "<h3 class='returning__text'>Status: " . "Current" . "</h3>";
+              echo "<h3 class='returning__text'><span class='detail-label'>Status: </span>" . "Current" . "</h3>";
             } else { // Past protocol
-              echo "<h3 class='returning__text'>Status: " . "Past" . "</h3>";
+              echo "<h3 class='returning__text'><span class='detail-label'>Status: </span>" . "Past" . "</h3>";
             }
           }
 
-          echo "<h3 class='returning__text'>Notes: ";
+          echo "<h3 class='returning__text'><span class='detail-label'>Notes: </span>";
           echo "<button class='expand-arrow' onclick='expandNotes()'>▼</button>";
-          echo "<div class='conf-notes-short'>" . substr($_SESSION['shoeing_protocol']["notes"], 0, 50) . "</div>";
-          echo "<div class='conf-notes-full' style='display: none;'>" . $_SESSION['shoeing_protocol']["notes"] . "</div>";
+
+          // Get the notes and check length
+          $notes = $_SESSION['shoeing_protocol']["notes"];
+          $shortNotes = substr($notes, 0, 50);
+
+          // Add dots only if the text was actually truncated
+          if (strlen($notes) > 50) {
+            $shortNotes .= "...";
+          }
+
+          echo "<div class='conf-notes-short'><br>" . $shortNotes . "</div>";
+          echo "<div class='conf-notes-full' style='display: none;'><br>" . $notes . "</div>";
           echo "</h3>";
 
           if (isset($error)) {
