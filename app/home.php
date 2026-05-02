@@ -27,10 +27,10 @@ if (isset($_GET['horse_name'])) {
         if (isset($_SESSION['user_type'])) {
           if ($_SESSION['user_type'] == 'Admin') {
         ?>
-            <a href="horses.php" class="large-button horse">Horses</a>
-            <a href="barns.php" class="large-button barn">Barns</a>
-            <a href="customers.php" class="large-button customer">Clients</a>
-            <a href="account.php" class="large-button account">Account Info</a>
+            <a href="horses.php" class="large-button block-letters horse">Horses</a>
+            <a href="barns.php" class="large-button block-letters barn">Barns</a>
+            <a href="customers.php" class="large-button block-letters customer">Clients</a>
+            <a href="account.php" class="large-button block-letters account">Account<br>Info</a>
           <?php
             //session_start();
           } else if ($_SESSION['user_type'] == 'Client') {
