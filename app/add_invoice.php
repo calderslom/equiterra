@@ -8,7 +8,10 @@ require_once 'client_functions.php';
 require_once 'utility.php';
 require_once 'db_config.php';
 
+
+
 retrieve_farriers($conn);
+retrieve_client_horse_names($conn);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $customer = $_SESSION['customer']['username'];
@@ -17,6 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $date     = $_POST["date"];
     $services = $_POST["services"];
     $prices   = $_POST["prices"];
+    $hnames   = $_POST["hnames"];
 
     // Validate that all prices are numeric
     $prices_valid = true;
@@ -30,10 +34,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!$prices_valid) {
         $error = "All prices must be numbers!";
     } else {
-        // Insert the invoice — Number is AUTO_INCREMENT, no need to pass it
         $stmt_insert = $conn->prepare("CALL AddInvoice(?, ?, ?)");
-        $stmt_insert->bind_param("iss", $status, $farrier, $customer);
+        $stmt_insert->bind_param("sss", $status, $farrier, $customer);
         $stmt_insert->execute();
+        $stmt_insert->close();
+
+        // Free any remaining results
+        while ($conn->more_results()) {
+            $conn->next_result();
+        }
+
+        // Get the newly created invoice number
+        $stmt_id = $conn->prepare("SELECT MAX(Number) AS id FROM Invoice WHERE Cusername = ?");
+        $stmt_id->bind_param("s", $customer);
+        $stmt_id->execute();
+        $id_result = $stmt_id->get_result();
+        $id_row = $id_result->fetch_assoc();
+        $invoice_number = intval($id_row['id']); // renamed and cast to int
+        $stmt_id->close();
+
+        // Explicitly fetch the last inserted ID
+        $result = $conn->query("SELECT LAST_INSERT_ID() AS id");
+        $row = $result->fetch_assoc();
+        $i_number = $row['id'];
 
         // Retrieve the auto-generated invoice number
         $i_number = $conn->insert_id;
@@ -42,9 +65,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (count($services) > 0) {
             foreach ($services as $index => $service) {
                 $item_price = intval($prices[$index]);
-                $stmt_insert_item = $conn->prepare("CALL AddInvoiceItem(?, ?, ?, ?)");
-                $stmt_insert_item->bind_param("isis", $i_number, $service, $item_price, $date);
+                $horse_name = $hnames[$index];
+
+                while ($conn->more_results()) {
+                    $conn->next_result();
+                }
+
+                $stmt_insert_item = $conn->prepare("CALL AddInvoiceItem(?, ?, ?, ?, ?)");
+                $stmt_insert_item->bind_param("issis", $invoice_number, $horse_name, $service, $item_price, $date);
                 $stmt_insert_item->execute();
+                $stmt_insert_item->close();
+
+                while ($conn->more_results()) {
+                    $conn->next_result();
+                }
             }
         }
         header('Location: customer.php');
@@ -56,11 +90,30 @@ $conn->close();
 ?>
 
 <script>
+    const horses = <?= json_encode($_SESSION['horses']) ?>;
+
     function addService() {
         var container = document.getElementById("services-container");
 
         var wrapper = document.createElement("div");
         wrapper.className = "form-group service-row";
+
+        var horseSelect = document.createElement("select");
+        horseSelect.className = "form-control rounded";
+        horseSelect.name = "hnames[]";
+        horseSelect.required = true;
+
+        var defaultOption = document.createElement("option");
+        defaultOption.value = "";
+        defaultOption.textContent = "Select horse";
+        horseSelect.appendChild(defaultOption);
+
+        horses.forEach(function(name) {
+            var option = document.createElement("option");
+            option.value = name;
+            option.textContent = name;
+            horseSelect.appendChild(option);
+        });
 
         var descInput = document.createElement("input");
         descInput.type = "text";
@@ -75,7 +128,9 @@ $conn->close();
         priceInput.name = "prices[]";
         priceInput.placeholder = "Enter price";
         priceInput.required = true;
+        priceInput.min = "0";
 
+        wrapper.appendChild(horseSelect);
         wrapper.appendChild(descInput);
         wrapper.appendChild(priceInput);
         container.appendChild(wrapper);
@@ -83,9 +138,11 @@ $conn->close();
 </script>
 
 <html>
+
 <head>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div class="onboarding-overlay">
         <div class="onboarding-overlay-outer">
@@ -123,16 +180,24 @@ $conn->close();
                     </div>
                     <br>
                     <div class="form-group">
-                        <label>Services
-                            <button class="right-red-button" type="button" onclick="addService()">Add another service</button>
+                        <label>
+                            <button class="right-red-button" type="button" onclick="addService()">Add another invoice item</button>
                         </label>
-                        <div id="services-container">
-                            <div class="form-group service-row">
-                                <input type="text" class="form-control rounded" name="services[]"
-                                    placeholder="Enter service description" required />
-                                <input type="number" class="form-control rounded" name="prices[]"
-                                    placeholder="Enter price" required />
-                            </div>
+                    </div>
+                    <div id="services-container">
+                        <div class="form-group service-row">
+                            <select class="form-control rounded" name="hnames[]" required>
+                                <option value="">Select horse</option>
+                                <?php foreach ($_SESSION['horses'] as $hname): ?>
+                                    <option value="<?= htmlspecialchars($hname) ?>">
+                                        <?= htmlspecialchars($hname) ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                            <input type="text" class="form-control rounded" name="services[]"
+                                placeholder="Enter service description" required />
+                            <input type="number" class="form-control rounded" name="prices[]"
+                                placeholder="Enter price" min="0" required />
                         </div>
                     </div>
                     <?php
@@ -140,11 +205,12 @@ $conn->close();
                         echo "<p style='color:red; text-align:center; font-size:20px;'>$error</p>";
                     }
                     ?>
-                    <button class="onboarding-form__btn returning__btn" type="submit">Add Invoice</button>
+                    <button class="onboarding-form__btn returning__btn" type="submit">Submit Invoice</button>
                 </form>
             </div>
             <p class="overlay-copyright">Equiterra &copy;2026</p>
         </div>
     </div>
 </body>
+
 </html>

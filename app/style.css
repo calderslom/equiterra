@@ -568,6 +568,30 @@ textarea.form-control {
 	width: 70%; /* Adjust this value to make the container less wide */
 }
 
+#services-container {
+    counter-reset: service-counter;
+    width: 78%;
+    margin-left: 0;
+    margin-right: auto;
+}
+
+.service-row {
+    counter-increment: service-counter;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px 0;
+    border-bottom: 1px solid #333;
+    margin-bottom: 8px;
+    width: 100%;
+}
+
+.service-row::before {
+    content: "Service #" counter(service-counter);
+    font-weight: bold;
+    color: black;
+    font-size: 16px;
+}
 
 
 /** MEDIA QUERIES - Breakpoints **/
